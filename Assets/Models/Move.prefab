@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7960983478157432477}
   - component: {fileID: 2924600189730962168}
   - component: {fileID: 6046927784468881372}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,10 +58,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3242418456948815009, guid: 6bb0a4d5e921d6d479f17adb4a21c71b, type: 3}
-  - {fileID: 2320759873767001628, guid: 6bb0a4d5e921d6d479f17adb4a21c71b, type: 3}
-  - {fileID: 4575588773092179442, guid: 6bb0a4d5e921d6d479f17adb4a21c71b, type: 3}
-  - {fileID: -640421345888577198, guid: 6bb0a4d5e921d6d479f17adb4a21c71b, type: 3}
+  - {fileID: 2100000, guid: 7b6388c081df71d448ff32574e4d0b18, type: 2}
+  - {fileID: 2100000, guid: ddf54176fb737624d9b4712c2f37157f, type: 2}
+  - {fileID: 2100000, guid: 78030c6560f4daa4bb444be56df7c3f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,8 +90,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6755032515271903447}
-  m_Layer: 0
-  m_Name: TransformModel
+  m_Layer: 8
+  m_Name: Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

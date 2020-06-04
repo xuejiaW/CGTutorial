@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6081213864665145310}
   - component: {fileID: 1335761361252922299}
   - component: {fileID: 7634963977762313887}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: YAxis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2320759873767001628, guid: 6bb0a4d5e921d6d479f17adb4a21c71b, type: 3}
+  - {fileID: 2100000, guid: ddf54176fb737624d9b4712c2f37157f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 5446341248475071149}
   - component: {fileID: 3656057836581936775}
   - component: {fileID: 2042884270655348629}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ZAxis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3242418456948815009, guid: 6bb0a4d5e921d6d479f17adb4a21c71b, type: 3}
+  - {fileID: 2100000, guid: 7b6388c081df71d448ff32574e4d0b18, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7467361573102076308}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CircleRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 1596679582967080650}
   - component: {fileID: 7592134054789287771}
   - component: {fileID: 5961668798859566710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: XAxis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4575588773092179442, guid: 6bb0a4d5e921d6d479f17adb4a21c71b, type: 3}
+  - {fileID: 2100000, guid: 78030c6560f4daa4bb444be56df7c3f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
