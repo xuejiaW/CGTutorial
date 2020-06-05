@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IUpdateObserver
+public interface IMainUpdateObserver
 {
     void Update();
 }

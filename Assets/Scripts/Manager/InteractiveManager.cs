@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class InteractiveManager : Singleton<InteractiveManager>, IUpdateObserver
+public partial class InteractiveManager : Singleton<InteractiveManager>, IMainUpdateObserver
 {
     public InteractiveState interactiveState { get; private set; }
     public event System.Action<InteractiveState> OnInteractiveStateUpdated = null;
@@ -11,8 +11,9 @@ public partial class InteractiveManager : Singleton<InteractiveManager>, IUpdate
     {
         base.Init();
 
-        GameManager.Instance.RegisterObserver(this);
+        MainManager.Instance.RegisterObserver(this);
 
+        //Call Instance to ensure these singletons are created
         InteractiveIndicatorCollection.Instance.GetType();
         InteractiveGameObjectCollection.Instance.GetType();
     }

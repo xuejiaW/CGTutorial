@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonobehaviorSingleton<GameManager>
+public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubject
 {
-    private List<IUpdateObserver> updateObserversList = null;
+    private List<IMainUpdateObserver> updateObserversList = null;
     public GameObject cubePrefab = null;
 
     protected override void Init()
     {
         base.Init();
-        updateObserversList = new List<IUpdateObserver>();
+        updateObserversList = new List<IMainUpdateObserver>();
     }
 
-    public void RegisterObserver(IUpdateObserver observer)
+    public void RegisterObserver(IMainUpdateObserver observer)
     {
         updateObserversList.Add(observer);
     }
 
-    public void UnRegisterObserver(IUpdateObserver observer)
+    public void UnregisterObserver(IMainUpdateObserver observer)
     {
         updateObserversList.Remove(observer);
     }
@@ -30,7 +30,7 @@ public class GameManager : MonobehaviorSingleton<GameManager>
         InteractiveManager.Instance.SetTransformState(InteractiveState.MOVING);//Default transform state should be moving.
     }
 
-    private void Update()
+    public void Update()
     {
         updateObserversList.ForEach(observer => observer.Update());
     }

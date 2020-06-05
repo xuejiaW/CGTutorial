@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCollection>, IUpdateObserver
+public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCollection>, IMainUpdateObserver
 {
     private Camera viewCamera = null;
     private List<InteractiveGameObject> interactiveGo = null;
@@ -16,7 +16,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     protected override void Init()
     {
         base.Init();
-        GameManager.Instance.RegisterObserver(this);
+        MainManager.Instance.RegisterObserver(this);
 
         interactiveGo = new List<InteractiveGameObject>();
         viewCamera = Camera.main;
