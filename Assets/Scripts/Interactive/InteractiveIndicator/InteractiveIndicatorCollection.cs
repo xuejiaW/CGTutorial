@@ -21,6 +21,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     }
 
     private InteractiveIndicator currentIndicator = null;
+
     protected override void Init()
     {
         base.Init();
@@ -35,10 +36,12 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         };
 
         InteractiveManager.Instance.OnInteractiveStateUpdated += OnInteractiveStateUpdated;
-        InteractiveGameObjectCollection.Instance.OnInteractiveGOUpdated += OnInteractiveGOUpdated;
+        InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnHoldingInteractiveGOUpdated;
+        MouseInputManager.Instance.RegisterLeftClickMessageHandle(OnClickInteractiveIndicator, LayerMask.GetMask("InteractiveIndicator"));
+        MouseInputManager.Instance.RegisterLeftDragMessageHandle(OnDrayHandle, LayerMask.GetMask("InteractiveIndicator"));
     }
 
-    private void OnInteractiveGOUpdated(InteractiveGameObject oldInteractiveGo, InteractiveGameObject newInteractiveGO)
+    private void OnHoldingInteractiveGOUpdated(InteractiveGameObject oldInteractiveGo, InteractiveGameObject newInteractiveGO)
     {
         currentIndicator = this[InteractiveManager.Instance.interactiveState];
         currentIndicator.SetParent(newInteractiveGO);
@@ -50,5 +53,19 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 
         currentIndicator = this[state];
         currentIndicator.SetParent(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
+    }
+
+    private void OnClickInteractiveIndicator(GameObject Go)
+    {
+        string goName = Go.name;
+        Debug.Log("go name is " + goName);
+
+        if (goName.IndexOf("Axis") != -1)
+            currentIndicator.ClickIndicatorAxis(goName);
+    }
+
+    private void OnDrayHandle(Vector3 deltaPos)
+    {
+        currentIndicator.DragIndicatorAxis(deltaPos);
     }
 }
