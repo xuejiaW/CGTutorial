@@ -16,6 +16,7 @@ public partial class InteractiveManager : Singleton<InteractiveManager>, IMainUp
         //Call Instance to ensure these singletons are created
         InteractiveIndicatorCollection.Instance.GetType();
         InteractiveGameObjectCollection.Instance.GetType();
+        InteractiveViewCamera.Instance.GetType();
     }
 
     public void Update()

@@ -37,8 +37,8 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 
         InteractiveManager.Instance.OnInteractiveStateUpdated += OnInteractiveStateUpdated;
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnHoldingInteractiveGOUpdated;
-        MouseInputManager.Instance.RegisterLeftClickMessageHandle(OnClickInteractiveIndicator, LayerMask.GetMask("InteractiveIndicator"));
-        MouseInputManager.Instance.RegisterLeftDragMessageHandle(OnDrayHandle, LayerMask.GetMask("InteractiveIndicator"));
+        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, OnClickInteractiveIndicator, LayerMask.GetMask("InteractiveIndicator"));
+        MouseInputManager.Instance.RegisterDragMessageHandle(0, OnDrayHandle, LayerMask.GetMask("InteractiveIndicator"));
     }
 
     private void OnHoldingInteractiveGOUpdated(InteractiveGameObject oldInteractiveGo, InteractiveGameObject newInteractiveGO)

@@ -4,51 +4,83 @@ using UnityEngine;
 public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpdateObserver
 {
     //Dictionary<layer,Handle>: 
-    //layer-> -1 indicates empty 
-    private Dictionary<int, Action<GameObject>> leftButtonClickHandleDict = null;
-    private Dictionary<int, Action<GameObject>> rightButtonClickHandleDict = null;
-    private Dictionary<int, Action<Vector3>> leftButtonDragHandleDict = null;
-    private Dictionary<int, Action<Vector3>> rightButtonDragHandleDict = null;
-    private List<int> trackedLayer = new List<int>();
-
+    //layer should be obtained through api Layer.GetMask or through manually calculation like " 1<<9 " for layer9
+    //-1 layer indicate for empty GameObject
+    private Dictionary<int, Action<GameObject>> leftButtonClickDownHandlesDict = null;
+    private Dictionary<int, Action<GameObject>> rightButtonClickDownHandlesDict = null;
+    private Dictionary<int, Action<GameObject>> leftButtonClickUpHandlesDict = null;
+    private Dictionary<int, Action<GameObject>> rightButtonClickUpHandlesDict = null;
+    private Dictionary<int, Action<Vector3>> leftButtonDragHandlesDict = null;
+    private Dictionary<int, Action<Vector3>> rightButtonDragHandlesDict = null;
 
     protected override void Init()
     {
         base.Init();
         MainManager.Instance.RegisterObserver(this);
 
-        leftButtonClickHandleDict = new Dictionary<int, Action<GameObject>>();
-        rightButtonClickHandleDict = new Dictionary<int, Action<GameObject>>();
-        leftButtonDragHandleDict = new Dictionary<int, Action<Vector3>>();
-        rightButtonDragHandleDict = new Dictionary<int, Action<Vector3>>();
-        trackedLayer = new List<int>();
+        leftButtonClickDownHandlesDict = new Dictionary<int, Action<GameObject>>();
+        rightButtonClickDownHandlesDict = new Dictionary<int, Action<GameObject>>();
+        leftButtonClickUpHandlesDict = new Dictionary<int, Action<GameObject>>();
+        rightButtonClickUpHandlesDict = new Dictionary<int, Action<GameObject>>();
+        leftButtonDragHandlesDict = new Dictionary<int, Action<Vector3>>();
+        rightButtonDragHandlesDict = new Dictionary<int, Action<Vector3>>();
+        leftTrackedLayers = new List<int>();
+        rightTrackedLayer = new List<int>();
     }
 
-    public void RegisterLeftClickMessageHandle(Action<GameObject> handle, params int[] targetLayerLists)
+    public void RegisterClickDownMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
     {
-        RegisterMessageHandle<GameObject>(leftButtonClickHandleDict, handle, targetLayerLists);
+        if (button == 0)
+            RegisterMessageHandle(leftButtonClickDownHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            RegisterMessageHandle(rightButtonClickDownHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
 
-    public void RegisterLeftDragMessageHandle(Action<Vector3> handle, params int[] targetLayerLists)
+    public void RegisterClickUpMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
     {
-        RegisterMessageHandle<Vector3>(leftButtonDragHandleDict, handle, targetLayerLists);
+        if (button == 0)
+            RegisterMessageHandle(leftButtonClickUpHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            RegisterMessageHandle(rightButtonClickUpHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
 
-    public void UnRegisterLeftClickMessageHandle(Action<GameObject> handle, params int[] targetLayerLists)
+    public void RegisterDragMessageHandle(int button, Action<Vector3> handle, params int[] targetLayerLists)
     {
-        UnRegisterMessageHandle<GameObject>(leftButtonClickHandleDict, handle, targetLayerLists);
+        if (button == 0)
+            RegisterMessageHandle(leftButtonDragHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            RegisterMessageHandle(rightButtonDragHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
 
-    public void UnRegisterLeftDragMessageHandle(Action<Vector3> handle, params int[] targetLayerLists)
+    public void UnRegisterClickDownMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
     {
-        UnRegisterMessageHandle<Vector3>(leftButtonDragHandleDict, handle, targetLayerLists);
+        if (button == 0)
+            UnRegisterMessageHandle(leftButtonClickDownHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            UnRegisterMessageHandle(rightButtonClickDownHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
 
-    private void RegisterMessageHandle<T>(Dictionary<int, Action<T>> handleDict, Action<T> handle, params int[] layerLists)
+    public void UnRegisterClickUpMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
+    {
+        if (button == 0)
+            UnRegisterMessageHandle(leftButtonClickUpHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            UnRegisterMessageHandle(rightButtonClickUpHandlesDict, rightTrackedLayer, handle, targetLayerLists);
+    }
+
+    public void UnRegisterDragMessageHandle(int button, Action<Vector3> handle, params int[] targetLayerLists)
+    {
+        if (button == 0)
+            UnRegisterMessageHandle(leftButtonDragHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            UnRegisterMessageHandle(rightButtonDragHandlesDict, rightTrackedLayer, handle, targetLayerLists);
+    }
+
+    private void RegisterMessageHandle<T>(Dictionary<int, Action<T>> handleDict, List<int> trackedLayers, Action<T> handle, params int[] layerLists)
     {
         Array.ForEach(layerLists, (layer) =>
          {
-             trackedLayer.DistinctAdd(layer);
+             trackedLayers.DistinctAdd(layer);
 
              if (handleDict.TryGetValue(layer, out Action<T> handleLists))
              {
@@ -63,11 +95,11 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
          });
     }
 
-    private void UnRegisterMessageHandle<T>(Dictionary<int, Action<T>> handleDict, Action<T> handle, params int[] targetLayerLists)
+    private void UnRegisterMessageHandle<T>(Dictionary<int, Action<T>> handleDict, List<int> trackedLayers, Action<T> handle, params int[] targetLayerLists)
     {
         Array.ForEach(targetLayerLists, (layer) =>
          {
-             trackedLayer.Remove(layer);
+             trackedLayers.Remove(layer);
              if (handleDict.TryGetValue(layer, out Action<T> handleLists))
              {
                  handleLists -= handle;

@@ -17,7 +17,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
         interactiveGo = new List<InteractiveGameObject>();
 
         // Handle for layer "InteractiveGo" and empty GO
-        MouseInputManager.Instance.RegisterLeftClickMessageHandle(OnClickInteractiveGameObject, LayerMask.GetMask("InteractiveGO"), -1);
+        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, OnClickInteractiveGameObject, LayerMask.GetMask("InteractiveGO"), -1);
     }
 
     public void AddInteractiveGo(GameObject gameObject)
