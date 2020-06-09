@@ -3,7 +3,6 @@ using System;
 using UnityEngine;
 public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpdateObserver
 {
-
     //Dictionary<layer,Handle>: 
     //layer-> -1 indicates empty 
     private Dictionary<int, Action<GameObject>> leftButtonClickHandleDict = null;
