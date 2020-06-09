@@ -5,7 +5,6 @@ using UnityEngine;
 
 public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpdateObserver
 {
-    private Camera viewCamera = null;
     private Vector3 leftLastPos = Vector3.zero;
     private Vector3 rightLastPos = Vector3.zero;
     private int hittedLayer = -1;
@@ -20,7 +19,8 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
             int allLayersMask = 0;
             trackedLayer.ForEach(layer => allLayersMask += layer != -1 ? layer : 0);
 
-            if (Physics.Raycast(viewCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100, allLayersMask))
+            if (Physics.Raycast(MainManager.Instance.viewCamera.ScreenPointToRay(Input.mousePosition),
+                                out RaycastHit hit, 100, allLayersMask))
                 hitGO = hit.transform.gameObject;
 
             hittedLayer = hitGO == null ? -1 : 1 << hitGO.layer;

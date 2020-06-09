@@ -6,11 +6,13 @@ public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubjec
 {
     private List<IMainUpdateObserver> updateObserversList = null;
     public GameObject cubePrefab = null;
+    public Camera viewCamera = null;
 
     protected override void Init()
     {
         base.Init();
         updateObserversList = new List<IMainUpdateObserver>();
+        viewCamera = Camera.main;
     }
 
     public void RegisterObserver(IMainUpdateObserver observer)

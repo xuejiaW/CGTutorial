@@ -6,9 +6,9 @@ public class InteractiveIndicator : MonoBehaviour
 {
     private Transform thisTransform = null;
     private GameObject thisGameObject = null;
-    private GameObject attachedGameObject = null;
+    public GameObject attachedGameObject = null;
 
-    private Vector3 currentHandleAxis = Vector3.zero;
+    private IIndicatorHandle indicatorHandle = null;
 
     //Awake will be called after gameobject is instantiated while Start will not
     public void Awake()
@@ -16,6 +16,9 @@ public class InteractiveIndicator : MonoBehaviour
         thisTransform = transform;
         thisGameObject = gameObject;
         thisGameObject.SetActive(false);
+
+        indicatorHandle = new IndicatorMovingHandle();
+        indicatorHandle.SetIndicator(this);
     }
 
     public void SetParent(InteractiveGameObject interactiveGO)
@@ -27,17 +30,12 @@ public class InteractiveIndicator : MonoBehaviour
 
     public void ClickIndicatorAxis(string axisGame)
     {
-        currentHandleAxis = -thisTransform.Find(axisGame).forward;
+        indicatorHandle.SetIndicatorAxis(axisGame);
     }
 
     public void DragIndicatorAxis(Vector3 deltaPos)
     {
-        //TODO: handle for other axis
-        float result = Vector3.Dot(deltaPos, currentHandleAxis) / 30.0f;
-        Debug.Log("result is " + result);
-        Vector3 localPos = attachedGameObject.transform.localPosition;
-        localPos.x += result;
-        attachedGameObject.transform.localPosition = localPos;
+        indicatorHandle.DragIndicatorAxis(deltaPos);
     }
 
 }

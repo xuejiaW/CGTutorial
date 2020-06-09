@@ -23,8 +23,6 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         leftButtonDragHandleDict = new Dictionary<int, Action<Vector3>>();
         rightButtonDragHandleDict = new Dictionary<int, Action<Vector3>>();
         trackedLayer = new List<int>();
-
-        viewCamera = Camera.main;
     }
 
     public void RegisterLeftClickMessageHandle(Action<GameObject> handle, params int[] targetLayerLists)
