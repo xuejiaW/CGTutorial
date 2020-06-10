@@ -4,8 +4,8 @@ using UnityEngine;
 
 public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpdateObserver
 {
-    private List<int> leftTrackedLayers = new List<int>();
-    private List<int> rightTrackedLayer = new List<int>();
+    private Dictionary<int, int> leftTrackedLayers = null;
+    private Dictionary<int, int> rightTrackedLayer = null;
 
     private Vector3 leftLastPos = Vector3.zero;
     private Vector3 rightLastPos = Vector3.zero;
@@ -33,14 +33,16 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
             OnButtonDrag(rightButtonDragHandlesDict, ref rightLastPos, ref rightHittedLayer);
     }
 
-    private void OnButtonClickDown(List<int> trackedLayers, Dictionary<int, Action<GameObject>> clickDownHandlesDict,
+    private void OnButtonClickDown(Dictionary<int, int> trackedLayers, Dictionary<int, Action<GameObject>> clickDownHandlesDict,
                                 ref Vector3 lastPos, ref int hittedLayer, ref GameObject hittedGO)
     {
         lastPos = Input.mousePosition;
 
         hittedGO = null;
         int allLayersMask = 0;
-        trackedLayers.ForEach(layer => allLayersMask += (layer != -1 ? layer : 0));
+
+        foreach (KeyValuePair<int, int> pair in trackedLayers)
+            allLayersMask += (pair.Key != -1 ? pair.Key : 0);
 
         if (Physics.Raycast(MainManager.Instance.viewCamera.ScreenPointToRay(Input.mousePosition),
                             out RaycastHit hit, 100, allLayersMask))

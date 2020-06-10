@@ -8,7 +8,6 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
     private Dictionary<KeyCode, Action<float>> keyHandlesDict = null;
     private Dictionary<KeyCode, Action<KeyCode>> keyUpHandlesDict = null;
 
-    private List<KeyCode> trackedKeyList = null;
 
     public override void Init()
     {
@@ -18,12 +17,15 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
         keyDownHandlesDict = new Dictionary<KeyCode, Action<KeyCode>>();
         keyHandlesDict = new Dictionary<KeyCode, Action<float>>();
         keyUpHandlesDict = new Dictionary<KeyCode, Action<KeyCode>>();
-        trackedKeyList = new List<KeyCode>();
+
+        trackedKeyDownList = new Dictionary<KeyCode, int>();
+        trackedKeyList = new Dictionary<KeyCode, int>();
+        trackedKeyUpList = new Dictionary<KeyCode, int>();
     }
 
     public void RegisterKeyDownMessageHandle(Action<KeyCode> handle, params KeyCode[] key)
     {
-        this.RegisterMessageHandle(keyDownHandlesDict, trackedKeyList, handle, key);
+        this.RegisterMessageHandle(keyDownHandlesDict, trackedKeyDownList, handle, key);
     }
 
     public void RegisterKeyMessageHandle(Action<float> handle, params KeyCode[] key)
@@ -33,12 +35,12 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
 
     public void RegisterKeyUpMessageHandle(Action<KeyCode> handle, params KeyCode[] key)
     {
-        this.RegisterMessageHandle(keyUpHandlesDict, trackedKeyList, handle, key);
+        this.RegisterMessageHandle(keyUpHandlesDict, trackedKeyUpList, handle, key);
     }
 
     public void UnRegisterKeyDownMessageHandle(Action<KeyCode> handle, params KeyCode[] key)
     {
-        this.UnRegisterMessageHandle(keyDownHandlesDict, trackedKeyList, handle, key);
+        this.UnRegisterMessageHandle(keyDownHandlesDict, trackedKeyDownList, handle, key);
     }
 
     public void UnRegisterKeyMessageHandle(Action<float> handle, params KeyCode[] key)
@@ -48,6 +50,6 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
 
     public void UnRegisterKeyUpMessageHandle(Action<KeyCode> handle, params KeyCode[] key)
     {
-        this.UnRegisterMessageHandle(keyUpHandlesDict, trackedKeyList, handle, key);
+        this.UnRegisterMessageHandle(keyUpHandlesDict, trackedKeyUpList, handle, key);
     }
 }

@@ -25,8 +25,8 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         rightButtonClickUpHandlesDict = new Dictionary<int, Action<GameObject>>();
         leftButtonDragHandlesDict = new Dictionary<int, Action<Vector3>>();
         rightButtonDragHandlesDict = new Dictionary<int, Action<Vector3>>();
-        leftTrackedLayers = new List<int>();
-        rightTrackedLayer = new List<int>();
+        leftTrackedLayers = new Dictionary<int, int>();
+        rightTrackedLayer = new Dictionary<int, int>();
     }
 
     public void RegisterClickDownMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
