@@ -26,5 +26,5 @@ public abstract class Singleton<T> where T : Singleton<T>, new()
         }
     }
 
-    protected virtual void Init() { }
+    public virtual void Init() { }
 }

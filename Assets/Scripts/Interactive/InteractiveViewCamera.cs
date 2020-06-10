@@ -7,15 +7,21 @@ public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
     private Transform viewCameraTrans = null;
     private Vector2 currentViewCameraRot = Vector2.zero;
     private float maxPitchDegree = 85.0f;
-    
-    protected override void Init()
+
+    private Dictionary<KeyCode, bool> keycodesDownDict = null;
+
+    public override void Init()
     {
         base.Init();
+        keycodesDownDict = new Dictionary<KeyCode, bool>();
+
         MouseInputManager.Instance.RegisterClickDownMessageHandle(1, onRightClickDownEmpty, -1);
         MouseInputManager.Instance.RegisterClickUpMessageHandle(1, onRightClickUpEmpty, -1);
         MouseInputManager.Instance.RegisterDragMessageHandle(1, onMouseRightDrag, -1);
 
         viewCameraTrans = MainManager.Instance.viewCamera.transform;
+
+        // KeyboardInputManager.Instance.RegisterKeyDownMessageHandle()
     }
 
     public void onRightClickDownEmpty(GameObject go)

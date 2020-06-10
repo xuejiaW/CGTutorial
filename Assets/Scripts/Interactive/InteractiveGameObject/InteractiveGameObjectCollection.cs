@@ -10,7 +10,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     //Parameters: <oldHoldingInteractiveGO,NewHoldingInteractiveGo>
     public event System.Action<InteractiveGameObject, InteractiveGameObject> OnHoldingInteractiveGOUpdated = null;
 
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
 

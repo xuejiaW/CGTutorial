@@ -22,7 +22,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 
     private InteractiveIndicator currentIndicator = null;
 
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
 
