@@ -29,7 +29,7 @@ public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubjec
     {
         base.Start();
         GameResourceManager.Instance.InstantiateInteractive(cubePrefab);
-        InteractiveManager.Instance.SetTransformState(InteractiveState.MOVING);//Default transform state should be moving.
+        InteractiveManager.Instance.Init();
     }
 
     public void Update()

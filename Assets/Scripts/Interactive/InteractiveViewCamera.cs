@@ -22,31 +22,9 @@ public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
 
         viewCameraTrans = MainManager.Instance.viewCamera.transform;
 
-        MouseInputManager.Instance.RegisterClickDownMessageHandle(1, onRightClickDownEmpty, -1);
-        MouseInputManager.Instance.RegisterClickUpMessageHandle(1, onRightClickUpEmpty, -1);
-        MouseInputManager.Instance.RegisterDragMessageHandle(1, onMouseRightDrag, -1);
-
-        KeyboardInputManager.Instance.RegisterKeyMessageHandle(OnKeyPressedDown,
-                             KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
     }
 
-    private void onRightClickDownEmpty(GameObject go)
-    {
-        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(TurnKeyDownOn,
-                             KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-        KeyboardInputManager.Instance.RegisterKeyUpMessageHandle(TurnKeyDownOff,
-                             KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-    }
-
-    private void onRightClickUpEmpty(GameObject go)
-    {
-        KeyboardInputManager.Instance.UnRegisterKeyDownMessageHandle(TurnKeyDownOn,
-                             KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-        KeyboardInputManager.Instance.UnRegisterKeyUpMessageHandle(TurnKeyDownOff,
-                             KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-    }
-
-    private void onMouseRightDrag(Vector3 dragDeltaScreen)
+    public void OnMouseRightDrag(Vector3 dragDeltaScreen)
     {
         currentViewCameraRot.x += dragDeltaScreen.x;
         currentViewCameraRot.y -= dragDeltaScreen.y;
@@ -56,10 +34,10 @@ public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
         viewCameraTrans.rotation = Quaternion.Euler(currentViewCameraRot.y, currentViewCameraRot.x, 0);
     }
 
-    private void TurnKeyDownOn(KeyCode code) { keycodesDownDict[code] = true; }
-    private void TurnKeyDownOff(KeyCode code) { keycodesDownDict[code] = false; }
+    public void TurnOnFlythroughKey(KeyCode code) { keycodesDownDict[code] = true; }
+    public void TurnOffFlythroughKey(KeyCode code) { keycodesDownDict[code] = false; }
 
-    private void OnKeyPressedDown(float deltaTime)
+    public void OnKeyPressedDown(float deltaTime)
     {
         cameraDeltaPos = Vector3.zero;
 

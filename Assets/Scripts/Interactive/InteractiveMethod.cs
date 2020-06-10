@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InteractiveState
+public enum InteractiveMethod
 {
     MOVING,
     ROTATING,

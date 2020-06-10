@@ -15,9 +15,6 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
         base.Init();
 
         interactiveGo = new List<InteractiveGameObject>();
-
-        // Handle for layer "InteractiveGo" and empty GO
-        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, OnClickInteractiveGameObject, LayerMask.GetMask("InteractiveGO"), -1);
     }
 
     public void AddInteractiveGo(GameObject gameObject)
@@ -25,8 +22,9 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
         interactiveGo.Add(gameObject.GetComponent_AutoAdd<InteractiveGameObject>());
     }
 
-    private void OnClickInteractiveGameObject(GameObject GO)
+    public void OnClickGameObject(GameObject GO)
     {
+        Debug.Log("Onclick gameobject");
         InteractiveGameObject result = GO?.GetComponent<InteractiveGameObject>();
         OnHoldingInteractiveGOUpdated?.Invoke(holdingInteractiveGo, result);
         holdingInteractiveGo = result;

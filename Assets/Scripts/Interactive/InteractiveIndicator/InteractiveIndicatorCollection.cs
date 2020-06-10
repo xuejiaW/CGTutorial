@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorCollection>
 {
-    private Dictionary<InteractiveState, string> stateIndicatorPrefabDict = null;
+    private Dictionary<InteractiveMethod, string> stateIndicatorPrefabDict = null;
 
     private InteractiveIndicator[] indicatorArray = null;
-    public InteractiveIndicator this[InteractiveState state]
+    public InteractiveIndicator this[InteractiveMethod state]
     {
         get
         {
@@ -28,26 +28,24 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 
         indicatorArray = new InteractiveIndicator[3];
 
-        stateIndicatorPrefabDict = new Dictionary<InteractiveState, string>()
+        stateIndicatorPrefabDict = new Dictionary<InteractiveMethod, string>()
         {
-            {InteractiveState.MOVING,"InteractiveIndicators/Moving"},
-            {InteractiveState.ROTATING,"InteractiveIndicators/Rotating"},
-            {InteractiveState.SCALING,"InteractiveIndicators/Scaling"}
+            {InteractiveMethod.MOVING,"InteractiveIndicators/Moving"},
+            {InteractiveMethod.ROTATING,"InteractiveIndicators/Rotating"},
+            {InteractiveMethod.SCALING,"InteractiveIndicators/Scaling"}
         };
 
-        InteractiveManager.Instance.OnInteractiveStateUpdated += OnInteractiveStateUpdated;
+        InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnHoldingInteractiveGOUpdated;
-        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, OnClickInteractiveIndicator, LayerMask.GetMask("InteractiveIndicator"));
-        MouseInputManager.Instance.RegisterDragMessageHandle(0, OnDrayHandle, LayerMask.GetMask("InteractiveIndicator"));
     }
 
     private void OnHoldingInteractiveGOUpdated(InteractiveGameObject oldInteractiveGo, InteractiveGameObject newInteractiveGO)
     {
-        currentIndicator = this[InteractiveManager.Instance.interactiveState];
+        currentIndicator = this[InteractiveManager.Instance.interactMethod];
         currentIndicator.SetParent(newInteractiveGO);
     }
 
-    public void OnInteractiveStateUpdated(InteractiveState state)
+    public void OnInteractiveStateUpdated(InteractiveMethod state)
     {
         currentIndicator?.SetParent(null);
 
@@ -55,7 +53,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         currentIndicator.SetParent(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
     }
 
-    private void OnClickInteractiveIndicator(GameObject Go)
+    public void OnClickIndicator(GameObject Go)
     {
         string goName = Go.name;
         Debug.Log("go name is " + goName);
@@ -64,7 +62,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
             currentIndicator.ClickIndicatorAxis(goName);
     }
 
-    private void OnDrayHandle(Vector3 deltaPos)
+    public void OnDragIndicator(Vector3 deltaPos)
     {
         currentIndicator.DragIndicatorAxis(deltaPos);
     }
