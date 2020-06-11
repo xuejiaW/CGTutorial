@@ -7,7 +7,7 @@ public interface IInputManager { }
 
 public static class IInputManagerExtension
 {
-    public static void RegisterMessageHandle<T, U>(this IInputManager manager, Dictionary<U, Action<T>> handlesDict, Dictionary<U, int> trackedTargets, Action<T> handle, params U[] target)
+    public static void RegisterMessageHandle<T, U>(this IInputManager manager, Dictionary<U, T> handlesDict, Dictionary<U, int> trackedTargets, T handle, params U[] target) where T : Delegate
     {
         Array.ForEach(target, (layer) =>
          {
@@ -16,11 +16,9 @@ public static class IInputManagerExtension
              else
                  trackedTargets.Add(layer, 1);
 
-             if (handlesDict.TryGetValue(layer, out Action<T> handleLists))
+             if (handlesDict.TryGetValue(layer, out T handleLists))
              {
-                 // Do not add duplicate handles
-                 if (Array.IndexOf(handleLists.GetInvocationList(), handle) == -1)
-                     handlesDict[layer] += handle;
+                 handlesDict[layer] = (T)Delegate.Combine(handleLists, handle);
              }
              else
              {
@@ -29,16 +27,16 @@ public static class IInputManagerExtension
          });
     }
 
-    public static void UnRegisterMessageHandle<T, U>(this IInputManager manager, Dictionary<U, Action<T>> handlesDict, Dictionary<U, int> trackedTargets, Action<T> handle, params U[] target)
+    public static void UnRegisterMessageHandle<T, U>(this IInputManager manager, Dictionary<U, T> handlesDict, Dictionary<U, int> trackedTargets, T handle, params U[] target) where T : Delegate
     {
         Array.ForEach(target, (layer) =>
          {
              if (trackedTargets.ContainsKey(layer) && --trackedTargets[layer] <= 0)
                  trackedTargets.Remove(layer);
 
-             if (handlesDict.ContainsKey(layer))
+             if (handlesDict.TryGetValue(layer, out T handleLists))
              {
-                 handlesDict[layer] -= handle;
+                 handlesDict[layer] = (T)Delegate.Remove(handleLists, handle);
                  if (handlesDict[layer] == null)
                      handlesDict.Remove(layer);
              }

@@ -11,8 +11,11 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
     private Dictionary<int, Action<GameObject>> rightButtonClickDownHandlesDict = null;
     private Dictionary<int, Action<GameObject>> leftButtonClickUpHandlesDict = null;
     private Dictionary<int, Action<GameObject>> rightButtonClickUpHandlesDict = null;
-    private Dictionary<int, Action<Vector3>> leftButtonDragHandlesDict = null;
-    private Dictionary<int, Action<Vector3>> rightButtonDragHandlesDict = null;
+
+    private Dictionary<int, Action<Vector3>> leftButtonDragDeltaHandlesDict = null;
+    private Dictionary<int, Action<Vector3>> rightButtonDragDeltaHandlesDict = null;
+    private Dictionary<int, Action<Vector3, Vector3>> leftButtonDragPosHandlesDict = null;
+    private Dictionary<int, Action<Vector3, Vector3>> rightButtonDragPosHandlesDict = null;
 
     public override void Init()
     {
@@ -23,18 +26,40 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         rightButtonClickDownHandlesDict = new Dictionary<int, Action<GameObject>>();
         leftButtonClickUpHandlesDict = new Dictionary<int, Action<GameObject>>();
         rightButtonClickUpHandlesDict = new Dictionary<int, Action<GameObject>>();
-        leftButtonDragHandlesDict = new Dictionary<int, Action<Vector3>>();
-        rightButtonDragHandlesDict = new Dictionary<int, Action<Vector3>>();
+
+        leftButtonDragDeltaHandlesDict = new Dictionary<int, Action<Vector3>>();
+        rightButtonDragDeltaHandlesDict = new Dictionary<int, Action<Vector3>>();
+
+        leftButtonDragPosHandlesDict = new Dictionary<int, Action<Vector3, Vector3>>();
+        rightButtonDragPosHandlesDict = new Dictionary<int, Action<Vector3, Vector3>>();
+
         leftTrackedLayers = new Dictionary<int, int>();
         rightTrackedLayer = new Dictionary<int, int>();
     }
 
+    #region Register Handle
     public void RegisterClickDownMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
     {
         if (button == 0)
             this.RegisterMessageHandle(leftButtonClickDownHandlesDict, leftTrackedLayers, handle, targetLayerLists);
         else if (button == 1)
             this.RegisterMessageHandle(rightButtonClickDownHandlesDict, rightTrackedLayer, handle, targetLayerLists);
+    }
+
+    public void RegisterDragMessageHandle(int button, Action<Vector3> handle, params int[] targetLayerLists)
+    {
+        if (button == 0)
+            this.RegisterMessageHandle(leftButtonDragDeltaHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            this.RegisterMessageHandle(rightButtonDragDeltaHandlesDict, rightTrackedLayer, handle, targetLayerLists);
+    }
+
+    public void RegisterDragMessageHandle(int button, Action<Vector3, Vector3> handle, params int[] targetLayerLists)
+    {
+        if (button == 0)
+            this.RegisterMessageHandle(leftButtonDragPosHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            this.RegisterMessageHandle(rightButtonDragPosHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
 
     public void RegisterClickUpMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
@@ -45,20 +70,31 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
             this.RegisterMessageHandle(rightButtonClickUpHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
 
-    public void RegisterDragMessageHandle(int button, Action<Vector3> handle, params int[] targetLayerLists)
-    {
-        if (button == 0)
-            this.RegisterMessageHandle(leftButtonDragHandlesDict, leftTrackedLayers, handle, targetLayerLists);
-        else if (button == 1)
-            this.RegisterMessageHandle(rightButtonDragHandlesDict, rightTrackedLayer, handle, targetLayerLists);
-    }
+    #endregion
 
+    #region UnRegister Handle
     public void UnRegisterClickDownMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
     {
         if (button == 0)
             this.UnRegisterMessageHandle(leftButtonClickDownHandlesDict, leftTrackedLayers, handle, targetLayerLists);
         else if (button == 1)
             this.UnRegisterMessageHandle(rightButtonClickDownHandlesDict, rightTrackedLayer, handle, targetLayerLists);
+    }
+
+    public void UnRegisterDragMessageHandle(int button, Action<Vector3> handle, params int[] targetLayerLists)
+    {
+        if (button == 0)
+            this.UnRegisterMessageHandle(leftButtonDragDeltaHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            this.UnRegisterMessageHandle(rightButtonDragDeltaHandlesDict, rightTrackedLayer, handle, targetLayerLists);
+    }
+
+    public void UnRegisterDragMessageHandle(int button, Action<Vector3, Vector3> handle, params int[] targetLayerLists)
+    {
+        if (button == 0)
+            this.UnRegisterMessageHandle(leftButtonDragPosHandlesDict, leftTrackedLayers, handle, targetLayerLists);
+        else if (button == 1)
+            this.UnRegisterMessageHandle(rightButtonDragPosHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
 
     public void UnRegisterClickUpMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
@@ -68,12 +104,5 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         else if (button == 1)
             this.UnRegisterMessageHandle(rightButtonClickUpHandlesDict, rightTrackedLayer, handle, targetLayerLists);
     }
-
-    public void UnRegisterDragMessageHandle(int button, Action<Vector3> handle, params int[] targetLayerLists)
-    {
-        if (button == 0)
-            this.UnRegisterMessageHandle(leftButtonDragHandlesDict, leftTrackedLayers, handle, targetLayerLists);
-        else if (button == 1)
-            this.UnRegisterMessageHandle(rightButtonDragHandlesDict, rightTrackedLayer, handle, targetLayerLists);
-    }
+    #endregion
 }

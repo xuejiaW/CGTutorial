@@ -10,6 +10,9 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
     private Vector3 leftLastPos = Vector3.zero;
     private Vector3 rightLastPos = Vector3.zero;
 
+    private Vector3 leftClickPos = Vector3.zero;
+    private Vector3 rightClickPos = Vector3.zero;
+
     private int leftHittedLayer = -1;
     private int rightHittedLayer = -1;
     private GameObject leftHittedGO = null;
@@ -18,9 +21,9 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
     public void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            OnButtonClickDown(leftTrackedLayers, leftButtonClickDownHandlesDict, ref leftLastPos, ref leftHittedLayer, ref leftHittedGO);
+            OnButtonClickDown(leftTrackedLayers, leftButtonClickDownHandlesDict, ref leftLastPos, ref leftClickPos, ref leftHittedLayer, ref leftHittedGO);
         else if (Input.GetMouseButtonDown(1))
-            OnButtonClickDown(rightTrackedLayer, rightButtonClickDownHandlesDict, ref rightLastPos, ref rightHittedLayer, ref rightHittedGO);
+            OnButtonClickDown(rightTrackedLayer, rightButtonClickDownHandlesDict, ref rightLastPos, ref rightClickPos, ref rightHittedLayer, ref rightHittedGO);
 
         if (Input.GetMouseButtonUp(0))
             OnButtonClickUp(leftButtonClickUpHandlesDict, ref leftHittedLayer, ref leftHittedGO);
@@ -28,15 +31,16 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
             OnButtonClickUp(rightButtonClickUpHandlesDict, ref rightHittedLayer, ref rightHittedGO);
 
         if (Input.GetMouseButton(0))
-            OnButtonDrag(leftButtonDragHandlesDict, ref leftLastPos, ref leftHittedLayer);
+            OnButtonDrag(leftButtonDragDeltaHandlesDict, leftButtonDragPosHandlesDict, ref leftLastPos, ref leftClickPos, ref leftHittedLayer);
         else if (Input.GetMouseButton(1))
-            OnButtonDrag(rightButtonDragHandlesDict, ref rightLastPos, ref rightHittedLayer);
+            OnButtonDrag(rightButtonDragDeltaHandlesDict, rightButtonDragPosHandlesDict, ref rightLastPos, ref rightClickPos, ref rightHittedLayer);
     }
 
     private void OnButtonClickDown(Dictionary<int, int> trackedLayers, Dictionary<int, Action<GameObject>> clickDownHandlesDict,
-                                ref Vector3 lastPos, ref int hittedLayer, ref GameObject hittedGO)
+                                ref Vector3 lastPos, ref Vector3 clickPos, ref int hittedLayer, ref GameObject hittedGO)
     {
         lastPos = Input.mousePosition;
+        clickPos = Input.mousePosition;
 
         hittedGO = null;
         int allLayersMask = 0;
@@ -62,10 +66,14 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         hittedLayer = -1;
     }
 
-    private void OnButtonDrag(Dictionary<int, Action<Vector3>> dragHandlesDict, ref Vector3 lastPos, ref int hittedLayer)
+    private void OnButtonDrag(Dictionary<int, Action<Vector3>> dragDeltaHandlesDict, Dictionary<int, Action<Vector3, Vector3>> dragPosHandlesDict,
+                            ref Vector3 lastPos, ref Vector3 clickPos, ref int hittedLayer)
     {
-        if (dragHandlesDict.TryGetValue(hittedLayer, out Action<Vector3> handles))
-            handles.Invoke(Input.mousePosition - lastPos);
+        if (dragDeltaHandlesDict.TryGetValue(hittedLayer, out Action<Vector3> deltaHandles))
+            deltaHandles.Invoke(Input.mousePosition - lastPos);
+
+        if (dragPosHandlesDict.TryGetValue(hittedLayer, out Action<Vector3, Vector3> posHandles))
+            posHandles.Invoke(clickPos, Input.mousePosition);
 
         lastPos = Input.mousePosition;
     }
