@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IndicatorRotatingHandle : IIndicatorHandle
+public class IndicatorRotatingHandle : IndicatorHandleBase
 {
     private Vector3 rotatingAxis = Vector3.zero;
 
@@ -26,6 +26,6 @@ public class IndicatorRotatingHandle : IIndicatorHandle
         if (dragDeltaScreen == Vector3.zero) return;
 
         deltaNoRotAxisComp = dragDeltaScreen - Vector3.Dot(dragDeltaScreen, rotatingAxis) * rotatingAxis;
-        targetGOTrans.Rotate(rotatingAxis, deltaNoRotAxisComp.GetAxisSum(), Space.World); //Ok, TODO: need to calculate coefficient
+        targetGOTrans.Rotate(rotatingAxis, deltaNoRotAxisComp.GetAxisSum(), Space.World);
     }
 }

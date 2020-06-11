@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class IndicatorMovingHandle : IIndicatorHandle
+public class IndicatorScalingHandle : IndicatorHandleBase
 {
-    private Vector3 movingDirection = Vector3.zero;
+    private Vector3 scalingDirection = Vector3.zero;
+    private float axisCoefficient = 1.0f;
 
     // Use global parameters in order to avoid allocating memory in Function DragIndicatorAxis
-    private Vector3 targetGOTransPos = Vector3.zero;
+    private Vector3 targetGOTransScale = Vector3.zero;
     private Vector3 axisStartPointWorld = Vector3.zero;
     private Vector3 axisEndPointWorld = Vector3.zero;
     private Vector3 axisStartPointScreen = Vector3.zero;
@@ -21,7 +22,16 @@ public class IndicatorMovingHandle : IIndicatorHandle
     public override void SetIndicatorAxis(string axis)
     {
         base.SetIndicatorAxis(axis);
-        movingDirection = -indicatorAxisTrans.forward;
+        Debug.Log("Axis is " + axis);
+
+        if (axis == "XAxis")
+            scalingDirection = Vector3.right;
+        if (axis == "YAxis")
+            scalingDirection = Vector3.up;
+        if (axis == "ZAxis")
+            scalingDirection = -Vector3.forward; //OpenGL has reverse world direction with Unity
+
+        axisCoefficient = scalingDirection.GetAxisSum();
     }
 
     public override void DragDeltaIndicatorAxis(Vector3 dragDeltaScreen)
@@ -29,8 +39,8 @@ public class IndicatorMovingHandle : IIndicatorHandle
         if (dragDeltaScreen == Vector3.zero) return;
 
         // to calculate selected axis's delta position from startPoint to endPoint in screen coordinate
-        axisStartPointWorld = indicatorAxisTrans.position + movingDirection;
-        axisEndPointWorld = indicatorAxisTrans.position - movingDirection;
+        axisStartPointWorld = indicatorAxisTrans.position + scalingDirection;
+        axisEndPointWorld = indicatorAxisTrans.position - scalingDirection;
         axisStartPointScreen = MainManager.Instance.viewCamera.WorldToViewportPoint(axisStartPointWorld);
         axisEndPointScreen = MainManager.Instance.viewCamera.WorldToViewportPoint(axisEndPointWorld);
         axisDeltaScreen = axisStartPointScreen - axisEndPointScreen;    //axis start/end point position delta in screen coordinate
@@ -40,11 +50,11 @@ public class IndicatorMovingHandle : IIndicatorHandle
         projectionValue = Vector3.Dot(dragDeltaScreen, axisDeltaScreen);
 
         // move targetTranspos
-        targetGOTransPos = targetGOTrans.position;
-        targetGOTransPos += projectionValue * movingDirection;
-        targetGOTrans.position = targetGOTransPos;
-
-        //FIXME: Should limit movement range within the camera view range
+        targetGOTransScale = targetGOTrans.localScale;
+        targetGOTransScale += projectionValue * scalingDirection * axisCoefficient * 0.1f;
+        targetGOTransScale.Clamp(0.05f, float.MaxValue);
+        targetGOTrans.localScale = targetGOTransScale;
     }
+
 
 }

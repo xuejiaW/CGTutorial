@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class IIndicatorHandle
+public abstract class IndicatorHandleBase
 {
     protected InteractiveIndicator indicator = null;
     protected Transform indicatorAxisTrans = null;
@@ -16,7 +16,7 @@ public abstract class IIndicatorHandle
     public virtual void SetIndicatorAxis(string axis)
     {
         indicatorAxisTrans = indicator?.transform.Find(axis);
-        targetGOTrans = indicator?.attachedGameObject.transform;
+        targetGOTrans = indicator?.transform;
     }
 
     public virtual void DragDeltaIndicatorAxis(Vector3 dragDeltaScreen) { }

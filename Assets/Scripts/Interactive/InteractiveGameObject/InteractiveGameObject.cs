@@ -12,6 +12,4 @@ public class InteractiveGameObject : MonoBehaviour
         gameObject = base.gameObject;
         transform = base.transform;
     }
-
-
 }

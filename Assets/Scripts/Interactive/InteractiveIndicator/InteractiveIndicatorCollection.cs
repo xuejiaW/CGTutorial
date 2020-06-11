@@ -29,7 +29,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
             GameResourceManager.Instance.Instantiate("InteractiveIndicators/Rotating").
                         GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorRotatingHandle()),
             GameResourceManager.Instance.Instantiate("InteractiveIndicators/Scaling").
-                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorRotatingHandle())
+                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorScalingHandle())
         };
 
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
@@ -39,15 +39,18 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     private void OnHoldingInteractiveGOUpdated(InteractiveGameObject oldInteractiveGo, InteractiveGameObject newInteractiveGO)
     {
         currentIndicator = this[InteractiveManager.Instance.interactMethod];
-        currentIndicator.SetParent(newInteractiveGO);
+
+        currentIndicator.RemoveChild(oldInteractiveGo);
+        currentIndicator.AddChild(newInteractiveGO);
     }
 
     public void OnInteractiveStateUpdated(InteractiveMethod state)
     {
-        currentIndicator?.SetParent(null);
+        currentIndicator?.RemoveChild(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
+        currentIndicator?.AddChild(null);
 
         currentIndicator = this[state];
-        currentIndicator.SetParent(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
+        currentIndicator.AddChild(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
     }
 
     public void OnClickIndicator(GameObject Go)
