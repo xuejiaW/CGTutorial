@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class IndicatorMovingHandle : IIndicatorHandle
 {
-    private InteractiveIndicator indicator;
-    private Transform indicatorAxisTrans = null;
-    private Transform targetGOTrans = null;
     private Vector3 movingDirection = Vector3.zero;
 
     // Use global parameters in order to avoid allocating memory in Function DragIndicatorAxis
@@ -16,20 +13,18 @@ public class IndicatorMovingHandle : IIndicatorHandle
     private Vector2 axisDeltaScreen = Vector2.zero;
     private float projectionValue = 0.0f;
 
-
-    public void SetIndicator(InteractiveIndicator indicator)
+    public override void SetIndicator(InteractiveIndicator indicator)
     {
-        this.indicator = indicator;
+        base.SetIndicator(indicator);
     }
 
-    public void SetIndicatorAxis(string axis)
+    public override void SetIndicatorAxis(string axis)
     {
-        indicatorAxisTrans = indicator?.transform.Find(axis);
-        targetGOTrans = indicator?.attachedGameObject.transform;
-
+        base.SetIndicatorAxis(axis);
         movingDirection = -indicatorAxisTrans.forward;
     }
-    public void DragIndicatorAxis(Vector3 dragDeltaScreen)
+
+    public override void DragDeltaIndicatorAxis(Vector3 dragDeltaScreen)
     {
         if (dragDeltaScreen == Vector3.zero) return;
 

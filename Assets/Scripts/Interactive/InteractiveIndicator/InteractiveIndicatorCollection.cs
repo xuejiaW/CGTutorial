@@ -53,14 +53,13 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     public void OnClickIndicator(GameObject Go)
     {
         string goName = Go.name;
-        Debug.Log("go name is " + goName);
 
         if (goName.IndexOf("Axis") != -1)
             currentIndicator.ClickIndicatorAxis(goName);
     }
 
-    public void OnDragIndicator(Vector3 deltaPos)
+    public void OnDragDeltaIndicator(Vector3 deltaPos)
     {
-        currentIndicator.DragIndicatorAxis(deltaPos);
+        currentIndicator.DragDeltaIndicatorAxis(deltaPos);
     }
 }

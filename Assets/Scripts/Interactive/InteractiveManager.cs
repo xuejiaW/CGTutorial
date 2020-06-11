@@ -43,9 +43,8 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
         //Interact on selected interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, indicatorManager.OnClickIndicator,
                                     LayerMask.GetMask("InteractiveIndicator"));
-        MouseInputManager.Instance.RegisterDragMessageHandle(0, indicatorManager.OnDragIndicator,
+        MouseInputManager.Instance.RegisterDragMessageHandle(0, indicatorManager.OnDragDeltaIndicator,
                                     LayerMask.GetMask("InteractiveIndicator"));
-
         #endregion
 
         #region  Flythrough Operation Setting

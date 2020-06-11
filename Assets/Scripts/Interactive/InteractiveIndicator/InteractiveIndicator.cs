@@ -7,7 +7,6 @@ public class InteractiveIndicator : MonoBehaviour
     private Transform thisTransform = null;
     private GameObject thisGameObject = null;
     public GameObject attachedGameObject = null;
-
     private IIndicatorHandle indicatorHandle = null;
 
     //Awake will be called after gameobject is instantiated while Start will not
@@ -16,9 +15,6 @@ public class InteractiveIndicator : MonoBehaviour
         thisTransform = transform;
         thisGameObject = gameObject;
         thisGameObject.SetActive(false);
-
-        // indicatorHandle = new IndicatorMovingHandle();
-        // indicatorHandle.SetIndicator(this);
     }
 
     public InteractiveIndicator SetHandle(IIndicatorHandle handle)
@@ -41,9 +37,8 @@ public class InteractiveIndicator : MonoBehaviour
         indicatorHandle.SetIndicatorAxis(axisGame);
     }
 
-    public void DragIndicatorAxis(Vector3 deltaPos)
+    public void DragDeltaIndicatorAxis(Vector3 deltaPos)
     {
-        indicatorHandle.DragIndicatorAxis(deltaPos);
+        indicatorHandle.DragDeltaIndicatorAxis(deltaPos);
     }
-
 }
