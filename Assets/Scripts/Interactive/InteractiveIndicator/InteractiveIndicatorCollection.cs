@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorCollection>
 {
-    private Dictionary<InteractiveMethod, string> stateIndicatorPrefabDict = null;
+    // private Dictionary<InteractiveMethod, string> stateIndicatorPrefabDict = null;
 
     private InteractiveIndicator[] indicatorArray = null;
     public InteractiveIndicator this[InteractiveMethod state]
@@ -12,10 +12,6 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         get
         {
             int index = (int)state;
-
-            if (indicatorArray[index] == null)
-                indicatorArray[index] = GameResourceManager.Instance.Instantiate(stateIndicatorPrefabDict[state])
-                                        .GetComponent_AutoAdd<InteractiveIndicator>();
             return indicatorArray[index];
         }
     }
@@ -26,13 +22,14 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     {
         base.Init();
 
-        indicatorArray = new InteractiveIndicator[3];
-
-        stateIndicatorPrefabDict = new Dictionary<InteractiveMethod, string>()
+        indicatorArray = new InteractiveIndicator[3]
         {
-            {InteractiveMethod.MOVING,"InteractiveIndicators/Moving"},
-            {InteractiveMethod.ROTATING,"InteractiveIndicators/Rotating"},
-            {InteractiveMethod.SCALING,"InteractiveIndicators/Scaling"}
+            GameResourceManager.Instance.Instantiate("InteractiveIndicators/Moving").
+                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorMovingHandle()),
+            GameResourceManager.Instance.Instantiate("InteractiveIndicators/Rotating").
+                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorRotatingHandle()),
+            GameResourceManager.Instance.Instantiate("InteractiveIndicators/Scaling").
+                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorRotatingHandle())
         };
 
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;

@@ -17,13 +17,21 @@ public class InteractiveIndicator : MonoBehaviour
         thisGameObject = gameObject;
         thisGameObject.SetActive(false);
 
-        indicatorHandle = new IndicatorMovingHandle();
+        // indicatorHandle = new IndicatorMovingHandle();
+        // indicatorHandle.SetIndicator(this);
+    }
+
+    public InteractiveIndicator SetHandle(IIndicatorHandle handle)
+    {
+        indicatorHandle = handle;
         indicatorHandle.SetIndicator(this);
+        return this;
     }
 
     public void SetParent(InteractiveGameObject interactiveGO)
     {
         thisTransform.SetParent(interactiveGO?.transform);
+        thisTransform.localPosition = Vector3.zero;
         thisGameObject.SetActive(interactiveGO != null);
         attachedGameObject = interactiveGO?.gameObject;
     }

@@ -21,6 +21,7 @@ public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
                             {KeyCode.A,false},{KeyCode.S,false},{KeyCode.D,false}};
 
         viewCameraTrans = MainManager.Instance.viewCamera.transform;
+        currentViewCameraRot = viewCameraTrans.eulerAngles;// ignore the roll angle
 
     }
 
