@@ -5,8 +5,7 @@ using UnityEngine;
 public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubject
 {
     private List<IMainUpdateObserver> updateObserversList = null;
-    public GameObject cubePrefab = null;
-    public Camera viewCamera = null;
+    public Camera viewCamera { get; set; }
 
     protected override void Init()
     {
@@ -28,7 +27,6 @@ public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubjec
     protected override void Start()
     {
         base.Start();
-        GameResourceManager.Instance.InstantiateInteractive(cubePrefab);
         InteractiveManager.Instance.Init();
     }
 
