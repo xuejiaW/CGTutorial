@@ -38,7 +38,7 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
 
         //Select target interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, goManager.OnClickGameObject,
-                                    LayerMask.GetMask("InteractiveGO"), -1);
+                                    LayerMask.GetMask("InteractiveGO"), -1); // -1 for empty gameObject
 
         //Interact on selected interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, indicatorManager.OnClickIndicator,
@@ -78,7 +78,6 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
         MouseInputManager.Instance.RegisterDragMessageHandle(1, viewCameraManager.OnMouseRightDrag, -1);
         #endregion
     }
-
 
     private void SetGOInteractMethod(KeyCode key)
     {

@@ -50,4 +50,23 @@ public static class UnityEngineExtension
 
         return vector;
     }
+
+    public static void SetPositionX(this Transform trans, float val)
+    {
+        Vector3 pos = trans.localPosition;
+        pos.x = val;
+        trans.localPosition = pos;
+    }
+    public static void SetPositionY(this Transform trans, float val)
+    {
+        Vector3 pos = trans.localPosition;
+        pos.y = val;
+        trans.localPosition = pos;
+    }
+    public static void SetPositionZ(this Transform trans, float val)
+    {
+        Vector3 pos = trans.localPosition;
+        pos.z = val;
+        trans.localPosition = pos;
+    }
 }

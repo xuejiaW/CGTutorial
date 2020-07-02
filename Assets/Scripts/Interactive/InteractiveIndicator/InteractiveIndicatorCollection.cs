@@ -16,7 +16,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         }
     }
 
-    private InteractiveIndicatorView currentIndicator = null;
+    public InteractiveIndicatorView currentIndicator { get; private set; }
 
     public override void Init()
     {
@@ -24,9 +24,12 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 
         indicatorArray = new InteractiveIndicatorView[3]
         {
-            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_moving") as InteractiveIndicatorView).SetHandle(new IndicatorMovingHandle()),
-            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_rotating") as InteractiveIndicatorView).SetHandle(new IndicatorRotatingHandle()),
-            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_scaling") as InteractiveIndicatorView).SetHandle(new IndicatorScalingHandle()),
+            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_moving")
+                                as InteractiveIndicatorView).SetHandle(new IndicatorMovingHandle()),
+            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_rotating")
+                                as InteractiveIndicatorView).SetHandle(new IndicatorRotatingHandle()),
+            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_scaling")
+                                as InteractiveIndicatorView).SetHandle(new IndicatorScalingHandle()),
         };
 
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;

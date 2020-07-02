@@ -25,3 +25,6 @@ MonoBehaviour:
       prefabPath: InteractivePrimitive/Cube
     - assetID: gameobject_cylinder
       prefabPath: InteractivePrimitive/Cylinder
+    componentsList:
+    - assetID: component_transform
+      prefabPath: UI/Components/Transform

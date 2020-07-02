@@ -13,7 +13,6 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     public override void Init()
     {
         base.Init();
-
         interactiveGo = new List<InteractiveGameObjectView>();
     }
 

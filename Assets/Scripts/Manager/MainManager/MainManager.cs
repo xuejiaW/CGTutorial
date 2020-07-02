@@ -27,7 +27,7 @@ public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubjec
     protected override void Start()
     {
         base.Start();
-        InteractiveManager.Instance.Init();
+        InteractiveManager.Instance.GetType();
     }
 
     public void Update()

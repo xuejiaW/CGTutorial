@@ -39,8 +39,13 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
     private void OnButtonClickDown(Dictionary<int, int> trackedLayers, Dictionary<int, Action<GameObject>> clickDownHandlesDict,
                                 ref Vector3 lastPos, ref Vector3 clickPos, ref int hittedLayer, ref GameObject hittedGO)
     {
-        lastPos = Input.mousePosition;
-        clickPos = Input.mousePosition;
+        Vector3 mousePos = Input.mousePosition;
+
+        if (!MainManager.Instance.viewCamera.pixelRect.Contains(mousePos)) // Only handle view Camera rect
+            return;
+
+        lastPos = mousePos;
+        clickPos = mousePos;
 
         hittedGO = null;
         int allLayersMask = 0;
@@ -48,7 +53,7 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         foreach (KeyValuePair<int, int> pair in trackedLayers)
             allLayersMask += (pair.Key != -1 ? pair.Key : 0);
 
-        if (Physics.Raycast(MainManager.Instance.viewCamera.ScreenPointToRay(Input.mousePosition),
+        if (Physics.Raycast(MainManager.Instance.viewCamera.ScreenPointToRay(mousePos),
                             out RaycastHit hit, 100, allLayersMask))
             hittedGO = hit.transform.gameObject;
 
@@ -69,12 +74,16 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
     private void OnButtonDrag(Dictionary<int, Action<Vector3>> dragDeltaHandlesDict, Dictionary<int, Action<Vector3, Vector3>> dragPosHandlesDict,
                             ref Vector3 lastPos, ref Vector3 clickPos, ref int hittedLayer)
     {
+        Vector3 mousePos = Input.mousePosition;
+        if (!MainManager.Instance.viewCamera.pixelRect.Contains(mousePos)) // Only handle view Camera rect
+            return;
+
         if (dragDeltaHandlesDict.TryGetValue(hittedLayer, out Action<Vector3> deltaHandles))
-            deltaHandles.Invoke(Input.mousePosition - lastPos);
+            deltaHandles.Invoke(mousePos - lastPos);
 
         if (dragPosHandlesDict.TryGetValue(hittedLayer, out Action<Vector3, Vector3> posHandles))
-            posHandles.Invoke(clickPos, Input.mousePosition);
+            posHandles.Invoke(clickPos, mousePos);
 
-        lastPos = Input.mousePosition;
+        lastPos = mousePos;
     }
 }
