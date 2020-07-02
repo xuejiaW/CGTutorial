@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCollection>
 {
-    private List<InteractiveGameObject> interactiveGo = null;
-    public InteractiveGameObject holdingInteractiveGo { get; private set; }
+    private List<InteractiveGameObjectView> interactiveGo = null;
+    public InteractiveGameObjectView holdingInteractiveGo { get; private set; }
 
     //Parameters: <oldHoldingInteractiveGO,NewHoldingInteractiveGo>
-    public event System.Action<InteractiveGameObject, InteractiveGameObject> OnHoldingInteractiveGOUpdated = null;
+    public event System.Action<InteractiveGameObjectView, InteractiveGameObjectView> OnHoldingInteractiveGOUpdated = null;
 
     public override void Init()
     {
         base.Init();
 
-        interactiveGo = new List<InteractiveGameObject>();
+        interactiveGo = new List<InteractiveGameObjectView>();
     }
 
-    public void AddInteractiveGo(GameObject gameObject)
+    public void AddInteractiveGo(InteractiveGameObjectView view)
     {
-        interactiveGo.Add(gameObject.GetComponent_AutoAdd<InteractiveGameObject>());
+        interactiveGo.Add(view);
     }
 
     public void OnClickGameObject(GameObject GO)
     {
-        Debug.Log("Onclick gameobject");
-        InteractiveGameObject result = GO?.GetComponent<InteractiveGameObject>();
+        Debug.Log("On click gameobject" + GO?.name);
+        InteractiveGameObjectView result = GO?.GetComponent<InteractiveGameObjectView>();
         OnHoldingInteractiveGOUpdated?.Invoke(holdingInteractiveGo, result);
         holdingInteractiveGo = result;
     }

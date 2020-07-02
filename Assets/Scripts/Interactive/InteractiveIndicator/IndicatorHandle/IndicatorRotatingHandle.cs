@@ -8,7 +8,7 @@ public class IndicatorRotatingHandle : IndicatorHandleBase
     private Vector3 targetGOTransRot = Vector3.zero;
     private Vector3 deltaNoRotAxisComp = Vector3.zero;
 
-    public override void SetIndicator(InteractiveIndicator indicator)
+    public override void SetIndicator(InteractiveIndicatorView indicator)
     {
         base.SetIndicator(indicator);
     }

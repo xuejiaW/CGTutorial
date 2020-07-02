@@ -14,7 +14,7 @@ public class IndicatorScalingHandle : IndicatorHandleBase
     private Vector2 axisDeltaScreen = Vector2.zero;
     private float projectionValue = 0.0f;
 
-    public override void SetIndicator(InteractiveIndicator indicator)
+    public override void SetIndicator(InteractiveIndicatorView indicator)
     {
         base.SetIndicator(indicator);
     }

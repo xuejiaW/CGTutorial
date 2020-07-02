@@ -6,8 +6,8 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 {
     // private Dictionary<InteractiveMethod, string> stateIndicatorPrefabDict = null;
 
-    private InteractiveIndicator[] indicatorArray = null;
-    public InteractiveIndicator this[InteractiveMethod state]
+    private InteractiveIndicatorView[] indicatorArray = null;
+    public InteractiveIndicatorView this[InteractiveMethod state]
     {
         get
         {
@@ -16,27 +16,24 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         }
     }
 
-    private InteractiveIndicator currentIndicator = null;
+    private InteractiveIndicatorView currentIndicator = null;
 
     public override void Init()
     {
         base.Init();
 
-        indicatorArray = new InteractiveIndicator[3]
+        indicatorArray = new InteractiveIndicatorView[3]
         {
-            GameResourceManager.Instance.Instantiate("InteractiveIndicators/Moving").
-                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorMovingHandle()),
-            GameResourceManager.Instance.Instantiate("InteractiveIndicators/Rotating").
-                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorRotatingHandle()),
-            GameResourceManager.Instance.Instantiate("InteractiveIndicators/Scaling").
-                        GetComponent_AutoAdd<InteractiveIndicator>().SetHandle(new IndicatorScalingHandle())
+            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_moving") as InteractiveIndicatorView).SetHandle(new IndicatorMovingHandle()),
+            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_rotating") as InteractiveIndicatorView).SetHandle(new IndicatorRotatingHandle()),
+            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_scaling") as InteractiveIndicatorView).SetHandle(new IndicatorScalingHandle()),
         };
 
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnHoldingInteractiveGOUpdated;
     }
 
-    private void OnHoldingInteractiveGOUpdated(InteractiveGameObject oldInteractiveGo, InteractiveGameObject newInteractiveGO)
+    private void OnHoldingInteractiveGOUpdated(InteractiveGameObjectView oldInteractiveGo, InteractiveGameObjectView newInteractiveGO)
     {
         currentIndicator = this[InteractiveManager.Instance.interactMethod];
 
@@ -46,9 +43,11 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 
     public void OnInteractiveStateUpdated(InteractiveMethod state)
     {
+        //old indicator
         currentIndicator?.RemoveChild(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
         currentIndicator?.AddChild(null);
 
+        //new indicator
         currentIndicator = this[state];
         currentIndicator.AddChild(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
     }

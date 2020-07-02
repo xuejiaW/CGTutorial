@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PrimitiveFolder : MonoBehaviour
 {
-    public void OnClickCreatePrimitive(GameObject prefab)
+    public void OnClickCreatePrimitive(string assetID)
     {
-        GameResourceManager.Instance.InstantiateInteractive(prefab);
+        InteractiveGameObjectView view = GameResourceManager.Instance.
+                                        CreateEntityView<InteractiveGameObjectModel>(assetID) as InteractiveGameObjectView;
     }
 }

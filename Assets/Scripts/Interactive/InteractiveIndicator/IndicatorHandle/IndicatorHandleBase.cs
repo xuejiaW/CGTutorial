@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class IndicatorHandleBase
 {
-    protected InteractiveIndicator indicator = null;
+    protected InteractiveIndicatorView indicator = null;
     protected Transform indicatorAxisTrans = null;
     protected Transform targetGOTrans = null;
 
-    public virtual void SetIndicator(InteractiveIndicator indicator)
+    public virtual void SetIndicator(InteractiveIndicatorView indicator)
     {
         this.indicator = indicator;
     }

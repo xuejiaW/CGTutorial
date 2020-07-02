@@ -2,29 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveIndicator : MonoBehaviour
+public class InteractiveIndicatorView : EntityView
 {
-    private Transform thisTransform = null;
-    private GameObject thisGameObject = null;
     public GameObject attachedGameObject = null;
     private IndicatorHandleBase indicatorHandle = null;
 
     //Awake will be called after gameobject is instantiated while Start will not
-    public void Awake()
+    protected override void Awake()
     {
-        thisTransform = transform;
-        thisGameObject = gameObject;
+        base.Awake();
         thisGameObject.SetActive(false);
     }
 
-    public InteractiveIndicator SetHandle(IndicatorHandleBase handle)
+    public InteractiveIndicatorView SetHandle(IndicatorHandleBase handle)
     {
         indicatorHandle = handle;
         indicatorHandle.SetIndicator(this);
         return this;
     }
 
-    public void AddChild(InteractiveGameObject interactiveGO)
+    public void AddChild(InteractiveGameObjectView interactiveGO)
     {
 
         // Make thisTransform have the same transform with the interactiveGO
@@ -40,7 +37,7 @@ public class InteractiveIndicator : MonoBehaviour
         interactiveGO?.transform?.SetParent(thisTransform);
     }
 
-    public void RemoveChild(InteractiveGameObject interactiveGO)
+    public void RemoveChild(InteractiveGameObjectView interactiveGO)
     {
         if (interactiveGO == null) return;
 
