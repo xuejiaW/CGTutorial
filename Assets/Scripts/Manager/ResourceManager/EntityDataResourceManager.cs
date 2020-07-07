@@ -21,9 +21,13 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         LoadConfigData(model);
 
         GameObject gObj = Instantiate(model.prefabPath);
+
         EntityView view = gObj.AddComponent(model.GetViewType()) as EntityView;
+        EntityController controller = Activator.CreateInstance(model.GetControllerType()) as EntityController;
+
+        model.BindEntityController(controller);
         view.BindEntityModel(model);
-        model.BindEntityView(view);
+        controller.BindEntityModel(model);
 
         return view;
     }

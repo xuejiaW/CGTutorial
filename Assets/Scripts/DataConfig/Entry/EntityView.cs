@@ -12,11 +12,17 @@ public class EntityView : MonoBehaviour
     [System.NonSerialized]
     public new GameObject gameObject = null;
 
-    public DisplayableEntityModel entityModel { get; protected set; }
+    public EntityModel model { get; protected set; }
+    public EntityController controller { get; protected set; }
 
-    public void BindEntityModel(DisplayableEntityModel model)
+    public virtual void BindEntityModel(EntityModel model)
     {
-        entityModel = model;
+        this.model = model;
+    }
+
+    public virtual void BindEntityController(EntityController controller)
+    {
+        this.controller = controller;
     }
 
     protected virtual void Awake()
