@@ -14,7 +14,7 @@ public class IndicatorScalingHandle : IndicatorHandleBase
     private Vector2 axisDeltaScreen = Vector2.zero;
     private float projectionValue = 0.0f;
 
-    public override void SetIndicator(InteractiveIndicatorView indicator)
+    public override void SetIndicator(InteractiveIndicatorController indicator)
     {
         base.SetIndicator(indicator);
     }
@@ -50,10 +50,10 @@ public class IndicatorScalingHandle : IndicatorHandleBase
         projectionValue = Vector3.Dot(dragDeltaScreen, axisDeltaScreen);
 
         // move targetTranspos
-        targetGOTransScale = targetGOTrans.localScale;
+        targetGOTransScale = targetModel.localScale;
         targetGOTransScale += projectionValue * scalingDirection * axisCoefficient * 0.1f;
         targetGOTransScale.Clamp(0.05f, float.MaxValue);
-        targetGOTrans.localScale = targetGOTransScale;
+        targetModel.localScale = targetGOTransScale;
     }
 
 

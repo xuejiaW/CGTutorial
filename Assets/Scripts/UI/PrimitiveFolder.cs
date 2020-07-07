@@ -6,7 +6,6 @@ public class PrimitiveFolder : MonoBehaviour
 {
     public void OnClickCreatePrimitive(string assetID)
     {
-        InteractiveGameObjectView view = GameResourceManager.Instance.
-                                        CreateEntityView<InteractiveGameObjectModel>(assetID) as InteractiveGameObjectView;
+        GameResourceManager.Instance.CreateEntityController<InteractiveGameObjectModel>(assetID);
     }
 }

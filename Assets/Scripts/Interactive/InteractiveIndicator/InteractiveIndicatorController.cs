@@ -2,17 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveIndicatorController : MonoBehaviour
+public class InteractiveIndicatorController : EntityController
 {
-    // Start is called before the first frame update
-    void Start()
+    public IndicatorHandleBase indicatorHandle = null;
+    public new InteractiveIndicatorModel model = null;
+
+    public override void BindEntityModel(EntityModel model)
     {
-        
+        base.BindEntityModel(model);
+        this.model = model as InteractiveIndicatorModel;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddChild(InteractiveGameObjectView interactiveGO)
     {
-        
+        // Make thisTransform have the same transform with the interactiveGO
+        model.parent = interactiveGO?.transform;
+        model.localRotation = Quaternion.identity;
+        model.localPosition = Vector3.zero;
+        model.localScale = interactiveGO == null ? Vector3.one : interactiveGO.transform.localScale.GetInverse();
+
+        model.parent = interactiveGO?.transform?.parent;
+        model.active = interactiveGO != null;
+
+        //TODO: change to set model parent after modifying the interactiveGO Model
+        interactiveGO?.transform?.SetParent(model.view.transform);
+    }
+
+    public void RemoveChild(InteractiveGameObjectView interactiveGO)
+    {
+        if (interactiveGO == null) return;
+
+        //TODO: change to set model parent after modifying the interactiveGO Model
+        interactiveGO.transform.SetParent(model.parent);
+    }
+
+    public void ClickIndicatorAxis(string axisGame)
+    {
+        indicatorHandle.SetIndicatorAxis(axisGame);
+    }
+
+    public void DragDeltaIndicatorAxis(Vector3 deltaPos)
+    {
+        indicatorHandle.DragDeltaIndicatorAxis(deltaPos);
+    }
+
+    public InteractiveIndicatorController SetHandle(IndicatorHandleBase handle)
+    {
+        indicatorHandle = handle;
+        indicatorHandle.SetIndicator(this);
+        return this;
     }
 }

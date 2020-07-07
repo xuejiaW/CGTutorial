@@ -4,19 +4,19 @@ using UnityEngine;
 
 public abstract class IndicatorHandleBase
 {
-    protected InteractiveIndicatorView indicator = null;
+    protected InteractiveIndicatorController indicator = null;
     protected Transform indicatorAxisTrans = null;
-    protected Transform targetGOTrans = null;
+    protected DisplayableEntityModel targetModel = null;
 
-    public virtual void SetIndicator(InteractiveIndicatorView indicator)
+    public virtual void SetIndicator(InteractiveIndicatorController indicator)
     {
         this.indicator = indicator;
     }
 
     public virtual void SetIndicatorAxis(string axis)
     {
-        indicatorAxisTrans = indicator?.transform.Find(axis);
-        targetGOTrans = indicator?.transform;
+        indicatorAxisTrans = indicator?.model.view.transform.Find(axis);
+        targetModel = indicator?.model;
     }
 
     public virtual void DragDeltaIndicatorAxis(Vector3 dragDeltaScreen) { }

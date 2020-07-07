@@ -6,8 +6,8 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 {
     // private Dictionary<InteractiveMethod, string> stateIndicatorPrefabDict = null;
 
-    private InteractiveIndicatorView[] indicatorArray = null;
-    public InteractiveIndicatorView this[InteractiveMethod state]
+    private InteractiveIndicatorController[] indicatorArray = null;
+    public InteractiveIndicatorController this[InteractiveMethod state]
     {
         get
         {
@@ -16,20 +16,20 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         }
     }
 
-    public InteractiveIndicatorView currentIndicator { get; private set; }
+    public InteractiveIndicatorController currentIndicator { get; private set; }
 
     public override void Init()
     {
         base.Init();
 
-        indicatorArray = new InteractiveIndicatorView[3]
+        indicatorArray = new InteractiveIndicatorController[3]
         {
-            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_moving")
-                                as InteractiveIndicatorView).SetHandle(new IndicatorMovingHandle()),
-            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_rotating")
-                                as InteractiveIndicatorView).SetHandle(new IndicatorRotatingHandle()),
-            (GameResourceManager.Instance.CreateEntityView<InteractiveIndicatorModel>("indicator_scaling")
-                                as InteractiveIndicatorView).SetHandle(new IndicatorScalingHandle()),
+            (GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_moving")
+                                as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()),
+            (GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_rotating")
+                                as InteractiveIndicatorController).SetHandle(new IndicatorRotatingHandle()),
+            (GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_scaling")
+                                as InteractiveIndicatorController).SetHandle(new IndicatorScalingHandle()),
         };
 
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;

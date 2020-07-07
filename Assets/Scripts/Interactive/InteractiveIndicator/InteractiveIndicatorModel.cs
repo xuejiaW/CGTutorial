@@ -9,4 +9,8 @@ public class InteractiveIndicatorModel : DisplayableEntityModel
     {
         return typeof(InteractiveIndicatorView);
     }
+    public override System.Type GetControllerType()
+    {
+        return typeof(InteractiveIndicatorController);
+    }
 }

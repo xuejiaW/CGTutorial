@@ -18,6 +18,7 @@ public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
         Debug.Log("old game obj" + oldGbj?.gameObject?.name);
         Debug.Log("new game obj" + newGbj?.gameObject?.name);
         transformView.gameObject.SetActive(newGbj);
-        transformView.targetGameObjectView = newGbj;
+        //TODO: adapt
+        // transformView.targetGameObjectView = newGbj;
     }
 }

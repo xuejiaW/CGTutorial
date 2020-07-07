@@ -13,7 +13,7 @@ public class IndicatorMovingHandle : IndicatorHandleBase
     private Vector2 axisDeltaScreen = Vector2.zero;
     private float projectionValue = 0.0f;
 
-    public override void SetIndicator(InteractiveIndicatorView indicator)
+    public override void SetIndicator(InteractiveIndicatorController indicator)
     {
         base.SetIndicator(indicator);
     }
@@ -40,9 +40,9 @@ public class IndicatorMovingHandle : IndicatorHandleBase
         projectionValue = Vector3.Dot(dragDeltaScreen, axisDeltaScreen);
 
         // move targetTranspos
-        targetGOTransPos = targetGOTrans.localPosition;
+        targetGOTransPos = targetModel.localPosition;
         targetGOTransPos += projectionValue * movingDirection;
-        targetGOTrans.localPosition = targetGOTransPos;
+        targetModel.localPosition = targetGOTransPos;
 
         //FIXME: Should limit movement range within the camera view range
     }

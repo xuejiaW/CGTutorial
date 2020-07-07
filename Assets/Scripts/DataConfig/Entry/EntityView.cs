@@ -12,17 +12,20 @@ public class EntityView : MonoBehaviour
     [System.NonSerialized]
     public new GameObject gameObject = null;
 
-    public EntityModel model { get; protected set; }
+    public DisplayableEntityModel model { get; protected set; }
     public EntityController controller { get; protected set; }
 
-    public virtual void BindEntityModel(EntityModel model)
+    public virtual void BindEntityModel(DisplayableEntityModel model)
     {
         this.model = model;
-    }
 
-    public virtual void BindEntityController(EntityController controller)
-    {
-        this.controller = controller;
+        model.OnLocalPositionUpdated += SetLocalPosition;
+        model.OnPositionUpdated += SetPosition;
+        model.OnRotationUpdated += SetRotation;
+        model.OnLocalRotationUpdated += SetLocalRotation;
+        model.OnLocalScaleUpdated += SetLocalScale;
+        model.OnParentUpdated += SetParent;
+        model.OnActiveUpdated += SetActive;
     }
 
     protected virtual void Awake()
@@ -32,4 +35,33 @@ public class EntityView : MonoBehaviour
         thisTransform = transform;
         thisGameObject = gameObject;
     }
+
+    protected virtual void OnDestroy()
+    {
+        if (model == null)
+            return;
+
+        model.OnLocalPositionUpdated -= SetLocalPosition;
+        model.OnPositionUpdated -= SetPosition;
+        model.OnParentUpdated -= SetParent;
+        model.OnActiveUpdated -= SetActive;
+        model.OnLocalScaleUpdated -= SetLocalScale;
+    }
+
+    private void SetActive(bool active) { thisGameObject.SetActive(active); }
+    private void SetParent(Transform trans)
+    {
+        thisTransform.parent = trans;
+        // Because the local position has been changed by Unity engine, so need to be manually set
+        // TODO: moving these code to displayableModel, these properties should be handled in model
+        model.localPosition = thisTransform.localPosition;
+        model.localRotation = thisTransform.localRotation;
+        model.localScale = thisTransform.localScale;
+    }
+    private void SetLocalPosition(Vector3 localPosition) { thisTransform.localPosition = localPosition; }
+    private void SetPosition(Vector3 position) { thisTransform.position = position; }
+    private void SetLocalRotation(Quaternion localRotation) { thisTransform.localRotation = localRotation; }
+    private void SetRotation(Quaternion rotation) { thisTransform.rotation = rotation; }
+    private void SetLocalScale(Vector3 localScale) { thisTransform.localScale = localScale; }
+
 }

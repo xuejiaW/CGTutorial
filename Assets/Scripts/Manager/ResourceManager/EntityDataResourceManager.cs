@@ -15,7 +15,7 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         configData.Init();
     }
 
-    public EntityView CreateEntityView<T>(string assetID) where T : DisplayableEntityModel, new()
+    public EntityController CreateEntityController<T>(string assetID) where T : DisplayableEntityModel, new()
     {
         T model = new T() { assetID = assetID };
         LoadConfigData(model);
@@ -26,10 +26,11 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         EntityController controller = Activator.CreateInstance(model.GetControllerType()) as EntityController;
 
         model.BindEntityController(controller);
+        model.BindEntityView(view);
         view.BindEntityModel(model);
         controller.BindEntityModel(model);
 
-        return view;
+        return controller;
     }
 
     public void LoadConfigData(EntityModel entity)
