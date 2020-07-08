@@ -20,10 +20,9 @@ public class EntityView : MonoBehaviour
         this.model = model;
 
         model.OnLocalPositionUpdated += SetLocalPosition;
-        model.OnPositionUpdated += SetPosition;
-        model.OnRotationUpdated += SetRotation;
         model.OnLocalRotationUpdated += SetLocalRotation;
         model.OnLocalScaleUpdated += SetLocalScale;
+
         model.OnParentUpdated += SetParent;
         model.OnActiveUpdated += SetActive;
     }
@@ -42,7 +41,6 @@ public class EntityView : MonoBehaviour
             return;
 
         model.OnLocalPositionUpdated -= SetLocalPosition;
-        model.OnPositionUpdated -= SetPosition;
         model.OnParentUpdated -= SetParent;
         model.OnActiveUpdated -= SetActive;
         model.OnLocalScaleUpdated -= SetLocalScale;
@@ -59,9 +57,7 @@ public class EntityView : MonoBehaviour
         model.localScale = thisTransform.localScale;
     }
     private void SetLocalPosition(Vector3 localPosition) { thisTransform.localPosition = localPosition; }
-    private void SetPosition(Vector3 position) { thisTransform.position = position; }
     private void SetLocalRotation(Quaternion localRotation) { thisTransform.localRotation = localRotation; }
-    private void SetRotation(Quaternion rotation) { thisTransform.rotation = rotation; }
     private void SetLocalScale(Vector3 localScale) { thisTransform.localScale = localScale; }
 
 }

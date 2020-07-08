@@ -2,16 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveIndicatorController : EntityController
+public class InteractiveIndicatorController : DisplayableEntityController
 {
     public IndicatorHandleBase indicatorHandle = null;
-    public new InteractiveIndicatorModel model = null;
-
-    public override void BindEntityModel(EntityModel model)
-    {
-        base.BindEntityModel(model);
-        this.model = model as InteractiveIndicatorModel;
-    }
 
     public void AddChild(InteractiveGameObjectView interactiveGO)
     {
