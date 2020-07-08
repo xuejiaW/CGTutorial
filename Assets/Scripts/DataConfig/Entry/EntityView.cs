@@ -13,7 +13,6 @@ public class EntityView : MonoBehaviour
     public new GameObject gameObject = null;
 
     public DisplayableEntityModel model { get; protected set; }
-    public EntityController controller { get; protected set; }
 
     public virtual void BindEntityModel(DisplayableEntityModel model)
     {

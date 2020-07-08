@@ -10,6 +10,13 @@ public class DisplayableEntityModel : EntityModel
     public EntityView view;
     public void BindEntityView(EntityView view) { this.view = view; }
 
+    public new DisplayableEntityController controller;
+    public override void BindEntityController(EntityController controller)
+    {
+        base.BindEntityController(controller);
+        this.controller = controller as DisplayableEntityController;
+    }
+
     [System.NonSerialized] // avoid serialized loop
     private List<DisplayableEntityModel> childrenList = null;
 
@@ -26,8 +33,8 @@ public class DisplayableEntityModel : EntityModel
     public event System.Action<Vector3> OnLocalScaleUpdated = null;
     public event System.Action<Vector3> OnPositionUpdated = null;
 
-    public bool m_active = true;
-    public bool active
+    private bool m_active = true;
+    public virtual bool active
     {
         get { return m_active; }
         set { m_active = value; OnActiveUpdated?.Invoke(value); }

@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
 {
-    private TransformView transformView = null;
+    private TransformUIModel transformModel = null;
     protected override void Init()
     {
         base.Init();
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGoUpdated;
 
-        transformView = GetComponentInChildren<TransformView>();
-        transformView.gameObject.SetActive(false);
+        transformModel = GameResourceManager.Instance.CreateEntityController<TransformUIModel>("component_transform").
+                            model as TransformUIModel;
+        transformModel.view.transform.SetParent(transform, false);
+
+        transformModel.active = false;
     }
     private void OnSelectedGoUpdated(DisplayableEntityModel oldGbj, DisplayableEntityModel newGbj)
     {
-        // Debug.Log("old game obj" + oldGbj?.gameObject?.name);
-        // Debug.Log("new game obj" + newGbj?.gameObject?.name);
-        // transformView.gameObject.SetActive(newGbj);
-        //TODO: adapt
-        // transformView.targetGameObjectView = newGbj;
+        transformModel.active = newGbj != null;
     }
 }

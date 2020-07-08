@@ -62,6 +62,22 @@ public static class UnityEngineExtension
         return result;
     }
 
+    public static Vector3 SetX(this ref Vector3 vec, float x)
+    {
+        vec.x = x;
+        return vec;
+    }
+    public static Vector3 SetY(this ref Vector3 vec, float y)
+    {
+        vec.y = y;
+        return vec;
+    }
+    public static Vector3 SetZ(this ref Vector3 vec, float z)
+    {
+        vec.z = z;
+        return vec;
+    }
+
     public static void SetPositionX(this Transform trans, float val)
     {
         Vector3 pos = trans.localPosition;

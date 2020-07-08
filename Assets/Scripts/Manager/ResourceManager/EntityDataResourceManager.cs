@@ -25,10 +25,11 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         EntityView view = gObj.AddComponent(model.GetViewType()) as EntityView;
         EntityController controller = Activator.CreateInstance(model.GetControllerType()) as EntityController;
 
-        model.BindEntityController(controller);
-        model.BindEntityView(view);
         view.BindEntityModel(model);
+        model.BindEntityView(view);
+
         controller.BindEntityModel(model);
+        model.BindEntityController(controller);
 
         return controller;
     }

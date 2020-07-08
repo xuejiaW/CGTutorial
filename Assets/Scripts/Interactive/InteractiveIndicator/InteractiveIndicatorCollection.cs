@@ -14,7 +14,18 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         }
     }
 
-    public InteractiveIndicatorController currentIndicator { get; private set; }
+    private InteractiveIndicatorController _currentIndicator = null;
+    public InteractiveIndicatorController currentIndicator
+    {
+        get { return _currentIndicator; }
+        private set
+        {
+            if (_currentIndicator != value)
+                OnIndicatorChanged?.Invoke(_currentIndicator, value);
+            _currentIndicator = value;
+        }
+    }
+    public event System.Action<InteractiveIndicatorController, InteractiveIndicatorController> OnIndicatorChanged = null;
 
     public override void Init()
     {
@@ -42,7 +53,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         currentIndicator.AddChild(newInteractiveGO);
     }
 
-    public void OnInteractiveStateUpdated(InteractiveMethod state)
+    private void OnInteractiveStateUpdated(InteractiveMethod state)
     {
         //old indicator
         currentIndicator?.RemoveChild(InteractiveGameObjectCollection.Instance.holdingInteractiveGo);
