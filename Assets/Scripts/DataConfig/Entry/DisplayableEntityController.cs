@@ -11,4 +11,5 @@ public class DisplayableEntityController : EntityController
         base.BindEntityModel(model);
         this.model = base.model as DisplayableEntityModel;
     }
+
 }

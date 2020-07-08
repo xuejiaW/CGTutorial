@@ -13,11 +13,11 @@ public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
         transformView = GetComponentInChildren<TransformView>();
         transformView.gameObject.SetActive(false);
     }
-    private void OnSelectedGoUpdated(InteractiveGameObjectView oldGbj, InteractiveGameObjectView newGbj)
+    private void OnSelectedGoUpdated(DisplayableEntityModel oldGbj, DisplayableEntityModel newGbj)
     {
-        Debug.Log("old game obj" + oldGbj?.gameObject?.name);
-        Debug.Log("new game obj" + newGbj?.gameObject?.name);
-        transformView.gameObject.SetActive(newGbj);
+        // Debug.Log("old game obj" + oldGbj?.gameObject?.name);
+        // Debug.Log("new game obj" + newGbj?.gameObject?.name);
+        // transformView.gameObject.SetActive(newGbj);
         //TODO: adapt
         // transformView.targetGameObjectView = newGbj;
     }

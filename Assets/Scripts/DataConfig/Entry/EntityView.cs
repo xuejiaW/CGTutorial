@@ -46,18 +46,14 @@ public class EntityView : MonoBehaviour
         model.OnLocalScaleUpdated -= SetLocalScale;
     }
 
-    private void SetActive(bool active) { thisGameObject.SetActive(active); }
-    private void SetParent(Transform trans)
+    protected virtual void SetActive(bool active) { thisGameObject.SetActive(active); }
+    protected virtual void SetParent(DisplayableEntityModel trans)
     {
-        thisTransform.parent = trans;
-        // Because the local position has been changed by Unity engine, so need to be manually set
-        // TODO: moving these code to displayableModel, these properties should be handled in model
-        model.localPosition = thisTransform.localPosition;
-        model.localRotation = thisTransform.localRotation;
-        model.localScale = thisTransform.localScale;
+        // all the local transform properties should be handled by DisplayableModel rather than Unity Engine
+        thisTransform.SetParent(trans?.view?.transform, false);
     }
-    private void SetLocalPosition(Vector3 localPosition) { thisTransform.localPosition = localPosition; }
-    private void SetLocalRotation(Quaternion localRotation) { thisTransform.localRotation = localRotation; }
-    private void SetLocalScale(Vector3 localScale) { thisTransform.localScale = localScale; }
+    protected virtual void SetLocalPosition(Vector3 localPosition) { thisTransform.localPosition = localPosition; }
+    protected virtual void SetLocalRotation(Quaternion localRotation) { thisTransform.localRotation = localRotation; }
+    protected virtual void SetLocalScale(Vector3 localScale) { thisTransform.localScale = localScale; }
 
 }

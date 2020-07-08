@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorCollection>
 {
-    // private Dictionary<InteractiveMethod, string> stateIndicatorPrefabDict = null;
-
     private InteractiveIndicatorController[] indicatorArray = null;
     public InteractiveIndicatorController this[InteractiveMethod state]
     {
@@ -36,7 +34,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnHoldingInteractiveGOUpdated;
     }
 
-    private void OnHoldingInteractiveGOUpdated(InteractiveGameObjectView oldInteractiveGo, InteractiveGameObjectView newInteractiveGO)
+    private void OnHoldingInteractiveGOUpdated(DisplayableEntityModel oldInteractiveGo, DisplayableEntityModel newInteractiveGO)
     {
         currentIndicator = this[InteractiveManager.Instance.interactMethod];
 

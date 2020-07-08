@@ -14,6 +14,4 @@ public class InteractiveGameObjectView : EntityView
     {
         base.BindEntityModel(model);
     }
-
-
 }
