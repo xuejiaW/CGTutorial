@@ -7,8 +7,8 @@ public class DisplayableEntityModel : EntityModel
 {
     public string prefabPath = "";
 
-    public EntityView view;
-    public void BindEntityView(EntityView view) { this.view = view; }
+    public EntityView view { get; private set; }
+    public virtual void BindEntityView(EntityView view) { this.view = view; }
 
     public new DisplayableEntityController controller;
     public override void BindEntityController(EntityController controller)
@@ -93,7 +93,7 @@ public class DisplayableEntityModel : EntityModel
         set { localRotation = Quaternion.Inverse(rotation) * value; }
     }
 
-    public Vector3 m_localScale = Vector3.one;
+    private Vector3 m_localScale = Vector3.one;
     public Vector3 localScale
     {
         get { return m_localScale; }

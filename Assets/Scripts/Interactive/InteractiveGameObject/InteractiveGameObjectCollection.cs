@@ -9,7 +9,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
 
     //Parameters: <oldHoldingInteractiveGO,NewHoldingInteractiveGo>
     public event System.Action<DisplayableEntityModel, DisplayableEntityModel> OnHoldingInteractiveGOUpdated = null;
-    public event System.Action<DisplayableEntityModel> OnCreateNewInteractiveGo = null;
+    public event System.Action<DisplayableEntityModel> OnCreateInteractiveGo = null;
 
     public override void Init()
     {
@@ -20,15 +20,20 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     public void AddInteractiveGo(DisplayableEntityModel model)
     {
         interactiveGo.Add(model);
-        OnCreateNewInteractiveGo?.Invoke(model);
+        OnCreateInteractiveGo?.Invoke(model);
     }
 
-    public void OnClickGameObject(GameObject GO)
+    public void OnSelectGameObject(DisplayableEntityModel GO)
     {
-        Debug.Log("On click gameobject" + GO?.name);
+        if (holdingInteractiveGo == GO)
+            return;
         DisplayableEntityModel old = holdingInteractiveGo;
-        holdingInteractiveGo = GO?.GetComponent<InteractiveGameObjectView>().model;
-        if (old != holdingInteractiveGo)
-            OnHoldingInteractiveGOUpdated?.Invoke(old, holdingInteractiveGo);
+        holdingInteractiveGo = GO;
+        OnHoldingInteractiveGOUpdated?.Invoke(old, holdingInteractiveGo);
+    }
+
+    public void OnSelectGameObject(GameObject GO)
+    {
+        OnSelectGameObject(GO?.GetComponent<InteractiveGameObjectView>().model);
     }
 }

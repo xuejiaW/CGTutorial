@@ -14,4 +14,7 @@ public class InteractiveGameObjectModel : DisplayableEntityModel
         return typeof(InteractiveGameObjectController);
     }
 
+    // The name displayed in hierarchy panel
+    public string name = "";
+
 }

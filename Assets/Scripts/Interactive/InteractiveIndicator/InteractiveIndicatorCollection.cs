@@ -42,10 +42,10 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         };
 
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
-        InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnHoldingInteractiveGOUpdated;
+        InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGOUpdated;
     }
 
-    private void OnHoldingInteractiveGOUpdated(DisplayableEntityModel oldInteractiveGo, DisplayableEntityModel newInteractiveGO)
+    private void OnSelectedGOUpdated(DisplayableEntityModel oldInteractiveGo, DisplayableEntityModel newInteractiveGO)
     {
         currentIndicator = this[InteractiveManager.Instance.interactMethod];
 
@@ -75,5 +75,11 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     public void OnDragDeltaIndicator(Vector3 deltaPos)
     {
         currentIndicator.DragDeltaIndicatorAxis(deltaPos);
+    }
+
+    ~InteractiveIndicatorCollection()
+    {
+        InteractiveManager.Instance.OnInteractMethodUpdated -= OnInteractiveStateUpdated;
+        InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated -= OnSelectedGOUpdated;
     }
 }

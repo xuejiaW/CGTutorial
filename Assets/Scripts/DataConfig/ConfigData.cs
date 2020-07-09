@@ -8,6 +8,7 @@ public class ConfigData
     public List<InteractiveIndicatorModel> indicatorsList = new List<InteractiveIndicatorModel>();
     public List<InteractiveGameObjectModel> gameobjectList = new List<InteractiveGameObjectModel>();
     public List<ComponentModel> componentsList = new List<ComponentModel>();
+    public List<HierarchyGOModel> hierarchyGOList = new List<HierarchyGOModel>();
 
     private Dictionary<string, EntityModel> assetID2EntityDataDict = new Dictionary<string, EntityModel>();
 
@@ -16,6 +17,7 @@ public class ConfigData
         foreach (EntityModel indicator in indicatorsList) RegisterConfigData(indicator);
         foreach (EntityModel go in gameobjectList) RegisterConfigData(go);
         foreach (EntityModel component in componentsList) RegisterConfigData(component);
+        foreach (EntityModel hierarchyGO in hierarchyGOList) RegisterConfigData(hierarchyGO);
     }
 
     public EntityModel GetEntityModel(string assetID)

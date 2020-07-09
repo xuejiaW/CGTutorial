@@ -23,8 +23,13 @@ MonoBehaviour:
     gameobjectList:
     - assetID: gameobject_cube
       prefabPath: InteractivePrimitive/Cube
+      name: Cube
     - assetID: gameobject_cylinder
       prefabPath: InteractivePrimitive/Cylinder
+      name: Cylinder
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
+    hierarchyGOList:
+    - assetID: hierarchy_go
+      prefabPath: UI/Hierarchy/GOName

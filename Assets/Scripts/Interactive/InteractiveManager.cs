@@ -37,7 +37,7 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
         KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.R);
 
         //Select target interactiveGameObject
-        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, goManager.OnClickGameObject,
+        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, goManager.OnSelectGameObject,
                                     LayerMask.GetMask("InteractiveGO"), -1); // -1 for empty gameObject
 
         //Interact on selected interactiveGameObject
