@@ -9,6 +9,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
 
     //Parameters: <oldHoldingInteractiveGO,NewHoldingInteractiveGo>
     public event System.Action<DisplayableEntityModel, DisplayableEntityModel> OnHoldingInteractiveGOUpdated = null;
+    public event System.Action<DisplayableEntityModel> OnCreateNewInteractiveGo = null;
 
     public override void Init()
     {
@@ -16,9 +17,10 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
         interactiveGo = new List<DisplayableEntityModel>();
     }
 
-    public void AddInteractiveGo(InteractiveGameObjectView view)
+    public void AddInteractiveGo(DisplayableEntityModel model)
     {
-        interactiveGo.Add(view.model);
+        interactiveGo.Add(model);
+        OnCreateNewInteractiveGo?.Invoke(model);
     }
 
     public void OnClickGameObject(GameObject GO)
