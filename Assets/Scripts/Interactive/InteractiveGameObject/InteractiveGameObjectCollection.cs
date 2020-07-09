@@ -26,8 +26,9 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     public void OnClickGameObject(GameObject GO)
     {
         Debug.Log("On click gameobject" + GO?.name);
-        DisplayableEntityModel result = GO?.GetComponent<InteractiveGameObjectView>().model;
-        OnHoldingInteractiveGOUpdated?.Invoke(holdingInteractiveGo, result);
-        holdingInteractiveGo = result;
+        DisplayableEntityModel old = holdingInteractiveGo;
+        holdingInteractiveGo = GO?.GetComponent<InteractiveGameObjectView>().model;
+        if (old != holdingInteractiveGo)
+            OnHoldingInteractiveGOUpdated?.Invoke(old, holdingInteractiveGo);
     }
 }

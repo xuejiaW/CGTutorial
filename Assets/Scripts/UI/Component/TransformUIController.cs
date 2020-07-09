@@ -4,13 +4,71 @@ using UnityEngine;
 
 public class TransformUIController : DisplayableEntityController
 {
+    // TODO: optimize the loop set problem
+    // e.g. dragModel->posChanged->updateUI->UIValueChanged->posChanged->......
+
     private new TransformUIModel model = null;
     public override void BindEntityModel(EntityModel model)
     {
         base.BindEntityModel(model);
         this.model = base.model as TransformUIModel;
+
+        for (int i = 0; i != this.model.inputFields.Length; ++i)
+        {
+            int axis = i % 3;
+            if (i <= 2)
+                this.model.inputFields[i].onValueChanged.AddListener((val) => SetPosition(axis, val));
+            else if (i <= 5)
+                this.model.inputFields[i].onValueChanged.AddListener((val) => SetRotation(axis, val));
+            else if (i <= 8)
+                this.model.inputFields[i].onValueChanged.AddListener((val) => SetScaling(axis, val));
+        }
+
+        this.model.OnActiveUpdated += onModelActiveUpdated;
+        InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
     }
 
+    private void onModelActiveUpdated(bool active)
+    {
+        DisplayableEntityModel target = model.targetGameObject;
+
+        if (target == null)
+            return;
+
+        if (active)
+            RegisterControllerHandle(target);
+        else
+            UnRegisterControllerHandle(target);
+
+        UpdateUIRotationData(target.localRotation);
+        UpdateUIPositionData(target.localPosition);
+        UpdateUIScaleData(target.localScale);
+    }
+
+    private void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
+    {
+        // modify the callback when indicator changed
+        if (oldIndicator != null)
+            UnRegisterControllerHandle(oldIndicator.model);
+        if (newIndicator != null)
+            RegisterControllerHandle(newIndicator.model);
+    }
+
+    private void RegisterControllerHandle(DisplayableEntityModel model)
+    {
+        model.OnLocalPositionUpdated += UpdateUIPositionData;
+        model.OnLocalRotationUpdated += UpdateUIRotationData;
+        model.OnLocalScaleUpdated += UpdateUIScaleData;
+    }
+
+    private void UnRegisterControllerHandle(DisplayableEntityModel model)
+    {
+        model.OnLocalPositionUpdated -= UpdateUIPositionData;
+        model.OnLocalRotationUpdated -= UpdateUIRotationData;
+        model.OnLocalScaleUpdated -= UpdateUIScaleData;
+    }
+
+    #region Functions which interact with UI data
     public void SetPosition(int axis, string value)
     {
         float.TryParse(value, out float val);
@@ -43,14 +101,21 @@ public class TransformUIController : DisplayableEntityController
     {
         float.TryParse(value, out float val);
 
+        // the scale value displayed on the transformUI is GO's localScale * indicator's localScale
         Vector3 currLocalScale = model.targetGameObject.localScale;
+        Vector3 holdingGOScale = InteractiveGameObjectCollection.Instance.holdingInteractiveGo != null
+                                 ? InteractiveGameObjectCollection.Instance.holdingInteractiveGo.localScale : Vector3.one;
+
+        currLocalScale = currLocalScale.Times(holdingGOScale);
 
         if (axis == 0)
-            model.targetGameObject.localScale = currLocalScale.SetX(val);
+            currLocalScale.SetX(val);
         else if (axis == 1)
-            model.targetGameObject.localScale = currLocalScale.SetY(val);
+            currLocalScale.SetY(val);
         else if (axis == 2)
-            model.targetGameObject.localScale = currLocalScale.SetZ(val);
+            currLocalScale.SetZ(val);
+
+        model.targetGameObject.localScale = currLocalScale.Divide(holdingGOScale);
     }
 
     public void UpdateUIPositionData(Vector3 pos)
@@ -71,8 +136,18 @@ public class TransformUIController : DisplayableEntityController
 
     public void UpdateUIScaleData(Vector3 scale)
     {
+        // the scale value displayed on the transformUI is GO's localScale * indicator's localScale
+        Vector3 holdingGOScale = InteractiveGameObjectCollection.Instance.holdingInteractiveGo != null
+                                 ? InteractiveGameObjectCollection.Instance.holdingInteractiveGo.localScale : Vector3.one;
+        scale = scale.Times(holdingGOScale);
         model.inputFields[6].text = scale.x.ToString("f2");
         model.inputFields[7].text = scale.y.ToString("f2");
         model.inputFields[8].text = scale.z.ToString("f2");
+    }
+    #endregion
+    ~TransformUIController()
+    {
+        this.model.OnActiveUpdated -= onModelActiveUpdated;
+        InteractiveIndicatorCollection.Instance.OnIndicatorChanged -= OnIndicatorChanged;
     }
 }
