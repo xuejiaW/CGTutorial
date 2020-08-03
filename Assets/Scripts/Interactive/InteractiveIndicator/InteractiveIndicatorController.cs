@@ -9,6 +9,7 @@ public class InteractiveIndicatorController : DisplayableEntityController
     public void AddChild(DisplayableEntityModel interactiveGO)
     {
         // Make thisTransform have the same transform with the interactiveGO
+        // in order to sync transform state
         model.parent = interactiveGO;
         model.localRotation = Quaternion.identity;
         model.localPosition = Vector3.zero;

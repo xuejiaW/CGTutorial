@@ -17,4 +17,6 @@ public class InteractiveGameObjectModel : DisplayableEntityModel
     // The name displayed in hierarchy panel
     public string name = "";
 
+    public HierarchyGOModel hierarchyGO = null;
+
 }

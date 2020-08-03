@@ -64,6 +64,7 @@ public class DisplayableEntityModel : EntityModel
         m_parent = model;
         model?.childrenList.Add(this);
 
+        OnPositionUpdated?.Invoke(position); // Modify the parent may changed the global position, so invoke the event
         OnParentUpdated?.Invoke(model);
     }
 
@@ -71,7 +72,14 @@ public class DisplayableEntityModel : EntityModel
     public Vector3 localPosition
     {
         get { return m_localPosition; }
-        set { m_localPosition = value; OnLocalPositionUpdated?.Invoke(value); }
+        set
+        {
+            m_localPosition = value;
+            OnLocalPositionUpdated?.Invoke(value);
+            // when localPos changed, the global position will also be changed and the children's global position will also be changed
+            OnPositionUpdated?.Invoke(position);
+            childrenList.ForEach((child) => child.OnPositionUpdated?.Invoke(child.position));
+        }
     }
 
     public Vector3 position

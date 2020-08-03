@@ -12,4 +12,6 @@ public class EntityModel
 
     public EntityController controller { get; protected set; }
     public virtual void BindEntityController(EntityController controller) { this.controller = controller; }
+
+    public virtual void Init() { }
 }

@@ -19,11 +19,20 @@ public class HierarchyUIManager : MonobehaviorSingleton<HierarchyUIManager>
 
     private void OnNewInteractiveGOCreated(DisplayableEntityModel model)
     {
+        InteractiveGameObjectModel targetModel = model as InteractiveGameObjectModel;
+
         HierarchyGOController hierarchyGO = GameResourceManager.Instance.CreateEntityController<HierarchyGOModel>("hierarchy_go") as HierarchyGOController;
+        HierarchyGOModel hierarchyModel = hierarchyGO.model;
         hierarchyCtlList.Add(hierarchyGO);
-        hierarchyGO.model.attachedGO = model;
-        hierarchyGO.model.goName = (model as InteractiveGameObjectModel).name;
-        hierarchyGO.model.view.transform.SetParent(hierarchyGOGroup, false);
+
+
+        targetModel.hierarchyGO = hierarchyGO.model;
+        hierarchyModel.attachedGO = model;
+        hierarchyModel.goName = targetModel.name;
+
+        Transform parent = targetModel.parent != null ? (targetModel.parent as InteractiveGameObjectModel).hierarchyGO.view.transform.Find("Children") : hierarchyGOGroup;
+        hierarchyModel.view.transform.SetParent(parent, false);
+
     }
 
     private void OnDestroy()

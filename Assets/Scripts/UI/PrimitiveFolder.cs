@@ -8,4 +8,8 @@ public class PrimitiveFolder : MonoBehaviour
     {
         GameResourceManager.Instance.CreateEntityController<InteractiveGameObjectModel>(assetID);
     }
+    public void OnClickCreateTriangle(string assetID)
+    {
+        GameResourceManager.Instance.CreateEntityController<TriangleModel>(assetID);
+    }
 }

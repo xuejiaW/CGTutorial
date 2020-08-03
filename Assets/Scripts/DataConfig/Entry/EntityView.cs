@@ -18,6 +18,11 @@ public class EntityView : MonoBehaviour
     {
         this.model = model;
 
+        // Sync the model state
+        model.localPosition = transform.localPosition;
+        model.localRotation = transform.localRotation;
+        model.localScale = transform.localScale;
+
         model.OnLocalPositionUpdated += SetLocalPosition;
         model.OnLocalRotationUpdated += SetLocalRotation;
         model.OnLocalScaleUpdated += SetLocalScale;
@@ -26,6 +31,7 @@ public class EntityView : MonoBehaviour
         model.OnActiveUpdated += SetActive;
     }
 
+    // Will be trigger firstly when the view is created
     protected virtual void Awake()
     {
         transform = base.transform;

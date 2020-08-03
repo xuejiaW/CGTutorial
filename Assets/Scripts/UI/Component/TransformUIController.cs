@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class TransformUIController : DisplayableEntityController
 {
-    // TODO: optimize the loop set problem
-    // e.g. dragModel->posChanged->updateUI->UIValueChanged->posChanged->......
-
     private new TransformUIModel model = null;
     public override void BindEntityModel(EntityModel model)
     {
@@ -54,18 +51,18 @@ public class TransformUIController : DisplayableEntityController
             RegisterControllerHandle(newIndicator.model);
     }
 
-    private void RegisterControllerHandle(DisplayableEntityModel model)
+    private void RegisterControllerHandle(DisplayableEntityModel targetModel)
     {
-        model.OnLocalPositionUpdated += UpdateUIPositionData;
-        model.OnLocalRotationUpdated += UpdateUIRotationData;
-        model.OnLocalScaleUpdated += UpdateUIScaleData;
+        targetModel.OnLocalPositionUpdated += UpdateUIPositionData;
+        targetModel.OnLocalRotationUpdated += UpdateUIRotationData;
+        targetModel.OnLocalScaleUpdated += UpdateUIScaleData;
     }
 
-    private void UnRegisterControllerHandle(DisplayableEntityModel model)
+    private void UnRegisterControllerHandle(DisplayableEntityModel targetModel)
     {
-        model.OnLocalPositionUpdated -= UpdateUIPositionData;
-        model.OnLocalRotationUpdated -= UpdateUIRotationData;
-        model.OnLocalScaleUpdated -= UpdateUIScaleData;
+        targetModel.OnLocalPositionUpdated -= UpdateUIPositionData;
+        targetModel.OnLocalRotationUpdated -= UpdateUIRotationData;
+        targetModel.OnLocalScaleUpdated -= UpdateUIScaleData;
     }
 
     #region Functions which interact with UI data
