@@ -36,3 +36,11 @@ MonoBehaviour:
     hierarchyGOList:
     - assetID: hierarchy_go
       prefabPath: UI/Hierarchy/GOName
+    coursesList:
+    - assetID: course_triangles
+      createUIAssertID: 2d_primitive
+      allowCameraFlythrough: 0
+      cameraOrthographic: 1
+    creatorUILists:
+    - assetID: 2d_primitive
+      prefabPath: UI/Creator/2D_Primitive

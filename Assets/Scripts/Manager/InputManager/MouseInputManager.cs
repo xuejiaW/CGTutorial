@@ -37,6 +37,7 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         rightTrackedLayer = new Dictionary<int, int>();
     }
 
+
     #region Register Handle
     public void RegisterClickDownMessageHandle(int button, Action<GameObject> handle, params int[] targetLayerLists)
     {

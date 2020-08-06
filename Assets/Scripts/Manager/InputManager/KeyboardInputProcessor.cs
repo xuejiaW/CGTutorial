@@ -12,9 +12,12 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
     private float currentTime = 0.0f;
     private float deltaTime = 0.0f;
 
+    public bool freeze = false;
+
     public void Update()
     {
         currentTime = Time.time;
+
 
         foreach (KeyValuePair<KeyCode, int> pair in trackedKeyDownList)
         {

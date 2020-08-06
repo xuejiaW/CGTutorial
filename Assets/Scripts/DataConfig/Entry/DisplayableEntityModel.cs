@@ -6,7 +6,7 @@ using UnityEngine;
 public class DisplayableEntityModel : EntityModel
 {
     public virtual System.Type GetViewType() { return typeof(EntityView); }
-    public virtual System.Type GetControllerType() { return typeof(EntityController); }
+    public virtual System.Type GetControllerType() { return typeof(DisplayableEntityController); }
 
     public string prefabPath = "";
 

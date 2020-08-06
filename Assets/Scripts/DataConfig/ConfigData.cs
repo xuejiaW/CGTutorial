@@ -9,6 +9,8 @@ public class ConfigData
     public List<InteractiveGameObjectModel> gameobjectList = new List<InteractiveGameObjectModel>();
     public List<ComponentModel> componentsList = new List<ComponentModel>();
     public List<HierarchyGOModel> hierarchyGOList = new List<HierarchyGOModel>();
+    public List<CoursesModel> coursesList = new List<CoursesModel>();
+    public List<DisplayableEntityModel> creatorUILists = new List<DisplayableEntityModel>();
 
     private Dictionary<string, EntityModel> assetID2EntityDataDict = new Dictionary<string, EntityModel>();
 
@@ -18,6 +20,8 @@ public class ConfigData
         foreach (EntityModel go in gameobjectList) RegisterConfigData(go);
         foreach (EntityModel component in componentsList) RegisterConfigData(component);
         foreach (EntityModel hierarchyGO in hierarchyGOList) RegisterConfigData(hierarchyGO);
+        foreach (EntityModel courses in coursesList) RegisterConfigData(courses);
+        foreach (EntityModel creatorUI in creatorUILists) RegisterConfigData(creatorUI);
     }
 
     public EntityModel GetEntityModel(string assetID)

@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //TODO: make async load scene
-public class CoursesManager : MonoBehaviour
+public class SceneSwitcher : MonoBehaviour
 {
-    public void OnClickCourseTriangle()
+    public void OnClickCourseTriangle(string course)
     {
         SceneManager.LoadScene("MainScene");
+        CoursesManager.Instance.currentCourse = course;
     }
 }

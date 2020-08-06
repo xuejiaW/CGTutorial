@@ -8,7 +8,6 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
     private Dictionary<KeyCode, Action<float>> keyHandlesDict = null;
     private Dictionary<KeyCode, Action<KeyCode>> keyUpHandlesDict = null;
 
-
     public override void Init()
     {
         base.Init();

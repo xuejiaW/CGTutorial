@@ -32,14 +32,10 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
 
         #region  Interact InteractiveGameObject Operation Setting
         //Change interactive method on interactiveGameObject
-        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.W);
-        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.E);
-        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.R);
 
         //Select target interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, goManager.OnSelectGameObject,
                                     LayerMask.GetMask("InteractiveGO"), -1); // -1 for empty gameObject
-
         //Interact on selected interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, indicatorManager.OnClickIndicator,
                                     LayerMask.GetMask("InteractiveIndicator"));
@@ -47,37 +43,65 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
                                     LayerMask.GetMask("InteractiveIndicator"));
         #endregion
 
-        #region  Flythrough Operation Setting
+    }
+
+    public void RegisterInteractiveMethodSwitch()
+    {
+        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.W);
+        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.E);
+        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.R);
+    }
+
+    public void UnRegisterInteractiveMethodSwitch()
+    {
+        KeyboardInputManager.Instance.UnRegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.W);
+        KeyboardInputManager.Instance.UnRegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.E);
+        KeyboardInputManager.Instance.UnRegisterKeyDownMessageHandle(SetGOInteractMethod, KeyCode.R);
+    }
+
+    public void RegisterFlythroughMode()
+    {
         //Enter flythrough mode and register related keycode
-        MouseInputManager.Instance.RegisterClickDownMessageHandle(1, (go) =>
-        {
-            isInFlythroughMode = true;
-            KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(viewCameraManager.TurnOnFlythroughKey,
-                                    KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-            KeyboardInputManager.Instance.RegisterKeyUpMessageHandle(viewCameraManager.TurnOffFlythroughKey,
-                                    KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-            KeyboardInputManager.Instance.RegisterKeyMessageHandle(viewCameraManager.OnKeyPressedDown,
-                                    KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-        }, -1);
-
+        MouseInputManager.Instance.RegisterClickDownMessageHandle(1, EnterFlythroughMode, -1);
         //Exit flythrough mode and unregister related keycode
-        MouseInputManager.Instance.RegisterClickUpMessageHandle(1, (go) =>
-        {
-            isInFlythroughMode = false;
-            KeyboardInputManager.Instance.UnRegisterKeyDownMessageHandle(viewCameraManager.TurnOnFlythroughKey,
-                                    KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-            KeyboardInputManager.Instance.UnRegisterKeyUpMessageHandle(viewCameraManager.TurnOffFlythroughKey,
-                                    KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-            KeyboardInputManager.Instance.UnRegisterKeyMessageHandle(viewCameraManager.OnKeyPressedDown,
-                                    KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
-        }, -1);
-        #endregion
-
-        #region ViewCamera Operation Setting
+        MouseInputManager.Instance.RegisterClickUpMessageHandle(1, ExitFlythroughMode, 1);
         //Modify viewCamera direction
         MouseInputManager.Instance.RegisterDragMessageHandle(1, viewCameraManager.OnMouseRightDrag, -1);
-        #endregion
     }
+
+    public void UnRegisterFlythroughMode()
+    {
+        //Enter flythrough mode and register related keycode
+        MouseInputManager.Instance.UnRegisterClickDownMessageHandle(1, EnterFlythroughMode, -1);
+        //Exit flythrough mode and unregister related keycode
+        MouseInputManager.Instance.UnRegisterClickUpMessageHandle(1, ExitFlythroughMode, 1);
+        //Modify viewCamera direction
+        MouseInputManager.Instance.UnRegisterDragMessageHandle(1, viewCameraManager.OnMouseRightDrag, -1);
+    }
+
+    private void EnterFlythroughMode(GameObject go) // the parameters only used to match event
+    {
+        isInFlythroughMode = true;
+        KeyboardInputManager.Instance.RegisterKeyDownMessageHandle(viewCameraManager.TurnOnFlythroughKey,
+                                KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+        KeyboardInputManager.Instance.RegisterKeyUpMessageHandle(viewCameraManager.TurnOffFlythroughKey,
+                                KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+        KeyboardInputManager.Instance.RegisterKeyMessageHandle(viewCameraManager.OnKeyPressedDown,
+                                KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+    }
+
+    private void ExitFlythroughMode(GameObject go)// the parameters only used to match event 
+    {
+
+        isInFlythroughMode = false;
+        KeyboardInputManager.Instance.UnRegisterKeyDownMessageHandle(viewCameraManager.TurnOnFlythroughKey,
+                                KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+        KeyboardInputManager.Instance.UnRegisterKeyUpMessageHandle(viewCameraManager.TurnOffFlythroughKey,
+                                KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+        KeyboardInputManager.Instance.UnRegisterKeyMessageHandle(viewCameraManager.OnKeyPressedDown,
+                                KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+    }
+
 
     private void SetGOInteractMethod(KeyCode key)
     {
