@@ -5,15 +5,17 @@ using UnityEngine;
 [System.Serializable]
 public class DisplayableEntityModel : EntityModel
 {
+    public virtual System.Type GetViewType() { return typeof(EntityView); }
+    public virtual System.Type GetControllerType() { return typeof(EntityController); }
+
     public string prefabPath = "";
 
     public EntityView view { get; private set; }
     public virtual void BindEntityView(EntityView view) { this.view = view; }
 
-    public new DisplayableEntityController controller;
-    public override void BindEntityController(EntityController controller)
+    public DisplayableEntityController controller;
+    public virtual void BindEntityController(EntityController controller)
     {
-        base.BindEntityController(controller);
         this.controller = controller as DisplayableEntityController;
     }
 
