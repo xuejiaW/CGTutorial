@@ -6,4 +6,5 @@ public class EntityController
 {
     public EntityModel model { get; protected set; }
     public virtual void BindEntityModel(EntityModel model) { this.model = model; }
+    public virtual void Init() { }
 }

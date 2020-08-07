@@ -5,14 +5,15 @@ using UnityEngine;
 public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
 {
     private Transform creatorParent = null;
+    public CoursesModel currentCourse { get; private set; }
     protected override void Init()
     {
         base.Init();
         creatorParent = GameObject.Find("UI/CreateGOUI").transform;
-        CoursesModel courseModel = new CoursesModel() { assetID = CoursesManager.Instance.currentCourse };
-        GameResourceManager.Instance.LoadConfigData(courseModel);
+        currentCourse = new CoursesModel() { assetID = CoursesManager.Instance.currentCourse };
+        GameResourceManager.Instance.LoadConfigData(currentCourse);
 
-        SetCourse(courseModel);
+        SetCourse(currentCourse);
     }
 
     private void SetCourse(CoursesModel courseModel)
@@ -28,7 +29,7 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
             InteractiveManager.Instance.UnRegisterFlythroughMode();
 
         // interactive method switch
-        if (!courseModel.onlySupportTranlate)
+        if (!courseModel.allowTranslate)
             InteractiveManager.Instance.RegisterFlythroughMode();
         else
             InteractiveManager.Instance.UnRegisterFlythroughMode();

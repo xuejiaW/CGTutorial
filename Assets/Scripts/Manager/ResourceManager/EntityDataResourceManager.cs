@@ -49,7 +49,7 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         controller.BindEntityModel(model);
         model.BindEntityController(controller);
 
-        model.Init();
+        controller.Init();
     }
 
     public void LoadConfigData(EntityModel entity)

@@ -25,6 +25,34 @@ public class TransformUIController : DisplayableEntityController
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
     }
 
+    public override void Init()
+    {
+        base.Init();
+        SwitchPositionField(CoursesAdaptor.Instance.currentCourse.allowTranslate);
+        SwitchRotationField(CoursesAdaptor.Instance.currentCourse.allowRotate);
+        SwitchScalingField(CoursesAdaptor.Instance.currentCourse.allowScale);
+    }
+
+
+    public void SwitchPositionField(bool on)
+    {
+        for (int i = 0; i != 3; ++i)
+            model.inputFields[i].interactable = on;
+    }
+
+    public void SwitchRotationField(bool on)
+    {
+        for (int i = 3; i != 6; ++i)
+            model.inputFields[i].interactable = on;
+    }
+
+    public void SwitchScalingField(bool on)
+    {
+        for (int i = 6; i != 9; ++i)
+            model.inputFields[i].interactable = on;
+    }
+
+
     private void onModelActiveUpdated(bool active)
     {
         DisplayableEntityModel target = model.targetGameObject;

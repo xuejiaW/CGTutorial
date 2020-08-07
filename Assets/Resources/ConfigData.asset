@@ -39,10 +39,13 @@ MonoBehaviour:
     coursesList:
     - assetID: course_triangles
       indicatorSize: 0.15
+      indicatorSensitive: 0.1
       createUIAssertID: 2d_primitive
       allowCameraFlythrough: 0
       cameraOrthographic: 1
-      onlySupportTranlate: 1
+      allowTranslate: 1
+      allowRotate: 0
+      allowScale: 0
     creatorUILists:
     - assetID: 2d_primitive
       prefabPath: UI/Creator/2D_Primitive

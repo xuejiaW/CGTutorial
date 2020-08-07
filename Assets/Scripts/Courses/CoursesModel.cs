@@ -10,5 +10,7 @@ public class CoursesModel : EntityModel
     public string createUIAssertID = null;
     public bool allowCameraFlythrough = true;
     public bool cameraOrthographic = true;
-    public bool onlySupportTranlate = true;
+    public bool allowTranslate = true;
+    public bool allowRotate = true;
+    public bool allowScale = true;
 }

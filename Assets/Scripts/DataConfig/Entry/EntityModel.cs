@@ -6,5 +6,4 @@ using UnityEngine;
 public class EntityModel
 {
     public string assetID;
-    public virtual void Init() { }
 }
