@@ -26,5 +26,6 @@ public class HierarchyGOModel : DisplayableEntityModel
         set { m_GOName = value; OnGONameChanged?.Invoke(value); }
     }
 
-    public DisplayableEntityModel attachedGO { get; set; }
+    [System.NonSerialized]
+    public DisplayableEntityModel attachedGO;
 }

@@ -28,6 +28,8 @@ public class IndicatorMovingHandle : IndicatorHandleBase
     {
         if (dragDeltaScreen == Vector3.zero) return;
 
+        dragDeltaScreen *= InteractiveIndicatorCollection.Instance.indicatorSensitive;
+
         // to calculate selected axis's delta position from startPoint to endPoint in screen coordinate
         axisStartPointWorld = indicatorAxisTrans.position + movingDirection;
         axisEndPointWorld = indicatorAxisTrans.position - movingDirection;

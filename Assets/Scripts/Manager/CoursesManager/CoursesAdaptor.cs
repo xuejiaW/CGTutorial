@@ -33,10 +33,14 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
         else
             InteractiveManager.Instance.UnRegisterFlythroughMode();
 
+        InteractiveIndicatorCollection.Instance.SetIndicatorSize(courseModel.indicatorSize);
+        InteractiveIndicatorCollection.Instance.SetIndicatorSensitive(courseModel.indicatorSensitive);
 
         Camera targetCamera = MainManager.Instance.viewCamera;
         targetCamera.orthographic = courseModel.cameraOrthographic;
         if (targetCamera.orthographic)
+        {
             targetCamera.orthographicSize = 1.0f;
+        }
     }
 }

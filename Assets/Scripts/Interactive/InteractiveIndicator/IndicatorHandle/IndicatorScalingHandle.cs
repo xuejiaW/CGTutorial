@@ -37,6 +37,7 @@ public class IndicatorScalingHandle : IndicatorHandleBase
     public override void DragDeltaIndicatorAxis(Vector3 dragDeltaScreen)
     {
         if (dragDeltaScreen == Vector3.zero) return;
+        dragDeltaScreen *= InteractiveIndicatorCollection.Instance.indicatorSensitive;
 
         // to calculate selected axis's delta position from startPoint to endPoint in screen coordinate
         axisStartPointWorld = indicatorAxisTrans.position + scalingDirection;

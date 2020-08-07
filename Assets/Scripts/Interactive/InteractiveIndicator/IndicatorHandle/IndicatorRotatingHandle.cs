@@ -22,6 +22,7 @@ public class IndicatorRotatingHandle : IndicatorHandleBase
     public override void DragDeltaIndicatorAxis(Vector3 dragDeltaScreen)
     {
         if (dragDeltaScreen == Vector3.zero) return;
+        dragDeltaScreen *= InteractiveIndicatorCollection.Instance.indicatorSensitive;
 
         // the component along the rotating Axis in dragDeltaScreen should be deleted
         deltaWithoutRotAxisComp = dragDeltaScreen - Vector3.Dot(dragDeltaScreen, rotatingAxis) * rotatingAxis;

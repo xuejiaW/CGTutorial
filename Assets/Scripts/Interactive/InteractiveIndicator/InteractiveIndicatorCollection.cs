@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorCollection>
 {
-    private InteractiveIndicatorController[] indicatorArray = null;
+    private List<InteractiveIndicatorController> indicatorArray = null;
     public InteractiveIndicatorController this[InteractiveMethod state]
     {
         get
@@ -27,20 +27,22 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     }
     public event System.Action<InteractiveIndicatorController, InteractiveIndicatorController> OnIndicatorChanged = null;
 
+    public float indicatorSize { get; private set; }
+    public float indicatorSensitive { get; private set; }
+
     public override void Init()
     {
         base.Init();
 
-        indicatorArray = new InteractiveIndicatorController[3]
-        {
-            (GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_moving")
-                                as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()),
-            (GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_rotating")
-                                as InteractiveIndicatorController).SetHandle(new IndicatorRotatingHandle()),
-            (GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_scaling")
-                                as InteractiveIndicatorController).SetHandle(new IndicatorScalingHandle()),
-        };
+        indicatorArray = new List<InteractiveIndicatorController>();
+        indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_moving")
+                                as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()));
+        indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_rotating")
+                                as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()));
+        indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_scaling")
+                                as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()));
 
+        currentIndicator = this[InteractiveMethod.MOVING];// Set default indicator as moving indicator
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGOUpdated;
     }
@@ -75,6 +77,25 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     public void OnDragDeltaIndicator(Vector3 deltaPos)
     {
         currentIndicator.DragDeltaIndicatorAxis(deltaPos);
+    }
+
+    public void SetIndicatorSize(float size)
+    {
+        indicatorSize = size;
+        indicatorArray.ForEach((indicator) =>
+        {
+            Transform[] verticesArr = indicator.model.view.GetComponentsInChildren<Transform>();
+            for (int i = 0; i != verticesArr.Length; ++i)
+            {
+                verticesArr[i].localScale = new Vector3(size, size, size);
+            }
+
+        });
+    }
+
+    public void SetIndicatorSensitive(float sensitive)
+    {
+        indicatorSensitive = sensitive;
     }
 
     ~InteractiveIndicatorCollection()
