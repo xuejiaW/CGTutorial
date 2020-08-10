@@ -39,7 +39,7 @@ MonoBehaviour:
     coursesList:
     - assetID: course_triangles
       indicatorSize: 0.15
-      indicatorSensitive: 0.1
+      indicatorSensitive: 0.05
       createUIAssertID: 2d_primitive
       allowCameraFlythrough: 0
       cameraOrthographic: 1
