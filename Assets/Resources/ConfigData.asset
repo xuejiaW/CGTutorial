@@ -37,6 +37,18 @@ MonoBehaviour:
     - assetID: hierarchy_go
       prefabPath: UI/Hierarchy/GOName
     coursesList:
+    - assetID: course_window
+      indicatorSize: 0.15
+      indicatorSensitive: 0.05
+      createUIAssertID: 
+      allowCameraFlythrough: 0
+      cameraOrthographic: 1
+      allowTranslate: 0
+      allowRotate: 0
+      allowScale: 0
+      vertexShaderPath: 
+      fragmentShaderPath: 
+      mainCPPPath: CoursesSourceCode/Window/Main
     - assetID: course_triangles
       indicatorSize: 0.15
       indicatorSensitive: 0.05
