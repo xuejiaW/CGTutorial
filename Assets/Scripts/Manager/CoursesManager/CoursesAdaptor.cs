@@ -18,9 +18,12 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
 
     private void SetCourse(CoursesModel courseModel)
     {
-        DisplayableEntityController courseRelatedCreator = GameResourceManager.Instance.
-                            CreateEntityController<DisplayableEntityModel>(courseModel.createUIAssertID) as DisplayableEntityController;
-        courseRelatedCreator.model.view.transform.SetParent(creatorParent, false);
+        if (!string.IsNullOrEmpty(courseModel.createUIAssertID))
+        {
+            DisplayableEntityController courseRelatedCreator = GameResourceManager.Instance.
+                                CreateEntityController<DisplayableEntityModel>(courseModel.createUIAssertID) as DisplayableEntityController;
+            courseRelatedCreator.model.view.transform.SetParent(creatorParent, false);
+        }
 
         //Flythrough setting
         if (courseModel.allowCameraFlythrough)

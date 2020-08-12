@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CoursesManager : Singleton<CoursesManager>
 {
-    private string _currentCourse = "course_triangles";
+    // private string _currentCourse = "course_triangles";
+    private string _currentCourse = "course_window";
     public string currentCourse
     {
         get { return _currentCourse; }
