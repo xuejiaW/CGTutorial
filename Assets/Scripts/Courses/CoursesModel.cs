@@ -13,4 +13,7 @@ public class CoursesModel : EntityModel
     public bool allowTranslate = true;
     public bool allowRotate = true;
     public bool allowScale = true;
+    public string vertexShaderPath = "";
+    public string fragmentShaderPath = "";
+    public string mainCPPPath = "";
 }

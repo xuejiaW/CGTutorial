@@ -46,6 +46,9 @@ MonoBehaviour:
       allowTranslate: 1
       allowRotate: 0
       allowScale: 0
+      vertexShaderPath: CoursesSourceCode/Triangles/Vertex
+      fragmentShaderPath: CoursesSourceCode/Triangles/Fragment
+      mainCPPPath: CoursesSourceCode/Triangles/Main
     creatorUILists:
     - assetID: 2d_primitive
       prefabPath: UI/Creator/2D_Primitive

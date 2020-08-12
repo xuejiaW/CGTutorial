@@ -10,6 +10,4 @@ public class CoursesManager : Singleton<CoursesManager>
         get { return _currentCourse; }
         set { _currentCourse = value; }
     }
-
-
 }

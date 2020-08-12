@@ -9,7 +9,6 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         base.Init();
         InitConfigEntityData();
     }
-
     public GameObject Instantiate(string prefabPath)
     {
         GameObject prefab = Resources.Load(prefabPath) as GameObject;
