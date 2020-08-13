@@ -10,7 +10,13 @@ public class TransformUIController : DisplayableEntityController
         base.BindEntityModel(model);
         this.model = base.model as TransformUIModel;
 
-        for (int i = 0; i != this.model.inputFields.Length; ++i)
+    }
+
+    public override void Init()
+    {
+        base.Init();
+
+        for (int i = 0; i != model.inputFields.Length; ++i)
         {
             int axis = i % 3;
             if (i <= 2)
@@ -21,13 +27,9 @@ public class TransformUIController : DisplayableEntityController
                 this.model.inputFields[i].onValueChanged.AddListener((val) => SetScaling(axis, val));
         }
 
-        this.model.OnActiveUpdated += onModelActiveUpdated;
+        model.OnActiveUpdated += onModelActiveUpdated;
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
-    }
 
-    public override void Init()
-    {
-        base.Init();
         SwitchPositionField(CoursesAdaptor.Instance.currentCourse.allowTranslate);
         SwitchRotationField(CoursesAdaptor.Instance.currentCourse.allowRotate);
         SwitchScalingField(CoursesAdaptor.Instance.currentCourse.allowScale);

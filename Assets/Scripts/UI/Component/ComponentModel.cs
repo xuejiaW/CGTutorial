@@ -6,9 +6,12 @@ using UnityEngine;
 public class ComponentModel : DisplayableEntityModel
 {
     private static Dictionary<string, System.Type> id2ViewDict = new Dictionary<string, System.Type>() {
-                    { "component_transform", typeof(TransformUIView) } };
+                    { "component_transform", typeof(TransformUIView) },
+                    {"component_clear_color",typeof(ClearColorUIView)} };
     private static Dictionary<string, System.Type> id2ControllerDict = new Dictionary<string, System.Type>() {
-                    { "component_transform", typeof(TransformUIController) } };
+                    { "component_transform", typeof(TransformUIController) },
+                    { "component_clear_color", typeof(ClearColorUIController) },
+                    };
 
     public override System.Type GetViewType()
     {

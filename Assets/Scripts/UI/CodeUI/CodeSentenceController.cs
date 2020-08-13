@@ -14,8 +14,15 @@ public class CodeSentenceController : MonoBehaviour
 
     [System.NonSerialized]
     public new Transform transform = null;
+
     [System.NonSerialized]
     public RectTransform rectTransform = null;
+
+    [System.NonSerialized]
+    public Vector2 size = Vector2.zero;
+
+    [System.NonSerialized]
+    public List<InputField> sentenceEditablePart = null;
 
     private void Awake()
     {
@@ -23,9 +30,10 @@ public class CodeSentenceController : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public Vector2 LoadSentence(string sentence)
+    public void LoadSentence(string sentence)
     {
         List<KeyValuePair<string, bool>> parserContent = GetSplittedCodeSnippet(sentence);
+        sentenceEditablePart = new List<InputField>();
 
         Font font = Resources.GetBuiltinResource<Font>("Arial.ttf");
 
@@ -39,11 +47,14 @@ public class CodeSentenceController : MonoBehaviour
             totalWidth += width;
             maxHeight = Mathf.Max(maxHeight, height);
             RectTransform codeSentence = str.Value ? LoadEditablePart(str.Key, width) : LoadNonEditablePart(str.Key, width);
+
+            if (str.Value)
+                sentenceEditablePart.Add(codeSentence.GetComponent<InputField>());
+
             codeSentence.SetParent(transform, false);
         });
 
-        Debug.Log("total length is " + totalWidth);
-        return new Vector2(totalWidth, maxHeight);
+        size = new Vector2(totalWidth, maxHeight);
     }
 
     private List<KeyValuePair<string, bool>> GetSplittedCodeSnippet(string text)
@@ -104,7 +115,6 @@ public class CodeSentenceController : MonoBehaviour
             font.GetCharacterInfo(text[i], out CharacterInfo info, fontSize);
             totalWidth += info.advance;
             maxHeight = Mathf.Max(maxHeight, info.glyphHeight);
-            Debug.Log(text[i] + "  glyHeight is " + info.glyphHeight);
         }
         totalWidth += wordsPadding;
         return new Vector2(totalWidth + wordsPadding, maxHeight + heightPadding);

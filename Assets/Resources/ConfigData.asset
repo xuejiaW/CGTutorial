@@ -33,6 +33,8 @@ MonoBehaviour:
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
+    - assetID: component_clear_color
+      prefabPath: UI/Components/ClearColor
     hierarchyGOList:
     - assetID: hierarchy_go
       prefabPath: UI/Hierarchy/GOName
@@ -46,8 +48,8 @@ MonoBehaviour:
       allowTranslate: 0
       allowRotate: 0
       allowScale: 0
-      vertexShaderPath: 
-      fragmentShaderPath: 
+      vertexShaderPath: CoursesSourceCode/Window/Vertex
+      fragmentShaderPath: CoursesSourceCode/Window/Fragment
       mainCPPPath: CoursesSourceCode/Window/Main
     - assetID: course_triangles
       indicatorSize: 0.15
@@ -58,9 +60,9 @@ MonoBehaviour:
       allowTranslate: 1
       allowRotate: 0
       allowScale: 0
-      vertexShaderPath: CoursesSourceCode/Triangles/Vertex
-      fragmentShaderPath: CoursesSourceCode/Triangles/Fragment
-      mainCPPPath: CoursesSourceCode/Triangles/Main
+      vertexShaderPath: CoursesSourceCode/Triangle/Vertex
+      fragmentShaderPath: CoursesSourceCode/Triangle/Fragment
+      mainCPPPath: CoursesSourceCode/Triangle/Main
     creatorUILists:
     - assetID: 2d_primitive
       prefabPath: UI/Creator/2D_Primitive

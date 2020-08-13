@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
 {
+    private ClearColorModel clearColorModel = null;
     private TransformUIModel transformModel = null;
     private Transform componentGroup = null;
+
     protected override void Init()
     {
         base.Init();
         componentGroup = transform.Find("ComponentGroup");
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGoUpdated;
 
+        clearColorModel = GameResourceManager.Instance.CreateEntityController<ClearColorModel>("component_clear_color").
+                           model as ClearColorModel;
+        clearColorModel.view.transform.SetParent(componentGroup, false);
+
+        //TODO : transform model part
         transformModel = GameResourceManager.Instance.CreateEntityController<TransformUIModel>("component_transform").
                             model as TransformUIModel;
         transformModel.view.transform.SetParent(componentGroup, false);
-
         transformModel.active = false;
+
     }
     private void OnSelectedGoUpdated(DisplayableEntityModel oldGbj, DisplayableEntityModel newGbj)
     {
