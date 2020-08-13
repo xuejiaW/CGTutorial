@@ -16,6 +16,8 @@ public class InteractiveGameObjectModel : DisplayableEntityModel
     // The name displayed in hierarchy panel
     public string name = "";
 
+    public List<string> componentsAssetID = null;
+
     [System.NonSerialized]
     public HierarchyGOModel hierarchyGO;
 }

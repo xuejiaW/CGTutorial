@@ -30,7 +30,7 @@ public class HierarchyUIManager : MonobehaviorSingleton<HierarchyUIManager>
         hierarchyModel.attachedGO = model;
         hierarchyModel.goName = targetModel.name;
 
-        Transform parent = targetModel.parent != null ? (targetModel.parent as InteractiveGameObjectModel).hierarchyGO.view.transform.Find("Children") : hierarchyGOGroup;
+        Transform parent = (targetModel.parent as InteractiveGameObjectModel)?.hierarchyGO?.view.transform.Find("Children") ?? hierarchyGOGroup;
         hierarchyModel.view.transform.SetParent(parent, false);
 
     }

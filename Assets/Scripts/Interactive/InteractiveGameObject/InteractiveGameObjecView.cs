@@ -7,6 +7,5 @@ public class InteractiveGameObjectView : EntityView
     public override void BindEntityModel(DisplayableEntityModel model)
     {
         base.BindEntityModel(model);
-        InteractiveGameObjectCollection.Instance.AddInteractiveGo(model);
     }
 }

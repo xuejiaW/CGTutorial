@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CodeEditablePartAdaptor
+public class CodeSnippetInputAdaptor
 {
     public int dataCount { get; private set; }
 
@@ -27,7 +27,7 @@ public class CodeEditablePartAdaptor
         for (int i = 0; i != editableParts.Count; ++i)
         {
             int index = i;
-            editableParts[i].onValueChanged.AddListener((val => inputValChangedEvenetList[index](val)));
+            editableParts[i].onEndEdit.AddListener((val => inputValChangedEvenetList[index](val)));
         }
     }
 }

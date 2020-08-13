@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class ClearColorUIView : EntityView
 {
-    private new ClearColorModel model = null;
+    private new ClearColorUIModel model = null;
 
     public override void BindEntityModel(DisplayableEntityModel model)
     {
         base.BindEntityModel(model);
 
-        this.model = base.model as ClearColorModel;
+        this.model = base.model as ClearColorUIModel;
         this.model.inputFields = GetComponentsInChildren<InputField>();
     }
 }

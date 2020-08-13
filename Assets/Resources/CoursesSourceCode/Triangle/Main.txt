@@ -23,9 +23,9 @@ int main()
 
     GLuint VAO, VBO;
     GLfloat vertices[] = {
-        <`-0.5f`>, <`-0.5f`>, <`0.0f`>,
-        <`0.5f`>, <`-0.5f`>, <`0.0f`>,
-        <`0.0f`>, <`0.5f`>, <`0.0f`>};
+        <`-0.5`>f, <`-0.5`>f, <`0.0`>f,
+        <`0.5`>f, <`-0.5`>f, <`0.0`>f,
+        <`0.0`>f, <`0.5`>f, <`0.0`>}f;
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClearColorModel : ComponentModel
+public class ClearColorUIModel : ComponentModel
 {
     public InputField[] inputFields = null;
 }

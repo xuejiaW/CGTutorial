@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
 {
+
     private Transform creatorParent = null;
     public CoursesModel currentCourse { get; private set; }
     protected override void Init()
@@ -18,12 +19,8 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
 
     private void SetCourse(CoursesModel courseModel)
     {
-        if (!string.IsNullOrEmpty(courseModel.createUIAssertID))
-        {
-            DisplayableEntityController courseRelatedCreator = GameResourceManager.Instance.
-                                CreateEntityController<DisplayableEntityModel>(courseModel.createUIAssertID) as DisplayableEntityController;
-            courseRelatedCreator.model.view.transform.SetParent(creatorParent, false);
-        }
+        // InteractiveGameObjectInstantiator.Instance.InstantiateGameObject(currentCourse);
+        StartCoroutine(waitAFrame2Instantiate());
 
         //Flythrough setting
         if (courseModel.allowCameraFlythrough)
@@ -46,5 +43,11 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
         {
             targetCamera.orthographicSize = 1.0f;
         }
+    }
+
+    private IEnumerator waitAFrame2Instantiate()
+    {
+        yield return null;
+        InteractiveGameObjectInstantiator.Instance.InstantiateGameObject(currentCourse);
     }
 }

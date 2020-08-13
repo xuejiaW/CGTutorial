@@ -24,12 +24,16 @@ MonoBehaviour:
     - assetID: gameobject_cube
       prefabPath: InteractivePrimitive/Cube
       name: Cube
+      componentsAssetID: []
     - assetID: gameobject_cylinder
       prefabPath: InteractivePrimitive/Cylinder
       name: Cylinder
+      componentsAssetID: []
     - assetID: gameobject_triangle
       prefabPath: InteractivePrimitive/Triangle
       name: Triangle
+      componentsAssetID:
+      - component_transform
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
@@ -42,7 +46,6 @@ MonoBehaviour:
     - assetID: course_window
       indicatorSize: 0.15
       indicatorSensitive: 0.05
-      createUIAssertID: 
       allowCameraFlythrough: 0
       cameraOrthographic: 1
       allowTranslate: 0
@@ -51,10 +54,11 @@ MonoBehaviour:
       vertexShaderPath: CoursesSourceCode/Window/Vertex
       fragmentShaderPath: CoursesSourceCode/Window/Fragment
       mainCPPPath: CoursesSourceCode/Window/Main
+      createModelsAssetID: []
+      createComponentAssetID: []
     - assetID: course_triangles
       indicatorSize: 0.15
       indicatorSensitive: 0.05
-      createUIAssertID: 2d_primitive
       allowCameraFlythrough: 0
       cameraOrthographic: 1
       allowTranslate: 1
@@ -63,6 +67,9 @@ MonoBehaviour:
       vertexShaderPath: CoursesSourceCode/Triangle/Vertex
       fragmentShaderPath: CoursesSourceCode/Triangle/Fragment
       mainCPPPath: CoursesSourceCode/Triangle/Main
+      createModelsAssetID:
+      - gameobject_triangle
+      createComponentAssetID: []
     creatorUILists:
     - assetID: 2d_primitive
       prefabPath: UI/Creator/2D_Primitive

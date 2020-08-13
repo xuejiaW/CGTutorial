@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TriangleView : InteractiveGameObjectView
 {
-    // public override void BindEntityModel(DisplayableEntityModel model)
-    // {
-    //     base.BindEntityModel(model);
-    //     InteractiveGameObjectCollection.Instance.AddInteractiveGo(model);
-    // }
+    public new TriangleModel model;
+    public override void BindEntityModel(DisplayableEntityModel model)
+    {
+        base.BindEntityModel(model);
+        this.model = base.model as TriangleModel;
+        this.model.meshFilter = GetComponent<MeshFilter>();
+    }
 }

@@ -50,10 +50,11 @@ public class CodeSnippetManager : MonobehaviorSingleton<CodeSnippetManager>
     }
 
     // Alloc editable part to adaptor, warning the order of setting adaptor is matter
-    public void BindSnippetAdaptor(CodeEditablePartAdaptor adaptor)
+    public void BindSnippetAdaptor(CodeSnippetInputAdaptor adaptor)
     {
         int neededCount = adaptor.dataCount;
         adaptor.BindSnippetEditableFields(snippetEditablePart.GetRange(0, neededCount));
         snippetEditablePart.RemoveRange(0, neededCount);
+        Debug.Log("snippetEditablePart remaining is " + snippetEditablePart.Count);
     }
 }

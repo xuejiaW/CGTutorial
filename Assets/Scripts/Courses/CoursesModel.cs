@@ -7,7 +7,6 @@ public class CoursesModel : EntityModel
 {
     public float indicatorSize = 1.0f;
     public float indicatorSensitive = 1.0f;
-    public string createUIAssertID = null;
     public bool allowCameraFlythrough = true;
     public bool cameraOrthographic = true;
     public bool allowTranslate = true;
@@ -16,4 +15,6 @@ public class CoursesModel : EntityModel
     public string vertexShaderPath = "";
     public string fragmentShaderPath = "";
     public string mainCPPPath = "";
+    public List<string> createModelsAssetID = null;
+    public List<string> createComponentAssetID = null;
 }

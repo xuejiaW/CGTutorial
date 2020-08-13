@@ -1,31 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TransformUIController : DisplayableEntityController
 {
     private new TransformUIModel model = null;
+    private CodeSnippetInputAdaptor adaptor = null;
+
+    private bool allowTranslate = false;
+    private bool allowRotate = false;
+    private bool allowScale = false;
+
+    // The actual object that Transform component controlls is the current active Indicator
+    private DisplayableEntityModel targetGameObject
+    {
+        get { return InteractiveIndicatorCollection.Instance.currentIndicator?.model; }
+    }
+
     public override void BindEntityModel(EntityModel model)
     {
         base.BindEntityModel(model);
         this.model = base.model as TransformUIModel;
-
     }
 
     public override void Init()
     {
         base.Init();
 
+        // Modify the code snippet can lead to change of code and component ui
+        adaptor = new CodeSnippetInputAdaptor();
         for (int i = 0; i != model.inputFields.Length; ++i)
         {
             int axis = i % 3;
             if (i <= 2)
-                this.model.inputFields[i].onValueChanged.AddListener((val) => SetPosition(axis, val));
-            else if (i <= 5)
-                this.model.inputFields[i].onValueChanged.AddListener((val) => SetRotation(axis, val));
-            else if (i <= 8)
-                this.model.inputFields[i].onValueChanged.AddListener((val) => SetScaling(axis, val));
+                adaptor.BindValueChangedEvent((val => SetPosition(axis, val)));
+            else if (i <= 5 && allowRotate)
+                adaptor.BindValueChangedEvent((val => SetRotation(axis, val)));
+            else if (i <= 8 && allowScale)
+                adaptor.BindValueChangedEvent((val => SetScaling(axis, val)));
         }
+        CodeSnippetManager.Instance.BindSnippetAdaptor(adaptor);
+
+        for (int i = 0; i != model.inputFields.Length; ++i)
+        {
+            InputField inputField = model.inputFields[i];
+
+            int index = i, axis = i % 3;
+            if (index <= 2)
+                inputField.onEndEdit.AddListener((val) => SetPosition(axis, val));
+            else if (index <= 5)
+                inputField.onEndEdit.AddListener((val) => SetRotation(axis, val));
+            else if (index <= 8)
+                inputField.onEndEdit.AddListener((val) => SetScaling(axis, val));
+
+            if (index < adaptor.dataCount)
+                inputField.onEndEdit.AddListener((val => adaptor.editableParts[index].text = val));
+        }
+
 
         model.OnActiveUpdated += onModelActiveUpdated;
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
@@ -38,18 +70,21 @@ public class TransformUIController : DisplayableEntityController
 
     public void SwitchPositionField(bool on)
     {
+        allowTranslate = on;
         for (int i = 0; i != 3; ++i)
             model.inputFields[i].interactable = on;
     }
 
     public void SwitchRotationField(bool on)
     {
+        allowRotate = on;
         for (int i = 3; i != 6; ++i)
             model.inputFields[i].interactable = on;
     }
 
     public void SwitchScalingField(bool on)
     {
+        allowScale = on;
         for (int i = 6; i != 9; ++i)
             model.inputFields[i].interactable = on;
     }
@@ -57,19 +92,24 @@ public class TransformUIController : DisplayableEntityController
 
     private void onModelActiveUpdated(bool active)
     {
-        DisplayableEntityModel target = model.targetGameObject;
-
-        if (target == null)
-            return;
+        // Only make the code snippet that related to the target interactable
+        // This is not only for the display effect, but also for avoiding bug that all Transform component only
+        // care current indicator which means all code snippet will modify the selected target no matter it is related
+        // to the target or not
+        adaptor.editableParts.ForEach(inputField => inputField.interactable = active);
 
         if (active)
-            RegisterControllerHandle(target);
+        {
+            RegisterControllerHandle(targetGameObject);
+            UpdateUIRotationData(targetGameObject.localRotation);
+            UpdateUIPositionData(targetGameObject.localPosition);
+            UpdateUIScaleData(targetGameObject.localScale);
+        }
         else
-            UnRegisterControllerHandle(target);
-
-        UpdateUIRotationData(target.localRotation);
-        UpdateUIPositionData(target.localPosition);
-        UpdateUIScaleData(target.localScale);
+        {
+            UnRegisterControllerHandle(targetGameObject);
+            RefreshUIData();
+        }
     }
 
     private void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
@@ -95,41 +135,44 @@ public class TransformUIController : DisplayableEntityController
         targetModel.OnLocalScaleUpdated -= UpdateUIScaleData;
     }
 
-    #region Functions which interact with UI data
+    #region Function which modify target
     public void SetPosition(int axis, string value)
     {
+        if (!allowTranslate || !model.active) return;
         float.TryParse(value, out float val);
 
-        Vector3 currLocalPos = model.targetGameObject.localPosition;
+        Vector3 currLocalPos = targetGameObject.localPosition;
 
         if (axis == 0)
-            model.targetGameObject.localPosition = currLocalPos.SetX(val);
+            targetGameObject.localPosition = currLocalPos.SetX(val);
         else if (axis == 1)
-            model.targetGameObject.localPosition = currLocalPos.SetY(val);
+            targetGameObject.localPosition = currLocalPos.SetY(val);
         else if (axis == 2)
-            model.targetGameObject.localPosition = currLocalPos.SetZ(val);
+            targetGameObject.localPosition = currLocalPos.SetZ(val);
     }
 
     public void SetRotation(int axis, string value)
     {
+        if (!allowRotate || !model.active) return;
         float.TryParse(value, out float val);
 
-        Vector3 currLocalRotEuler = model.targetGameObject.localRotation.eulerAngles;
+        Vector3 currLocalRotEuler = targetGameObject.localRotation.eulerAngles;
 
         if (axis == 0)
-            model.targetGameObject.localRotation = Quaternion.Euler(val, currLocalRotEuler.y, currLocalRotEuler.z);
+            targetGameObject.localRotation = Quaternion.Euler(val, currLocalRotEuler.y, currLocalRotEuler.z);
         else if (axis == 1)
-            model.targetGameObject.localRotation = Quaternion.Euler(currLocalRotEuler.x, val, currLocalRotEuler.z);
+            targetGameObject.localRotation = Quaternion.Euler(currLocalRotEuler.x, val, currLocalRotEuler.z);
         else if (axis == 2)
-            model.targetGameObject.localRotation = Quaternion.Euler(currLocalRotEuler.x, currLocalRotEuler.y, val);
+            targetGameObject.localRotation = Quaternion.Euler(currLocalRotEuler.x, currLocalRotEuler.y, val);
     }
 
     public void SetScaling(int axis, string value)
     {
+        if (!allowScale || !model.active) return;
         float.TryParse(value, out float val);
 
         // the scale value displayed on the transformUI is GO's localScale * indicator's localScale
-        Vector3 currLocalScale = model.targetGameObject.localScale;
+        Vector3 currLocalScale = targetGameObject.localScale;
         Vector3 holdingGOScale = InteractiveGameObjectCollection.Instance.holdingInteractiveGo != null
                                  ? InteractiveGameObjectCollection.Instance.holdingInteractiveGo.localScale : Vector3.one;
 
@@ -142,11 +185,15 @@ public class TransformUIController : DisplayableEntityController
         else if (axis == 2)
             currLocalScale.SetZ(val);
 
-        model.targetGameObject.localScale = currLocalScale.Divide(holdingGOScale);
+        targetGameObject.localScale = currLocalScale.Divide(holdingGOScale);
     }
 
+    #endregion
+    #region Functions which interact with UI data
     public void UpdateUIPositionData(Vector3 pos)
     {
+        if (!allowTranslate || !model.active) return;
+
         model.inputFields[0].text = pos.x.ToString("f2");
         model.inputFields[1].text = pos.y.ToString("f2");
         model.inputFields[2].text = pos.z.ToString("f2");
@@ -154,6 +201,8 @@ public class TransformUIController : DisplayableEntityController
 
     public void UpdateUIRotationData(Quaternion rot)
     {
+        if (!allowRotate || !model.active) return;
+
         //TODO: Clamp
         Vector3 euler = rot.eulerAngles;
         model.inputFields[3].text = euler.x.ToString("f2");
@@ -163,6 +212,8 @@ public class TransformUIController : DisplayableEntityController
 
     public void UpdateUIScaleData(Vector3 scale)
     {
+        if (!allowScale || !model.active) return;
+
         // the scale value displayed on the transformUI is GO's localScale * indicator's localScale
         Vector3 holdingGOScale = InteractiveGameObjectCollection.Instance.holdingInteractiveGo != null
                                  ? InteractiveGameObjectCollection.Instance.holdingInteractiveGo.localScale : Vector3.one;
@@ -171,6 +222,26 @@ public class TransformUIController : DisplayableEntityController
         model.inputFields[7].text = scale.y.ToString("f2");
         model.inputFields[8].text = scale.z.ToString("f2");
     }
+
+    private void RefreshUIData()
+    {
+        Quaternion rotation = model.targetGameObject.localRotation;
+        Vector3 position = model.targetGameObject.localPosition;
+        Vector3 scale = model.targetGameObject.localScale;
+        for (int i = 0; i != 3; ++i)
+            model.inputFields[i].text = position[i].ToString("f2");
+        if (allowRotate)
+        {
+            for (int i = 0; i != 3; ++i)
+                model.inputFields[i + 3].text = rotation[i].ToString("f2");
+        }
+        if (allowScale)
+        {
+            for (int i = 0; i != 3; ++i)
+                model.inputFields[i + 6].text = scale[i].ToString("f2");
+        }
+    }
+
     #endregion
     ~TransformUIController()
     {

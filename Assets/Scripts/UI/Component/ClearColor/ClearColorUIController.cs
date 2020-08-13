@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ClearColorUIController : DisplayableEntityController
 {
-    private new ClearColorModel model = null;
-    private CodeEditablePartAdaptor adaptor = null;
+    private new ClearColorUIModel model = null;
+    private CodeSnippetInputAdaptor adaptor = null;
 
     public override void BindEntityModel(EntityModel model)
     {
         base.BindEntityModel(model);
-        this.model = base.model as ClearColorModel;
+        this.model = base.model as ClearColorUIModel;
     }
 
     public override void Init()
@@ -20,12 +20,12 @@ public class ClearColorUIController : DisplayableEntityController
         for (int i = 0; i != model.inputFields.Length; ++i)
         {
             int channel = i; // to fix the c# closure problem
-            this.model.inputFields[i].onValueChanged.AddListener((val) => UpdateCameraClearColor(channel, val));
-            this.model.inputFields[i].onValueChanged.AddListener((val) => UpdateCodeSnippet(channel, val));
+            this.model.inputFields[i].onEndEdit.AddListener((val) => UpdateCameraClearColor(channel, val));
+            this.model.inputFields[i].onEndEdit.AddListener((val) => UpdateCodeSnippet(channel, val));
         }
 
-        // Code -> component
-        adaptor = new CodeEditablePartAdaptor();
+        // Set binding code snippet 
+        adaptor = new CodeSnippetInputAdaptor();
         for (int i = 0; i != model.inputFields.Length; ++i)
         {
             int channel = i;

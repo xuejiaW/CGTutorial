@@ -21,6 +21,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     {
         interactiveGo.Add(model);
         OnCreateInteractiveGo?.Invoke(model);
+        Debug.Log("interactiveGO name is " + interactiveGo.Count);
     }
 
     public void OnSelectGameObject(DisplayableEntityModel GO)

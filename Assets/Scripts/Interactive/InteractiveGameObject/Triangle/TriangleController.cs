@@ -13,18 +13,18 @@ public class TriangleController : DisplayableEntityController
         for (int i = 0; i != model.view.transform.childCount; ++i)
         {
             InteractiveGameObjectModel vertexModel = new InteractiveGameObjectModel();
+            vertexModel.componentsAssetID = model.componentsAssetID;
             vertexModel.name = "Vertex";
             vertexModel.parent = model;
 
-            InteractiveGameObjectView vertexView = model.view.transform.GetChild(i).gameObject.AddComponent<InteractiveGameObjectView>();
-            InteractiveIndicatorController vertexController = new InteractiveIndicatorController();
+            InteractiveGameObjectView vertexView = model.view.transform.GetChild(i).gameObject.GetComponent_AutoAdd<InteractiveGameObjectView>();
+            InteractiveGameObjectController vertexController = new InteractiveGameObjectController();
             GameResourceManager.Instance.CombineMVC(vertexModel, vertexView, vertexController);
 
             vertexModel.OnPositionUpdated += InitTriangle;
             model.verticesModelVec.Add(vertexModel);
         }
 
-        model.meshFilter = model.view.GetComponent<MeshFilter>();
         InitTriangle(Vector3.zero);
         KeyboardInputManager.Instance.RegisterKeyDownMessageHandle((key) => InitTriangle(Vector3.zero), KeyCode.Z);
     }
@@ -33,12 +33,12 @@ public class TriangleController : DisplayableEntityController
     {
 
         Vector3[] vertices = new Vector3[3] { model.verticesModelVec[0].position, model.verticesModelVec[1].position, model.verticesModelVec[2].position };
-        Debug.Log("curr pos is " + model.verticesModelVec[1].position);
-        int[] indexes = new int[3] { 0, 1, 2 };
+        int[] indexes = new int[3] { 1, 0, 2 }; // unity culling order is different from OpenGL?
         Mesh mesh = new Mesh();
 
         mesh.vertices = vertices;
         mesh.triangles = indexes;
+        model.meshFilter.sharedMesh = mesh;
         model.meshFilter.mesh = mesh;
     }
 }

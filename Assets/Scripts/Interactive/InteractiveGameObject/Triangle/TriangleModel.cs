@@ -9,6 +9,7 @@ public class TriangleModel : InteractiveGameObjectModel
 
     [System.NonSerialized]
     public List<InteractiveGameObjectModel> verticesModelVec = null;
+
     [System.NonSerialized]
     public MeshFilter meshFilter = null;
 }
