@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
 {
-    // TODO: create component according to the course
-    // private ClearColorUIModel clearColorModel = null;
     private Transform componentGroup = null;
     private List<ComponentModel> componentList = null;
 
@@ -16,15 +14,10 @@ public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
         componentList = new List<ComponentModel>();
 
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGoUpdated;
-
-        // clearColorModel = GameResourceManager.Instance.CreateEntityController<ClearColorModel>("component_clear_color").
-        //                    model as ClearColorModel;
-        // clearColorModel.view.transform.SetParent(componentGroup, false);
-
     }
 
 
-    public ComponentModel CreateComponent(string componentID, InteractiveGameObjectModel targetGO)
+    public ComponentModel CreateComponent(string componentID, InteractiveGameObjectModel targetGO, bool autoHide = true)
     {
         Debug.Log("enter create component " + componentID);
         ComponentModel component = GameResourceManager.Instance.CreateEntityController(ComponentUIDict.id2ModelDict[componentID].ToString(), componentID).
@@ -32,7 +25,7 @@ public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
         component.targetGameObject = targetGO;
         componentList.Add(component);
         component.view.transform.SetParent(componentGroup, false);
-        component.active = false;
+        component.active = !autoHide;
         return component;
     }
 

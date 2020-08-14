@@ -49,5 +49,6 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
     {
         yield return null;
         InteractiveGameObjectInstantiator.Instance.InstantiateGameObject(currentCourse);
+        currentCourse.createComponentAssetID.ForEach((component) => ComponentUIManager.Instance.CreateComponent(component, null, false));
     }
 }

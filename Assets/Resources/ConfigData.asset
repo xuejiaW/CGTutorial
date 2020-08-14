@@ -55,7 +55,8 @@ MonoBehaviour:
       fragmentShaderPath: CoursesSourceCode/Window/Fragment
       mainCPPPath: CoursesSourceCode/Window/Main
       createModelsAssetID: []
-      createComponentAssetID: []
+      createComponentAssetID:
+      - component_clear_color
     - assetID: course_triangles
       indicatorSize: 0.15
       indicatorSensitive: 0.05
