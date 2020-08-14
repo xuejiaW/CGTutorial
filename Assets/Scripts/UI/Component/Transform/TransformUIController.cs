@@ -54,6 +54,7 @@ public class TransformUIController : DisplayableEntityController
             else if (index <= 8)
                 inputField.onEndEdit.AddListener((val) => SetScaling(axis, val));
 
+            // Change the code snippet after ui data changed
             if (index < adaptor.dataCount)
                 inputField.onEndEdit.AddListener((val => adaptor.editableParts[index].text = val));
         }

@@ -34,6 +34,10 @@ MonoBehaviour:
       name: Triangle
       componentsAssetID:
       - component_transform
+    - assetID: gameobject_texture_quad
+      prefabPath: InteractivePrimitive/TextureQuad
+      name: TextureQuad
+      componentsAssetID: []
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
@@ -70,6 +74,20 @@ MonoBehaviour:
       mainCPPPath: CoursesSourceCode/Triangle/Main
       createModelsAssetID:
       - gameobject_triangle
+      createComponentAssetID: []
+    - assetID: course_texture
+      indicatorSize: 0.15
+      indicatorSensitive: 0.05
+      allowCameraFlythrough: 0
+      cameraOrthographic: 1
+      allowTranslate: 1
+      allowRotate: 0
+      allowScale: 0
+      vertexShaderPath: CoursesSourceCode/Texture/Vertex
+      fragmentShaderPath: CoursesSourceCode/Texture/Fragment
+      mainCPPPath: CoursesSourceCode/Texture/Main
+      createModelsAssetID:
+      - gameobject_texture_quad
       createComponentAssetID: []
     creatorUILists:
     - assetID: 2d_primitive
