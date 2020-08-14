@@ -56,7 +56,14 @@ public class TransformUIController : DisplayableEntityController
 
             // Change the code snippet after ui data changed
             if (index < adaptor.dataCount)
-                inputField.onEndEdit.AddListener((val => adaptor.editableParts[index].text = val));
+            {
+                // For manually edit input field
+                inputField.onEndEdit.AddListener(val => adaptor.editableParts[index].text = val);
+
+                // For inputField modified which caused by the interaction with the interactive GO
+                inputField.onValueChanged.AddListener((val =>
+                { if (!inputField.isFocused) adaptor.editableParts[index].text = val; }));
+            }
         }
 
 
