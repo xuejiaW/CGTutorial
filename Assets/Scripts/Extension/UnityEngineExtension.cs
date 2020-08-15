@@ -62,6 +62,17 @@ public static class UnityEngineExtension
         return result;
     }
 
+    public static Vector2 SetX(this ref Vector2 vec, float x)
+    {
+        vec.x = x;
+        return vec;
+    }
+    public static Vector2 SetY(this ref Vector2 vec, float y)
+    {
+        vec.y = y;
+        return vec;
+    }
+
     public static Vector3 SetX(this ref Vector3 vec, float x)
     {
         vec.x = x;

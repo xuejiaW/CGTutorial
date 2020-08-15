@@ -42,6 +42,8 @@ MonoBehaviour:
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
+    - assetID: component_vertex_position
+      prefabPath: UI/Components/VertexPos
     - assetID: component_clear_color
       prefabPath: UI/Components/ClearColor
     hierarchyGOList:
@@ -88,7 +90,7 @@ MonoBehaviour:
       fragmentShaderPath: CoursesSourceCode/Texture/Fragment
       mainCPPPath: CoursesSourceCode/Texture/Main
       createModelsAssetID:
-      - gameobject_texture_quad
+      - component_vertex_position
       createComponentAssetID: []
     creatorUILists:
     - assetID: 2d_primitive

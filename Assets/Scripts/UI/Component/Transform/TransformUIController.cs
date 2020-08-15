@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TransformUIController : DisplayableEntityController
+public class TransformUIController : ComponentController
 {
     private new TransformUIModel model = null;
     private CodeSnippetInputAdaptor adaptor = null;
@@ -74,6 +74,13 @@ public class TransformUIController : DisplayableEntityController
         SwitchPositionField(CoursesAdaptor.Instance.currentCourse.allowTranslate);
         SwitchRotationField(CoursesAdaptor.Instance.currentCourse.allowRotate);
         SwitchScalingField(CoursesAdaptor.Instance.currentCourse.allowScale);
+    }
+
+    public override void InitComponent()
+    {
+        base.InitComponent();
+        Debug.Log("enter init component");
+        UpdateTargetAccording2Code(model.targetGameObject);
     }
 
     public void UpdateTargetAccording2Code(DisplayableEntityModel targetGO)

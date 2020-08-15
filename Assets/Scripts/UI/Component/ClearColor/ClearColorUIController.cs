@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearColorUIController : DisplayableEntityController
+public class ClearColorUIController : ComponentController
 {
     private new ClearColorUIModel model = null;
     private CodeSnippetInputAdaptor adaptor = null;

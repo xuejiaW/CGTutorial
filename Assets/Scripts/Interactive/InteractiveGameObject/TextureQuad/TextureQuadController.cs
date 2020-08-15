@@ -8,6 +8,8 @@ public class TextureQuadController : InteractiveGameObjectController
 
     public override void Init()
     {
+        // DO NOT trigger base init, or it will create component for texture quad
+
         this.model = base.model as TextureQuadModel;
 
         model.verticesModelVec = new List<InteractiveGameObjectModel>();
@@ -15,7 +17,7 @@ public class TextureQuadController : InteractiveGameObjectController
         for (int i = 0; i != model.view.transform.childCount; ++i)
         {
             InteractiveGameObjectModel vertexModel = new InteractiveGameObjectModel();
-            vertexModel.componentsAssetID = model.componentsAssetID;
+            vertexModel.componentsAssetID = model.componentsAssetID; // set the vertex components id
             vertexModel.name = "Vertex";
             vertexModel.parent = model;
 

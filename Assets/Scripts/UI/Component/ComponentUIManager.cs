@@ -25,6 +25,7 @@ public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
         component.targetGameObject = targetGO;
         componentList.Add(component);
         component.view.transform.SetParent(componentGroup, false);
+        (component.controller as ComponentController).InitComponent();
         component.active = !autoHide;
         return component;
     }

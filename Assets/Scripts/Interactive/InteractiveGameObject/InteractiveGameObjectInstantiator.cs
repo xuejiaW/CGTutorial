@@ -7,7 +7,7 @@ public class InteractiveGameObjectInstantiator : Singleton<InteractiveGameObject
     private static Dictionary<string, string> id2ModelType = new Dictionary<string, string>()
     {
         {"gameobject_triangle","TriangleModel"},
-        {"gameobject_texture_quad","TextureQuadModel"}
+        {"gameobject_texture_quad","TextureQuadModel"},
     };
 
     public void InstantiateGameObject(CoursesModel model)
