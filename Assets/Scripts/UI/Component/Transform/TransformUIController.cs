@@ -8,10 +8,6 @@ public class TransformUIController : ComponentController
     private new TransformUIModel model = null;
     private CodeSnippetInputAdaptor adaptor = null;
 
-    private bool allowTranslate = false;
-    private bool allowRotate = false;
-    private bool allowScale = false;
-
     // The actual object that Transform component controlls is the current active Indicator
     private DisplayableEntityModel targetGameObject
     {
@@ -35,9 +31,9 @@ public class TransformUIController : ComponentController
             int axis = i % 3;
             if (i <= 2)
                 adaptor.BindValueChangedEvent((val => SetPosition(axis, val)));
-            else if (i <= 5 && allowRotate)
+            else if (i <= 5)
                 adaptor.BindValueChangedEvent((val => SetRotation(axis, val)));
-            else if (i <= 8 && allowScale)
+            else if (i <= 8)
                 adaptor.BindValueChangedEvent((val => SetScaling(axis, val)));
         }
         CodeSnippetManager.Instance.BindSnippetAdaptor(adaptor);
@@ -66,20 +62,14 @@ public class TransformUIController : ComponentController
             }
         }
 
-
         model.OnActiveUpdated += onModelActiveUpdated;
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
 
-        // According to the course setting, disable some input field
-        SwitchPositionField(CoursesAdaptor.Instance.currentCourse.allowTranslate);
-        SwitchRotationField(CoursesAdaptor.Instance.currentCourse.allowRotate);
-        SwitchScalingField(CoursesAdaptor.Instance.currentCourse.allowScale);
     }
 
     public override void InitComponent()
     {
         base.InitComponent();
-        Debug.Log("enter init component");
         UpdateTargetAccording2Code(model.targetGameObject);
     }
 
@@ -93,28 +83,6 @@ public class TransformUIController : ComponentController
             targetGO.localPosition = new Vector3(x, y, z);
         }
     }
-
-    public void SwitchPositionField(bool on)
-    {
-        allowTranslate = on;
-        for (int i = 0; i != 3; ++i)
-            model.inputFields[i].interactable = on;
-    }
-
-    public void SwitchRotationField(bool on)
-    {
-        allowRotate = on;
-        for (int i = 3; i != 6; ++i)
-            model.inputFields[i].interactable = on;
-    }
-
-    public void SwitchScalingField(bool on)
-    {
-        allowScale = on;
-        for (int i = 6; i != 9; ++i)
-            model.inputFields[i].interactable = on;
-    }
-
 
     private void onModelActiveUpdated(bool active)
     {
@@ -164,7 +132,7 @@ public class TransformUIController : ComponentController
     #region Function which modify target
     public void SetPosition(int axis, string value)
     {
-        if (!allowTranslate || !model.active) return;
+        if (!model.active) return;
         float.TryParse(value, out float val);
 
         Vector3 currLocalPos = targetGameObject.localPosition;
@@ -179,7 +147,7 @@ public class TransformUIController : ComponentController
 
     public void SetRotation(int axis, string value)
     {
-        if (!allowRotate || !model.active) return;
+        if (!model.active) return;
         float.TryParse(value, out float val);
 
         Vector3 currLocalRotEuler = targetGameObject.localRotation.eulerAngles;
@@ -194,7 +162,7 @@ public class TransformUIController : ComponentController
 
     public void SetScaling(int axis, string value)
     {
-        if (!allowScale || !model.active) return;
+        if (!model.active) return;
         float.TryParse(value, out float val);
 
         // the scale value displayed on the transformUI is GO's localScale * indicator's localScale
@@ -218,7 +186,7 @@ public class TransformUIController : ComponentController
     #region Functions which interact with UI data
     public void UpdateUIPositionData(Vector3 pos)
     {
-        if (!allowTranslate || !model.active) return;
+        if (!model.active) return;
 
         model.inputFields[0].text = pos.x.ToString("f2");
         model.inputFields[1].text = pos.y.ToString("f2");
@@ -227,7 +195,7 @@ public class TransformUIController : ComponentController
 
     public void UpdateUIRotationData(Quaternion rot)
     {
-        if (!allowRotate || !model.active) return;
+        if (!model.active) return;
 
         //TODO: Clamp
         Vector3 euler = rot.eulerAngles;
@@ -238,7 +206,7 @@ public class TransformUIController : ComponentController
 
     public void UpdateUIScaleData(Vector3 scale)
     {
-        if (!allowScale || !model.active) return;
+        if (!model.active) return;
 
         // the scale value displayed on the transformUI is GO's localScale * indicator's localScale
         Vector3 holdingGOScale = InteractiveGameObjectCollection.Instance.holdingInteractiveGo != null
@@ -256,16 +224,10 @@ public class TransformUIController : ComponentController
         Vector3 scale = model.targetGameObject.localScale;
         for (int i = 0; i != 3; ++i)
             model.inputFields[i].text = position[i].ToString("f2");
-        if (allowRotate)
-        {
-            for (int i = 0; i != 3; ++i)
-                model.inputFields[i + 3].text = rotation[i].ToString("f2");
-        }
-        if (allowScale)
-        {
-            for (int i = 0; i != 3; ++i)
-                model.inputFields[i + 6].text = scale[i].ToString("f2");
-        }
+        for (int i = 0; i != 3; ++i)
+            model.inputFields[i + 3].text = rotation[i].ToString("f2");
+        for (int i = 0; i != 3; ++i)
+            model.inputFields[i + 6].text = scale[i].ToString("f2");
     }
 
     #endregion
