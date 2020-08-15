@@ -8,7 +8,7 @@ public class TextureQuadModel : InteractiveGameObjectModel
     public override System.Type GetControllerType() { return typeof(TextureQuadController); }
 
     [System.NonSerialized]
-    public List<InteractiveGameObjectModel> verticesModelVec = null;
+    public List<VertexModel> verticesModelVec = null;
 
     [System.NonSerialized]
     public MeshFilter meshFilter = null;

@@ -5,57 +5,65 @@ using UnityEngine;
 public class TextureQuadController : InteractiveGameObjectController
 {
     private new TextureQuadModel model = null;
-
+    private Vector3[] verticesPos = null;
+    private Vector2[] verticesTexcoord = null;
+    private int[] indexes = null;
     public override void Init()
     {
         // DO NOT trigger base init, or it will create component for texture quad
 
         this.model = base.model as TextureQuadModel;
 
-        model.verticesModelVec = new List<InteractiveGameObjectModel>();
+        verticesPos = new Vector3[4];
+        verticesTexcoord = new Vector2[4];
+        indexes = new int[6] { 0, 3, 2, 0, 2, 1 };
+
+        model.verticesModelVec = new List<VertexModel>();
 
         for (int i = 0; i != model.view.transform.childCount; ++i)
         {
-            InteractiveGameObjectModel vertexModel = new InteractiveGameObjectModel();
+            // TODO: refactor
+            int index = i;
+            VertexModel vertexModel = new VertexModel();
             vertexModel.componentsAssetID = model.componentsAssetID; // set the vertex components id
             vertexModel.name = "Vertex";
             vertexModel.parent = model;
 
-            InteractiveGameObjectView vertexView = model.view.transform.GetChild(i).gameObject.GetComponent_AutoAdd<InteractiveGameObjectView>();
-            InteractiveGameObjectController vertexController = new InteractiveGameObjectController();
+            VertexView vertexView = model.view.transform.GetChild(i).gameObject.GetComponent_AutoAdd<VertexView>();
+            VertexController vertexController = new VertexController();
             GameResourceManager.Instance.CombineMVC(vertexModel, vertexView, vertexController);
 
-            vertexModel.OnPositionUpdated += UpdateVertexData;
+            vertexModel.OnPositionUpdated += ((pos) => UpdateVertexPos(index, pos));
+            vertexModel.OnTexcoordUpdated += ((texcoord) => UpdateVertexTexcoord(index, texcoord));
             model.verticesModelVec.Add(vertexModel);
         }
 
-        UpdateVertexData(Vector3.zero);
-
+        for (int i = 0; i != model.view.transform.childCount; ++i)
+        {
+            verticesPos[i] = model.verticesModelVec[i].position;
+            verticesTexcoord[i] = model.verticesModelVec[i].texcoord;
+        }
+        UpdateVertexData();
     }
 
-    private void UpdateVertexData(Vector3 pos)
+    private void UpdateVertexPos(int index, Vector3 pos)
     {
-        Vector3[] vertices = new Vector3[]{
-                model.verticesModelVec[0].position,
-                model.verticesModelVec[1].position,
-                model.verticesModelVec[2].position,
-                model.verticesModelVec[3].position  };
+        verticesPos[index] = pos;
+        UpdateVertexData();
+    }
 
-        Vector2[] uvs = new Vector2[]
-        {
-            new Vector2(0,0),
-            new Vector2(2,0),
-            new Vector2(2,2),
-            new Vector2(0,2),
-        };
+    private void UpdateVertexTexcoord(int index, Vector2 texcoord)
+    {
+        verticesTexcoord[index] = texcoord;
+        UpdateVertexData();
+    }
 
-        int[] indexes = new int[6] { 0, 3, 2, 0, 2, 1 };
-
+    private void UpdateVertexData()
+    {
         Mesh mesh = new Mesh();
-        mesh.vertices = vertices;
+        mesh.vertices = verticesPos;
         mesh.triangles = indexes;
-        mesh.uv = uvs;
+        mesh.uv = verticesTexcoord;
         model.meshFilter.mesh = mesh;
-
     }
 }
