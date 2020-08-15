@@ -8,7 +8,7 @@ public class TriangleModel : InteractiveGameObjectModel
     public override System.Type GetControllerType() { return typeof(TriangleController); }
 
     [System.NonSerialized]
-    public List<InteractiveGameObjectModel> verticesModelVec = null;
+    public List<VertexModel> verticesModelVec = null;
 
     [System.NonSerialized]
     public MeshFilter meshFilter = null;

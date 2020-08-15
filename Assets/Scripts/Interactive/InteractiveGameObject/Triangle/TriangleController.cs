@@ -8,17 +8,17 @@ public class TriangleController : DisplayableEntityController
     public override void Init()
     {
         this.model = base.model as TriangleModel;
-        model.verticesModelVec = new List<InteractiveGameObjectModel>();
+        model.verticesModelVec = new List<VertexModel>();
 
         for (int i = 0; i != model.view.transform.childCount; ++i)
         {
-            InteractiveGameObjectModel vertexModel = new InteractiveGameObjectModel();
+            VertexModel vertexModel = new VertexModel();
             vertexModel.componentsAssetID = model.componentsAssetID;
             vertexModel.name = "Vertex";
             vertexModel.parent = model;
 
-            InteractiveGameObjectView vertexView = model.view.transform.GetChild(i).gameObject.GetComponent_AutoAdd<InteractiveGameObjectView>();
-            InteractiveGameObjectController vertexController = new InteractiveGameObjectController();
+            VertexView vertexView = model.view.transform.GetChild(i).gameObject.GetComponent_AutoAdd<VertexView>();
+            VertexController vertexController = new VertexController();
             GameResourceManager.Instance.CombineMVC(vertexModel, vertexView, vertexController);
 
             vertexModel.OnPositionUpdated += InitTriangle;
