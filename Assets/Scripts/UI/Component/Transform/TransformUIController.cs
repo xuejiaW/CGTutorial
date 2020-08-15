@@ -75,13 +75,25 @@ public class TransformUIController : ComponentController
 
     public void UpdateTargetAccording2Code(DisplayableEntityModel targetGO)
     {
-        if (adaptor.dataCount == 3)
+        Vector3 position = Vector3.zero;
+        Vector3 rotation = Vector3.zero;
+        Vector3 scale = Vector3.zero;
+
+        for (int i = 0; i != 3; ++i)
         {
-            float.TryParse(adaptor.editableParts[0].text, out float x);
-            float.TryParse(adaptor.editableParts[1].text, out float y);
-            float.TryParse(adaptor.editableParts[2].text, out float z);
-            targetGO.localPosition = new Vector3(x, y, z);
+            float.TryParse(adaptor.editableParts[i].text, out float posVal);
+            position[i] = posVal;
+
+            float.TryParse(adaptor.editableParts[i + 3].text, out float rotVal);
+            rotation[i] = rotVal;
+
+            float.TryParse(adaptor.editableParts[i + 6].text, out float scaleVal);
+            scale[i] = scaleVal;
         }
+
+        targetGO.localPosition = position;
+        targetGO.localRotation = Quaternion.Euler(rotation);
+        targetGO.localScale = scale;
     }
 
     private void onModelActiveUpdated(bool active)

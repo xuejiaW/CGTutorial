@@ -9,9 +9,6 @@ public class CoursesModel : EntityModel
     public float indicatorSensitive = 1.0f;
     public bool allowCameraFlythrough = true;
     public bool cameraOrthographic = true;
-    public bool allowTranslate = true;
-    public bool allowRotate = true;
-    public bool allowScale = true;
     public string vertexShaderPath = "";
     public string fragmentShaderPath = "";
     public string mainCPPPath = "";

@@ -28,12 +28,6 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
         else
             InteractiveManager.Instance.UnRegisterFlythroughMode();
 
-        // interactive method switch
-        if (!courseModel.allowTranslate)
-            InteractiveManager.Instance.RegisterFlythroughMode();
-        else
-            InteractiveManager.Instance.UnRegisterFlythroughMode();
-
         InteractiveIndicatorCollection.Instance.SetIndicatorSize(courseModel.indicatorSize);
         InteractiveIndicatorCollection.Instance.SetIndicatorSensitive(courseModel.indicatorSensitive);
 

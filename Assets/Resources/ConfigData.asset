@@ -40,6 +40,11 @@ MonoBehaviour:
       componentsAssetID:
       - component_vertex_position
       - component_vertex_texcoord
+    - assetID: gameobject_transformation_quad
+      prefabPath: InteractivePrimitive/TransformationQuad
+      name: TransformationQuad
+      componentsAssetID:
+      - component_transform
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
@@ -58,9 +63,6 @@ MonoBehaviour:
       indicatorSensitive: 0.05
       allowCameraFlythrough: 0
       cameraOrthographic: 1
-      allowTranslate: 0
-      allowRotate: 0
-      allowScale: 0
       vertexShaderPath: CoursesSourceCode/Window/Vertex
       fragmentShaderPath: CoursesSourceCode/Window/Fragment
       mainCPPPath: CoursesSourceCode/Window/Main
@@ -72,9 +74,6 @@ MonoBehaviour:
       indicatorSensitive: 0.05
       allowCameraFlythrough: 0
       cameraOrthographic: 1
-      allowTranslate: 1
-      allowRotate: 0
-      allowScale: 0
       vertexShaderPath: CoursesSourceCode/Triangle/Vertex
       fragmentShaderPath: CoursesSourceCode/Triangle/Fragment
       mainCPPPath: CoursesSourceCode/Triangle/Main
@@ -86,14 +85,22 @@ MonoBehaviour:
       indicatorSensitive: 0.05
       allowCameraFlythrough: 0
       cameraOrthographic: 1
-      allowTranslate: 1
-      allowRotate: 0
-      allowScale: 0
       vertexShaderPath: CoursesSourceCode/Texture/Vertex
       fragmentShaderPath: CoursesSourceCode/Texture/Fragment
       mainCPPPath: CoursesSourceCode/Texture/Main
       createModelsAssetID:
       - gameobject_texture_quad
+      createComponentAssetID: []
+    - assetID: course_transformation
+      indicatorSize: 0.15
+      indicatorSensitive: 0.05
+      allowCameraFlythrough: 0
+      cameraOrthographic: 1
+      vertexShaderPath: CoursesSourceCode/Transformation/Vertex
+      fragmentShaderPath: CoursesSourceCode/Transformation/Fragment
+      mainCPPPath: CoursesSourceCode/Transformation/Main
+      createModelsAssetID:
+      - gameobject_transformation_quad
       createComponentAssetID: []
     creatorUILists:
     - assetID: 2d_primitive

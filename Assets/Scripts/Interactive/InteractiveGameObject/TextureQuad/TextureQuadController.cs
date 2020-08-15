@@ -8,6 +8,7 @@ public class TextureQuadController : InteractiveGameObjectController
     private Vector3[] verticesPos = null;
     private Vector2[] verticesTexcoord = null;
     private int[] indexes = null;
+
     public override void Init()
     {
         // DO NOT trigger base init, or it will create component for texture quad
