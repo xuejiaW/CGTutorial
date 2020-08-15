@@ -37,7 +37,8 @@ MonoBehaviour:
     - assetID: gameobject_texture_quad
       prefabPath: InteractivePrimitive/TextureQuad
       name: TextureQuad
-      componentsAssetID: []
+      componentsAssetID:
+      - component_transform
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform

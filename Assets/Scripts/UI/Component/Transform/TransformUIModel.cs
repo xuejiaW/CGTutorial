@@ -16,4 +16,9 @@ public class TransformUIModel : ComponentModel
         base.BindEntityController(controller);
         this.controller = base.controller as TransformUIController;
     }
+
+    protected override void OnTargetGameObjectSet(DisplayableEntityModel targetGO)
+    {
+        controller.UpdateTargetAccording2Code(targetGO);
+    }
 }

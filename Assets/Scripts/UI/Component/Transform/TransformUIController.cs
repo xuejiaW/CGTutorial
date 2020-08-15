@@ -70,11 +70,22 @@ public class TransformUIController : DisplayableEntityController
         model.OnActiveUpdated += onModelActiveUpdated;
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
 
+        // According to the course setting, disable some input field
         SwitchPositionField(CoursesAdaptor.Instance.currentCourse.allowTranslate);
         SwitchRotationField(CoursesAdaptor.Instance.currentCourse.allowRotate);
         SwitchScalingField(CoursesAdaptor.Instance.currentCourse.allowScale);
     }
 
+    public void UpdateTargetAccording2Code(DisplayableEntityModel targetGO)
+    {
+        if (adaptor.dataCount == 3)
+        {
+            float.TryParse(adaptor.editableParts[0].text, out float x);
+            float.TryParse(adaptor.editableParts[1].text, out float y);
+            float.TryParse(adaptor.editableParts[2].text, out float z);
+            targetGO.localPosition = new Vector3(x, y, z);
+        }
+    }
 
     public void SwitchPositionField(bool on)
     {

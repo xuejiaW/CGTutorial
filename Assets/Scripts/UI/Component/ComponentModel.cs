@@ -14,13 +14,15 @@ public class ComponentModel : DisplayableEntityModel
         return ComponentUIDict.id2ControllerDict.TryGetValue(base.assetID, out var view) ? view : typeof(DisplayableEntityController);
     }
 
-    // public DisplayableEntityModel targetGameObject
-    // {
-    //     get { return InteractiveIndicatorCollection.Instance.currentIndicator?.model; }
-    // }
+    private DisplayableEntityModel _targetGameObject;
     public DisplayableEntityModel targetGameObject
     {
-        get;
-        set;
+        get { return _targetGameObject; }
+        set { _targetGameObject = value; OnTargetGameObjectSet(_targetGameObject); }
+    }
+
+    protected virtual void OnTargetGameObjectSet(DisplayableEntityModel targetGO)
+    {
+
     }
 }
