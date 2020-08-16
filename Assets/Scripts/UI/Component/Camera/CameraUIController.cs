@@ -21,6 +21,10 @@ public class CameraUIController : ComponentController
 
         // Set binding code snippet 
         adaptor = new CodeSnippetInputAdaptor();
+        if (model == null)
+            Debug.Log("camera model is null");
+        if (model.inputFields == null)
+            Debug.Log("camera input fields is null");
         for (int i = 0; i != model.inputFields.Length; ++i)
         {
             int channel = i;

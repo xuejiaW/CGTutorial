@@ -28,6 +28,8 @@ public class CameraController : InteractiveGameObjectController
         model.OnNearClippingUpdated += (near => UpdateCameraLine());
         model.OnFarClippingUpdated += (far => UpdateCameraLine());
         model.OnPositionUpdated += (pos => UpdateCameraLine());
+        model.OnRotationUpdated += (rot => UpdateCameraLine());
+        model.OnParentUpdated += (parent => UpdateCameraLine());
 
         UpdateCameraLine();
     }

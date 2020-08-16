@@ -49,7 +49,9 @@ MonoBehaviour:
     - assetID: gameobject_world_camera
       prefabPath: InteractivePrimitive/WorldCamera
       name: Camera
-      componentsAssetID: []
+      componentsAssetID:
+      - component_camera_transform
+      - component_camera
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
@@ -59,6 +61,10 @@ MonoBehaviour:
       prefabPath: UI/Components/ClearColor
     - assetID: component_vertex_texcoord
       prefabPath: UI/Components/VertexTexcoord
+    - assetID: component_camera
+      prefabPath: UI/Components/Camera
+    - assetID: component_camera_transform
+      prefabPath: UI/Components/CameraTransform
     hierarchyGOList:
     - assetID: hierarchy_go
       prefabPath: UI/Hierarchy/GOName
@@ -112,12 +118,12 @@ MonoBehaviour:
       indicatorSensitive: 0.05
       allowCameraFlythrough: 1
       cameraOrthographic: 0
-      vertexShaderPath: CoursesSourceCode/Transformation/Vertex
-      fragmentShaderPath: CoursesSourceCode/Transformation/Fragment
-      mainCPPPath: CoursesSourceCode/Transformation/Main
+      vertexShaderPath: CoursesSourceCode/Camera/Vertex
+      fragmentShaderPath: CoursesSourceCode/Camera/Fragment
+      mainCPPPath: CoursesSourceCode/Camera/Main
       createModelsAssetID:
-      - gameobject_cube
       - gameobject_world_camera
+      - gameobject_cube
       createComponentAssetID: []
     creatorUILists:
     - assetID: 2d_primitive

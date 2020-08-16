@@ -32,6 +32,7 @@ public class DisplayableEntityModel : EntityModel
     public event System.Action<bool> OnActiveUpdated = null;
     public event System.Action<Vector3> OnLocalPositionUpdated = null;
     public event System.Action<Quaternion> OnLocalRotationUpdated = null;
+    public event System.Action<Quaternion> OnRotationUpdated = null;
     public event System.Action<Vector3> OnLocalScaleUpdated = null;
     public event System.Action<Vector3> OnPositionUpdated = null;
 
@@ -94,13 +95,23 @@ public class DisplayableEntityModel : EntityModel
     public Quaternion localRotation
     {
         get { return m_localRotation; }
-        set { m_localRotation = value; OnLocalRotationUpdated?.Invoke(value); }
+        set
+        {
+            m_localRotation = value;
+            OnLocalRotationUpdated?.Invoke(value);
+            OnRotationUpdated?.Invoke(value);
+            childrenList.ForEach((child) => child.OnRotationUpdated?.Invoke(child.rotation));
+        }
     }
 
     public Quaternion rotation
     {
         get { return (parent == null ? Quaternion.identity : parent.rotation) * localRotation; }
-        set { localRotation = Quaternion.Inverse(rotation) * value; }
+        set
+        {
+            localRotation = Quaternion.Inverse(rotation) * value;
+            OnRotationUpdated?.Invoke(value);
+        }
     }
 
     private Vector3 m_localScale = Vector3.one;
