@@ -61,10 +61,4 @@ public class VertexTexcoordUIController : ComponentController
         texcoord[axis] = val;
         targetGO.texcoord = texcoord;
     }
-
-    private void UpdateUITexcoordData(Vector2 texcoord)
-    {
-        model.inputFields[0].text = texcoord[0].ToString("f2");
-        model.inputFields[1].text = texcoord[1].ToString("f2");
-    }
 }
