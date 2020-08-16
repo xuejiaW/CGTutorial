@@ -8,7 +8,9 @@ public class InteractiveGameObjectInstantiator : Singleton<InteractiveGameObject
     {
         {"gameobject_triangle","TriangleModel"},
         {"gameobject_texture_quad","TextureQuadModel"},
-        {"gameobject_transformation_quad","TransformationQuadModel"}
+        {"gameobject_transformation_quad","TransformationQuadModel"},
+        {"gameobject_cube","InteractiveGameObjectModel"},
+        {"gameobject_world_camera","CameraModel"}
     };
 
     public void InstantiateGameObject(CoursesModel model)

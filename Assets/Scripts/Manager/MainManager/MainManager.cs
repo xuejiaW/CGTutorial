@@ -33,6 +33,9 @@ public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubjec
 
     public void Update()
     {
-        updateObserversList.ForEach(observer => observer.Update());
+        for (int i = 0; i != updateObserversList.Count; ++i)
+        {
+            updateObserversList[i].Update();
+        }
     }
 }

@@ -24,7 +24,8 @@ MonoBehaviour:
     - assetID: gameobject_cube
       prefabPath: InteractivePrimitive/Cube
       name: Cube
-      componentsAssetID: []
+      componentsAssetID:
+      - component_transform
     - assetID: gameobject_cylinder
       prefabPath: InteractivePrimitive/Cylinder
       name: Cylinder
@@ -45,6 +46,10 @@ MonoBehaviour:
       name: TransformationQuad
       componentsAssetID:
       - component_transform
+    - assetID: gameobject_world_camera
+      prefabPath: InteractivePrimitive/WorldCamera
+      name: Camera
+      componentsAssetID: []
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
@@ -101,6 +106,18 @@ MonoBehaviour:
       mainCPPPath: CoursesSourceCode/Transformation/Main
       createModelsAssetID:
       - gameobject_transformation_quad
+      createComponentAssetID: []
+    - assetID: course_camera
+      indicatorSize: 0.5
+      indicatorSensitive: 0.05
+      allowCameraFlythrough: 1
+      cameraOrthographic: 0
+      vertexShaderPath: CoursesSourceCode/Transformation/Vertex
+      fragmentShaderPath: CoursesSourceCode/Transformation/Fragment
+      mainCPPPath: CoursesSourceCode/Transformation/Main
+      createModelsAssetID:
+      - gameobject_cube
+      - gameobject_world_camera
       createComponentAssetID: []
     creatorUILists:
     - assetID: 2d_primitive
