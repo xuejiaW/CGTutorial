@@ -6,12 +6,14 @@ public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubjec
 {
     private List<IMainUpdateObserver> updateObserversList = null;
     public Camera viewCamera { get; set; }
+    public Camera worldCamera { get; set; }
 
     protected override void Init()
     {
         base.Init();
         updateObserversList = new List<IMainUpdateObserver>();
-        viewCamera = Camera.main;
+        viewCamera = GameObject.Find("CameraGroup/View").GetComponent<Camera>();
+        worldCamera = GameObject.Find("CameraGroup/World").GetComponent<Camera>();
     }
 
     public void RegisterObserver(IMainUpdateObserver observer)

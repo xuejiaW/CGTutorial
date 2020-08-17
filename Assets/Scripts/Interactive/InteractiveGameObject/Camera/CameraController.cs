@@ -24,14 +24,29 @@ public class CameraController : InteractiveGameObjectController
             lineRender.endWidth = 0.1f;
         });
 
-        model.OnFovUpdated += (fov => UpdateCameraLine());
-        model.OnNearClippingUpdated += (near => UpdateCameraLine());
-        model.OnFarClippingUpdated += (far => UpdateCameraLine());
-        model.OnPositionUpdated += (pos => UpdateCameraLine());
-        model.OnRotationUpdated += (rot => UpdateCameraLine());
-        model.OnParentUpdated += (parent => UpdateCameraLine());
+        model.OnFovUpdated += (fov => UpdateCamera());
+        model.OnNearClippingUpdated += (near => UpdateCamera());
+        model.OnFarClippingUpdated += (far => UpdateCamera());
+        model.OnPositionUpdated += (pos => UpdateCamera());
+        model.OnRotationUpdated += (rot => UpdateCamera());
+        model.OnParentUpdated += (parent => UpdateCamera());
 
+        UpdateCamera();
+    }
+
+    private void UpdateCamera()
+    {
+        UpdateCameraData();
         UpdateCameraLine();
+    }
+
+    private void UpdateCameraData()
+    {
+        MainManager.Instance.worldCamera.transform.position = model.position;
+        MainManager.Instance.worldCamera.transform.rotation = model.rotation;
+        MainManager.Instance.worldCamera.fieldOfView = model.fov;
+        MainManager.Instance.worldCamera.nearClipPlane = model.nearClipping;
+        MainManager.Instance.worldCamera.farClipPlane = model.farClipPlane;
     }
 
     private void UpdateCameraLine()

@@ -74,7 +74,15 @@ public class CameraTransformUIController : ComponentController
             position[i] = posVal;
 
             float.TryParse(adaptor.editableParts[i + 3].text, out float rotVal);
-            rotation[i] = -1 * rotVal;
+
+            if (i == 0)
+                rotVal *= -1;
+            else if (i == 1)
+                rotVal += 90;
+            else if (i == 2)
+                rotVal -= 90;
+
+            rotation[i] = rotVal;
         }
 
         targetGO.localPosition = position;
@@ -143,7 +151,13 @@ public class CameraTransformUIController : ComponentController
     {
         if (!model.active) return;
         float.TryParse(value, out float val);
-        val *= -1;
+
+        if (axis == 0)
+            val *= -1;
+        if (axis == 1)
+            val += 90;
+        else if (axis == 2)
+            val -= 90;
 
         Vector3 currLocalRotEuler = targetGameObject.localRotation.eulerAngles;
 
@@ -172,8 +186,8 @@ public class CameraTransformUIController : ComponentController
 
         Vector3 euler = rot.eulerAngles;
         model.inputFields[3].text = (rotateValueClamp(euler.x) * -1.0f).ToString("f2");
-        model.inputFields[4].text = (rotateValueClamp(euler.y) * -1.0f).ToString("f2");
-        model.inputFields[5].text = (rotateValueClamp(euler.z) * -1.0f).ToString("f2");
+        model.inputFields[4].text = (rotateValueClamp(euler.y - 90.0f)).ToString("f2");
+        model.inputFields[5].text = (rotateValueClamp(euler.z + 90.0f)).ToString("f2");
     }
 
     private void RefreshUIData()

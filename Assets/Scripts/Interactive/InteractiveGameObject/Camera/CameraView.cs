@@ -11,6 +11,6 @@ public class CameraView : InteractiveGameObjectView
         base.BindEntityModel(model);
         this.model = base.model as CameraModel;
         this.model.lineRenders = GetComponentsInChildren<LineRenderer>().ToList();
-        this.model.camera = GetComponent<Camera>();
+        this.model.camera = GetComponentInChildren<Camera>();
     }
 }
