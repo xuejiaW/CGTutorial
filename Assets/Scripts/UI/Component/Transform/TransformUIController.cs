@@ -44,22 +44,21 @@ public class TransformUIController : ComponentController
 
             int index = i, axis = i % 3;
             if (index <= 2)
-                inputField.onEndEdit.AddListener((val) => SetPosition(axis, val));
-            else if (index <= 5)
-                inputField.onEndEdit.AddListener((val) => SetRotation(axis, val));
-            else if (index <= 8)
-                inputField.onEndEdit.AddListener((val) => SetScaling(axis, val));
-
-            // Change the code snippet after ui data changed
-            if (index < adaptor.dataCount)
             {
-                // For manually edit input field
-                inputField.onEndEdit.AddListener(val => adaptor.editableParts[index].text = val);
-
-                // For inputField modified which caused by the interaction with the interactive GO
-                inputField.onValueChanged.AddListener((val =>
-                { if (!inputField.isFocused) adaptor.editableParts[index].text = val; }));
+                inputField.onEndEdit.AddListener((val) => SetPosition(axis, val));
             }
+            else if (index <= 5)
+            {
+                inputField.onEndEdit.AddListener((val) => SetRotation(axis, val));
+            }
+            else if (index <= 8)
+            {
+                inputField.onEndEdit.AddListener((val) => SetScaling(axis, val));
+            }
+
+            inputField.onEndEdit.AddListener(val => adaptor.editableParts[index].text = val);
+            inputField.onValueChanged.AddListener((val =>
+            { if (!inputField.isFocused) adaptor.editableParts[index].text = val; }));
         }
 
         model.OnActiveUpdated += onModelActiveUpdated;
@@ -85,7 +84,7 @@ public class TransformUIController : ComponentController
             position[i] = posVal;
 
             float.TryParse(adaptor.editableParts[i + 3].text, out float rotVal);
-            rotation[i] = rotVal;
+            rotation[i] = -rotVal;
 
             float.TryParse(adaptor.editableParts[i + 6].text, out float scaleVal);
             scale[i] = scaleVal;
@@ -161,6 +160,7 @@ public class TransformUIController : ComponentController
     {
         if (!model.active) return;
         float.TryParse(value, out float val);
+        val *= -1;
 
         Vector3 currLocalRotEuler = targetGameObject.localRotation.eulerAngles;
 
@@ -209,11 +209,10 @@ public class TransformUIController : ComponentController
     {
         if (!model.active) return;
 
-        //TODO: Clamp
         Vector3 euler = rot.eulerAngles;
-        model.inputFields[3].text = euler.x.ToString("f2");
-        model.inputFields[4].text = euler.y.ToString("f2");
-        model.inputFields[5].text = euler.z.ToString("f2");
+        model.inputFields[3].text = (rotateValueClamp(euler.x) * -1.0f).ToString("f2");
+        model.inputFields[4].text = (rotateValueClamp(euler.y) * -1.0f).ToString("f2");
+        model.inputFields[5].text = (rotateValueClamp(euler.z) * -1.0f).ToString("f2");
     }
 
     public void UpdateUIScaleData(Vector3 scale)
@@ -242,6 +241,11 @@ public class TransformUIController : ComponentController
             model.inputFields[i + 6].text = scale[i].ToString("f2");
     }
 
+    private float rotateValueClamp(float value)
+    {
+        float result = value - 360.0f * (((int)value + 180) / 360);
+        return result;
+    }
     #endregion
     ~TransformUIController()
     {

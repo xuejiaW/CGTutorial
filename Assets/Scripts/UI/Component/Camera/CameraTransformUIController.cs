@@ -46,22 +46,16 @@ public class CameraTransformUIController : ComponentController
             else if (index <= 5)
                 inputField.onEndEdit.AddListener((val) => SetRotation(axis, val));
 
-            // Change the code snippet after ui data changed
-            if (index < adaptor.dataCount)
-            {
-                // For manually edit input field
-                inputField.onEndEdit.AddListener(val => adaptor.editableParts[index].text = val);
-
-                // For inputField modified which caused by the interaction with the interactive GO
-                inputField.onValueChanged.AddListener((val =>
-                { if (!inputField.isFocused) adaptor.editableParts[index].text = val; }));
-            }
+            inputField.onEndEdit.AddListener(val => adaptor.editableParts[index].text = val);
+            inputField.onValueChanged.AddListener((val =>
+            { if (!inputField.isFocused) adaptor.editableParts[index].text = val; }));
         }
 
         model.OnActiveUpdated += onModelActiveUpdated;
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
 
     }
+
 
     public override void InitComponent()
     {
@@ -80,7 +74,7 @@ public class CameraTransformUIController : ComponentController
             position[i] = posVal;
 
             float.TryParse(adaptor.editableParts[i + 3].text, out float rotVal);
-            rotation[i] = rotVal;
+            rotation[i] = -1 * rotVal;
         }
 
         targetGO.localPosition = position;
@@ -149,6 +143,7 @@ public class CameraTransformUIController : ComponentController
     {
         if (!model.active) return;
         float.TryParse(value, out float val);
+        val *= -1;
 
         Vector3 currLocalRotEuler = targetGameObject.localRotation.eulerAngles;
 
@@ -175,11 +170,10 @@ public class CameraTransformUIController : ComponentController
     {
         if (!model.active) return;
 
-        //TODO: Clamp
         Vector3 euler = rot.eulerAngles;
-        model.inputFields[3].text = euler.x.ToString("f2");
-        model.inputFields[4].text = euler.y.ToString("f2");
-        model.inputFields[5].text = euler.z.ToString("f2");
+        model.inputFields[3].text = (rotateValueClamp(euler.x) * -1.0f).ToString("f2");
+        model.inputFields[4].text = (rotateValueClamp(euler.y) * -1.0f).ToString("f2");
+        model.inputFields[5].text = (rotateValueClamp(euler.z) * -1.0f).ToString("f2");
     }
 
     private void RefreshUIData()
@@ -190,6 +184,12 @@ public class CameraTransformUIController : ComponentController
             model.inputFields[i].text = position[i].ToString("f2");
         for (int i = 0; i != 3; ++i)
             model.inputFields[i + 3].text = rotation[i].ToString("f2");
+    }
+
+    private float rotateValueClamp(float value)
+    {
+        float result = value - 360.0f * (((int)value + 180) / 360);
+        return result;
     }
 
     #endregion

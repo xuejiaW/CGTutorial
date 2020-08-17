@@ -129,10 +129,10 @@ int main()
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0, -1.0f);
 
     GLfloat pitch =<` 10.0`>f; // toward up
-    GLfloat yaw = <`-90.0`>f;  // to the -z axis
+    GLfloat yaw = <`90.0`>f;  // to the -z axis
     cameraFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront.y = sin(glm::radians(pitch));
-    cameraFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront.z = -sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(cameraFront);
 
     glm::vec3 cameraUp = glm::vec3(0, 1, 0);
