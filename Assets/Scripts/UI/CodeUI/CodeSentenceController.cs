@@ -16,16 +16,27 @@ public class CodeSentenceController : MonoBehaviour
     public new Transform transform = null;
 
     [System.NonSerialized]
-    public RectTransform rectTransform = null;
+    public new GameObject gameObject = null;
 
     [System.NonSerialized]
-    public Vector2 size = Vector2.zero;
+    public RectTransform rectTransform = null;
 
     [System.NonSerialized]
     public List<InputField> sentenceEditablePart = null;
 
+    public float height
+    {
+        get { return rectTransform.sizeDelta.y; }
+    }
+
+    public float width
+    {
+        get { return rectTransform.sizeDelta.x; }
+    }
+
     private void Awake()
     {
+        this.gameObject = base.gameObject;
         this.transform = base.transform;
         rectTransform = GetComponent<RectTransform>();
     }
@@ -54,7 +65,7 @@ public class CodeSentenceController : MonoBehaviour
             codeSentence.SetParent(transform, false);
         });
 
-        size = new Vector2(totalWidth, maxHeight);
+        rectTransform.sizeDelta = new Vector2(totalWidth, maxHeight);
     }
 
     private List<KeyValuePair<string, bool>> GetSplittedCodeSnippet(string text)

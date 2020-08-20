@@ -1,3 +1,4 @@
+[` header
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stb_image.h"
 #include "../SHADER.h"
@@ -7,6 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+`]
 
 using namespace std;
 
@@ -62,7 +64,7 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     Shader shader("transformation.vert", "transformation.frag");
-
+[` texture setting
     GLuint texture1;
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
@@ -70,6 +72,7 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+`]
 
     int width, height, nrChannels;
     unsigned char *image = stbi_load("container.jpg", &width, &height, &nrChannels, 0);

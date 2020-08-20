@@ -8,9 +8,8 @@ using UnityEngine.UI;
 public class CodeSnippetManager : MonobehaviorSingleton<CodeSnippetManager>
 {
     public GameObject codeSentence_prefab = null;
+    public GameObject codeBlock_prefab = null;
 
-    private float maxSentenceWidth = -1;
-    private float totalSentenceHeight = -1;
     public RectTransform[] snippetHolderTrans = null;
     public List<InputField> snippetEditablePart = null;
 
@@ -30,24 +29,41 @@ public class CodeSnippetManager : MonobehaviorSingleton<CodeSnippetManager>
     {
         if (string.IsNullOrEmpty(sourcePath))
             return;
+
         TextAsset source = Resources.Load<TextAsset>(sourcePath);
         List<string> sourceContent = source.text.Split('\n').ToList();
 
+        Stack<CodeBlockController> blockStack = new Stack<CodeBlockController>();
+        CodeBlockController mainBlock = GameObject.Instantiate(codeBlock_prefab).GetComponent_AutoAdd<CodeBlockController>();
+        mainBlock.transform.SetParent(contentParent, false);
+        blockStack.Push(mainBlock);
+
         sourceContent.ForEach(sentence =>
         {
-            CodeSentenceController sentenceController = GameObject.Instantiate(codeSentence_prefab).GetComponent<CodeSentenceController>();
-            sentenceController.LoadSentence(sentence);
-            snippetEditablePart.AddRange(sentenceController.sentenceEditablePart);
-            Vector2 sentenSize = sentenceController.size;
-            maxSentenceWidth = Mathf.Max(maxSentenceWidth, sentenSize[0]);
-            sentenceController.rectTransform.sizeDelta = new Vector2(sentenSize[0], sentenSize[1]);
-
-            sentenceController.transform.SetParent(contentParent, false);
-            totalSentenceHeight += sentenSize[1];
+            if (sentence.Contains("[`"))
+            {
+                CodeBlockController codeBlock = GameObject.Instantiate(codeBlock_prefab).GetComponent_AutoAdd<CodeBlockController>();
+                codeBlock.LoadTitle(sentence);
+                blockStack.Peek().AddBlock(codeBlock);
+                blockStack.Push(codeBlock);
+            }
+            else if (sentence.Contains("`]"))
+            {
+                CodeBlockController codeBlock = blockStack.Pop();
+            }
+            else
+            {
+                CodeSentenceController sentenceController = GameObject.Instantiate(codeSentence_prefab).GetComponent<CodeSentenceController>();
+                sentenceController.LoadSentence(sentence);
+                snippetEditablePart.AddRange(sentenceController.sentenceEditablePart);
+                blockStack.Peek().AddSentence(sentenceController);
+            }
         });
-
-        contentParent.sizeDelta = new Vector2(Mathf.Max(contentParent.sizeDelta.x, maxSentenceWidth), totalSentenceHeight);
+        mainBlock.UnFoldBlock();
+        // contentParent.sizeDelta = new Vector2(Mathf.Max(contentParent.sizeDelta.x, maxSentenceWidth), totalSentenceHeight);
     }
+
+
 
     // Alloc editable part to adaptor, warning the order of setting adaptor is matter
     public void BindSnippetAdaptor(CodeSnippetInputAdaptor adaptor)
@@ -55,6 +71,5 @@ public class CodeSnippetManager : MonobehaviorSingleton<CodeSnippetManager>
         int neededCount = adaptor.dataCount;
         adaptor.BindSnippetEditableFields(snippetEditablePart.GetRange(0, neededCount));
         snippetEditablePart.RemoveRange(0, neededCount);
-        Debug.Log("snippetEditablePart remaining is " + snippetEditablePart.Count);
     }
 }
