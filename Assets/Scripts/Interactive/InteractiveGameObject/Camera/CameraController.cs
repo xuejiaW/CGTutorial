@@ -42,11 +42,11 @@ public class CameraController : InteractiveGameObjectController
 
     private void UpdateCameraData()
     {
-        MainManager.Instance.worldCamera.transform.position = model.position;
-        MainManager.Instance.worldCamera.transform.rotation = model.rotation;
-        MainManager.Instance.worldCamera.fieldOfView = model.fov;
-        MainManager.Instance.worldCamera.nearClipPlane = model.nearClipping;
-        MainManager.Instance.worldCamera.farClipPlane = model.farClipPlane;
+        MainManager.Instance.screenCamera.transform.position = model.position;
+        MainManager.Instance.screenCamera.transform.rotation = model.rotation;
+        MainManager.Instance.screenCamera.fieldOfView = model.fov;
+        MainManager.Instance.screenCamera.nearClipPlane = model.nearClipping;
+        MainManager.Instance.screenCamera.farClipPlane = model.farClipPlane;
     }
 
     private void UpdateCameraLine()

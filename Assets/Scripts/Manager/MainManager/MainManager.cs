@@ -5,15 +5,15 @@ using UnityEngine;
 public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubject
 {
     private List<IMainUpdateObserver> updateObserversList = null;
-    public Camera viewCamera { get; set; }
     public Camera worldCamera { get; set; }
+    public Camera screenCamera { get; set; }
 
     protected override void Init()
     {
         base.Init();
         updateObserversList = new List<IMainUpdateObserver>();
-        viewCamera = GameObject.Find("CameraGroup/View").GetComponent<Camera>();
         worldCamera = GameObject.Find("CameraGroup/World").GetComponent<Camera>();
+        screenCamera = GameObject.Find("CameraGroup/Screen").GetComponent<Camera>();
     }
 
     public void RegisterObserver(IMainUpdateObserver observer)

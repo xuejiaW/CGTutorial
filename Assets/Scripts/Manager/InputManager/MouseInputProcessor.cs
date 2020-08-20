@@ -41,7 +41,7 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
     {
         Vector3 mousePos = Input.mousePosition;
 
-        if (!MainManager.Instance.viewCamera.pixelRect.Contains(mousePos)) // Only handle view Camera rect
+        if (!MainManager.Instance.worldCamera.pixelRect.Contains(mousePos)) // Only handle view Camera rect
             return;
 
         lastPos = mousePos;
@@ -53,7 +53,7 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
         foreach (KeyValuePair<int, int> pair in trackedLayers)
             allLayersMask += (pair.Key != -1 ? pair.Key : 0);
 
-        if (Physics.Raycast(MainManager.Instance.viewCamera.ScreenPointToRay(mousePos),
+        if (Physics.Raycast(MainManager.Instance.worldCamera.ScreenPointToRay(mousePos),
                             out RaycastHit hit, 100, allLayersMask))
             hittedGO = hit.transform.gameObject;
 
@@ -75,7 +75,7 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
                             ref Vector3 lastPos, ref Vector3 clickPos, ref int hittedLayer)
     {
         Vector3 mousePos = Input.mousePosition;
-        if (!MainManager.Instance.viewCamera.pixelRect.Contains(mousePos)) // Only handle view Camera rect
+        if (!MainManager.Instance.worldCamera.pixelRect.Contains(mousePos)) // Only handle view Camera rect
             return;
 
         if (dragDeltaHandlesDict.TryGetValue(hittedLayer, out Action<Vector3> deltaHandles))

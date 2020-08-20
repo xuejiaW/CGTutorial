@@ -31,11 +31,15 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
         InteractiveIndicatorCollection.Instance.SetIndicatorSize(courseModel.indicatorSize);
         InteractiveIndicatorCollection.Instance.SetIndicatorSensitive(courseModel.indicatorSensitive);
 
-        Camera targetCamera = MainManager.Instance.viewCamera;
-        targetCamera.orthographic = courseModel.cameraOrthographic;
-        if (targetCamera.orthographic)
+        Camera worldCamera = MainManager.Instance.worldCamera;
+        Camera screenCamera = MainManager.Instance.screenCamera;
+
+        worldCamera.orthographic = courseModel.cameraOrthographic;
+        screenCamera.orthographic = courseModel.cameraOrthographic;
+        if (worldCamera.orthographic)
         {
-            targetCamera.orthographicSize = 1.0f;
+            worldCamera.orthographicSize = 1.0f;
+            screenCamera.orthographicSize = 1.0f;
         }
     }
 

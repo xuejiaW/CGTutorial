@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1315467591539910237}
   - component: {fileID: 1315467591539910236}
   - component: {fileID: 1315467591539910239}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: EditablePart_InputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 1315467592670982659}
   - component: {fileID: 1315467592670982657}
   - component: {fileID: 1315467592670982656}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 1315467592747964447}
   - component: {fileID: 1315467592747964445}
   - component: {fileID: 1315467592747964444}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5677503419545672882}
   - component: {fileID: 5677503419545672885}
   - component: {fileID: -7341801277379351752}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: SentenceGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,5 +78,3 @@ MonoBehaviour:
     type: 3}
   editablePart_prefab: {fileID: 1315467591539910233, guid: 990a190b7ba006b45a7b90ab4451ec4b,
     type: 3}
-  transform: {fileID: 0}
-  rectTransform: {fileID: 0}

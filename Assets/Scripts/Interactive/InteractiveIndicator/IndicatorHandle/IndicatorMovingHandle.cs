@@ -33,8 +33,8 @@ public class IndicatorMovingHandle : IndicatorHandleBase
         // to calculate selected axis's delta position from startPoint to endPoint in screen coordinate
         axisStartPointWorld = indicatorAxisTrans.position + movingDirection;
         axisEndPointWorld = indicatorAxisTrans.position - movingDirection;
-        axisStartPointScreen = MainManager.Instance.viewCamera.WorldToViewportPoint(axisStartPointWorld);
-        axisEndPointScreen = MainManager.Instance.viewCamera.WorldToViewportPoint(axisEndPointWorld);
+        axisStartPointScreen = MainManager.Instance.worldCamera.WorldToViewportPoint(axisStartPointWorld);
+        axisEndPointScreen = MainManager.Instance.worldCamera.WorldToViewportPoint(axisEndPointWorld);
         axisDeltaScreen = axisStartPointScreen - axisEndPointScreen;    //axis start/end point position delta in screen coordinate
 
         // project dragDeltaPosScreen on axisDeltaScreen, use the result as the coefficient

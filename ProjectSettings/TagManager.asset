@@ -18,8 +18,8 @@ TagManager:
   - CreateGOUI
   - GOStateUI
   - HierarchyUI
+  - CodeUI
   - InteractiveHelper
-  - 
   - 
   - 
   - 

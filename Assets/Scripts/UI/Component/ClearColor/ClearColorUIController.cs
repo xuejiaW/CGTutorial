@@ -38,9 +38,9 @@ public class ClearColorUIController : ComponentController
     {
         float.TryParse(value, out float val);
 
-        Color backgroundColor = MainManager.Instance.viewCamera.backgroundColor;
+        Color backgroundColor = MainManager.Instance.worldCamera.backgroundColor;
         backgroundColor[channel] = val / 255.0f;
-        MainManager.Instance.viewCamera.backgroundColor = backgroundColor;
+        MainManager.Instance.worldCamera.backgroundColor = backgroundColor;
     }
 
     private void UpdateClearColorUIComponent(int channel, string value)
