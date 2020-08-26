@@ -31,7 +31,7 @@ public class ClearColorUIController : ComponentController
             int channel = i;
             adaptor.BindValueChangedEvent((val) => UpdateClearColorUIComponent(channel, val));
         }
-        CodeSnippetManager.Instance.BindSnippetAdaptor(adaptor);
+        CodeBlockManager.Instance.BindSnippetAdaptor(adaptor);
     }
 
     private void UpdateCameraClearColor(int channel, string value)

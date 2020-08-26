@@ -430,7 +430,6 @@ MonoBehaviour:
   - {fileID: 833937398}
   - {fileID: 395569132}
   - {fileID: 807650436}
-  snippetEditablePart: []
 --- !u!1 &240216676
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311.45758, y: 122.788574}
+  m_AnchoredPosition: {x: -305.38446, y: 124.606094}
   m_SizeDelta: {x: 304, y: 216}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &395569134
@@ -1391,8 +1390,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 907183099}
   m_HandleRect: {fileID: 907183098}
   m_Direction: 2
-  m_Value: -0.00043011265
-  m_Size: 0.6245674
+  m_Value: -0.061933637
+  m_Size: 0.6832944
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1811,7 +1810,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311.45758, y: 122.788574}
+  m_AnchoredPosition: {x: -305.38446, y: 124.606094}
   m_SizeDelta: {x: 304, y: 216}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &807650437
@@ -1881,7 +1880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311.45758, y: 122.788574}
+  m_AnchoredPosition: {x: -305.38446, y: 124.606094}
   m_SizeDelta: {x: 304, y: 216}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &833937399
@@ -2088,7 +2087,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 454446320}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.72356474
+  m_Size: 0.7915955
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2212,7 +2211,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2084930105}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.72356474
+  m_Size: 0.7915955
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2869,7 +2868,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 351430000}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.72356474
+  m_Size: 0.7915955
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3112,8 +3111,8 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3798,8 +3797,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 314927322}
   m_HandleRect: {fileID: 314927321}
   m_Direction: 2
-  m_Value: -0.00043011265
-  m_Size: 0.6245674
+  m_Value: -0.061933637
+  m_Size: 0.6832944
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4201,8 +4200,8 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4331,8 +4330,8 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+    m_SelectedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4650,8 +4649,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1360299111}
   m_HandleRect: {fileID: 1360299110}
   m_Direction: 2
-  m_Value: -0.00043011265
-  m_Size: 0.6245674
+  m_Value: -0.061933637
+  m_Size: 0.6832944
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -5,13 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CodeSnippetManager : MonobehaviorSingleton<CodeSnippetManager>
+public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
 {
     public GameObject codeSentence_prefab = null;
     public GameObject codeBlock_prefab = null;
 
-    public RectTransform[] snippetHolderTrans = null;
+    [System.NonSerialized]
     public List<InputField> snippetEditablePart = null;
+
+    public RectTransform[] snippetHolderTrans = null;
 
     protected override void Init()
     {

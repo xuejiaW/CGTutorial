@@ -29,7 +29,7 @@ public class VertexPosUIController : ComponentController
             int axis = i;
             adaptor.BindValueChangedEvent((val => SetPosition(axis, val)));
         }
-        CodeSnippetManager.Instance.BindSnippetAdaptor(adaptor);
+        CodeBlockManager.Instance.BindSnippetAdaptor(adaptor);
 
         for (int i = 0; i != model.inputFields.Length; ++i)
         {

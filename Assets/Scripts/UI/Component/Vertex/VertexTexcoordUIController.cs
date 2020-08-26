@@ -25,7 +25,7 @@ public class VertexTexcoordUIController : ComponentController
             int axis = i;
             adaptor.BindValueChangedEvent((val => SetTexcoord(axis, val)));
         }
-        CodeSnippetManager.Instance.BindSnippetAdaptor(adaptor);
+        CodeBlockManager.Instance.BindSnippetAdaptor(adaptor);
 
         for (int i = 0; i != model.inputFields.Length; ++i)
         {

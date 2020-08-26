@@ -34,7 +34,7 @@ public class CameraTransformUIController : ComponentController
             else if (i <= 5)
                 adaptor.BindValueChangedEvent((val => SetRotation(axis, val)));
         }
-        CodeSnippetManager.Instance.BindSnippetAdaptor(adaptor);
+        CodeBlockManager.Instance.BindSnippetAdaptor(adaptor);
 
         for (int i = 0; i != model.inputFields.Length; ++i)
         {

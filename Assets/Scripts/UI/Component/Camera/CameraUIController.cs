@@ -30,7 +30,7 @@ public class CameraUIController : ComponentController
             int channel = i;
             adaptor.BindValueChangedEvent((val) => SetCamera(channel, val));
         }
-        CodeSnippetManager.Instance.BindSnippetAdaptor(adaptor);
+        CodeBlockManager.Instance.BindSnippetAdaptor(adaptor);
 
         for (int i = 0; i != model.inputFields.Length; ++i)
         {

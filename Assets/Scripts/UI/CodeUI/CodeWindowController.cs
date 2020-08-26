@@ -13,6 +13,15 @@ public class CodeWindowController : MonoBehaviour
     [System.NonSerialized]
     public float windowWidth = 0.0f;
 
+    private new Transform transform = null;
+    private new GameObject gameObject = null;
+
+    private void Awake()
+    {
+        this.transform = base.transform;
+        this.gameObject = base.gameObject;
+    }
+
     public void Select(int index)
     {
         if (index == windowIndex)
