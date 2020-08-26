@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class InteractiveGameObjectController : DisplayableEntityController
     {
         base.Init();
         InteractiveGameObjectCollection.Instance.AddInteractiveGo(model);
+
         model.componentsAssetID?.ForEach(component => ComponentUIManager.Instance.CreateComponent(component, model));
+        model.codeSnippetsAssetID?.ForEach(snippetID => CodeSnippetManager.Instance.CreateCodeSnippet(snippetID, model));
     }
 }

@@ -17,6 +17,7 @@ public class InteractiveGameObjectModel : DisplayableEntityModel
     public string name = "";
 
     public List<string> componentsAssetID = null;
+    public List<string> codeSnippetsAssetID = null;
 
     [System.NonSerialized]
     public HierarchyGOModel hierarchyGO;

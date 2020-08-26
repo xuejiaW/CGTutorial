@@ -43,7 +43,6 @@ public class CodeBlockController : MonoBehaviour
 
         sentenceMaxWidth = Mathf.Max(sentenceMaxWidth, sentence.width);
         sentenceHeight += sentence.height;
-        Debug.Log("sentence Height is " + sentenceHeight);
     }
 
     public void AddBlock(CodeBlockController block)
@@ -60,7 +59,6 @@ public class CodeBlockController : MonoBehaviour
         int index = sentence.IndexOf("[`");
         string title = sentence.Substring(index + 2);
         titleText.text = title;
-        Debug.Log("title is " + title);
     }
 
     // Called by button

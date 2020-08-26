@@ -10,7 +10,8 @@ public class InteractiveGameObjectInstantiator : Singleton<InteractiveGameObject
         {"gameobject_texture_quad","TextureQuadModel"},
         {"gameobject_transformation_quad","TransformationQuadModel"},
         {"gameobject_cube","InteractiveGameObjectModel"},
-        {"gameobject_world_camera","CameraModel"}
+        {"gameobject_world_camera","CameraModel"},
+        {"gameobject_clear_color","ClearColorModel"}
     };
 
     public void InstantiateGameObject(CoursesModel model)
@@ -19,7 +20,6 @@ public class InteractiveGameObjectInstantiator : Singleton<InteractiveGameObject
         {
             model.createModelsAssetID.ForEach((id) =>
             {
-                Debug.Log("model is " + id);
                 if (id2ModelType.ContainsKey(id))
                     GameResourceManager.Instance.CreateEntityController(id2ModelType[id], id);
             });

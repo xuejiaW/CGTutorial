@@ -23,6 +23,8 @@ public class CodeSentenceController : MonoBehaviour
 
     [System.NonSerialized]
     public List<InputField> sentenceEditablePart = null;
+    [System.NonSerialized]
+    public List<KeyValuePair<string, InputField>> tag2EditablePart = null;
 
     public float height
     {
@@ -45,22 +47,29 @@ public class CodeSentenceController : MonoBehaviour
     {
         List<KeyValuePair<string, bool>> parserContent = GetSplittedCodeSnippet(sentence);
         sentenceEditablePart = new List<InputField>();
+        tag2EditablePart = new List<KeyValuePair<string, InputField>>();
 
         Font font = Resources.GetBuiltinResource<Font>("Arial.ttf");
 
         float totalWidth = 0;
         float maxHeight = 0;
-        parserContent.ForEach(str =>
+        parserContent.ForEach(strPair =>
         {
-            Vector2 size = GetStringWidth(str.Key, str.Value ? 10 : 0);
-            float width = size[0];
-            float height = size[1];
+            string tag = strPair.Value ? strPair.Key.Substring(0, strPair.Key.IndexOf(':')) : "";
+            string content = strPair.Value ? strPair.Key.Substring(strPair.Key.IndexOf(':') + 1) : strPair.Key; // reduce the tag
+
+            Vector2 size = GetStringWidth(content, strPair.Value ? 10 : 0);
+            float width = size[0], height = size[1];
             totalWidth += width;
             maxHeight = Mathf.Max(maxHeight, height);
-            RectTransform codeSentence = str.Value ? LoadEditablePart(str.Key, width) : LoadNonEditablePart(str.Key, width);
 
-            if (str.Value)
+            RectTransform codeSentence = strPair.Value ? LoadEditablePart(content, width) : LoadNonEditablePart(content, width);
+
+            if (strPair.Value)
+            {
                 sentenceEditablePart.Add(codeSentence.GetComponent<InputField>());
+                tag2EditablePart.Add(new KeyValuePair<string, InputField>(tag, codeSentence.GetComponent<InputField>()));
+            }
 
             codeSentence.SetParent(transform, false);
         });

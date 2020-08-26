@@ -11,6 +11,7 @@ public class ConfigData
     public List<HierarchyGOModel> hierarchyGOList = new List<HierarchyGOModel>();
     public List<CoursesModel> coursesList = new List<CoursesModel>();
     public List<DisplayableEntityModel> creatorUILists = new List<DisplayableEntityModel>();
+    public List<CodeSnippetModel> codeSnippetLists = new List<CodeSnippetModel>();
 
     private Dictionary<string, EntityModel> assetID2EntityDataDict = new Dictionary<string, EntityModel>();
 
@@ -22,6 +23,7 @@ public class ConfigData
         foreach (EntityModel hierarchyGO in hierarchyGOList) RegisterConfigData(hierarchyGO);
         foreach (EntityModel courses in coursesList) RegisterConfigData(courses);
         foreach (EntityModel creatorUI in creatorUILists) RegisterConfigData(creatorUI);
+        foreach (EntityModel codeSnippet in codeSnippetLists) RegisterConfigData(codeSnippet);
     }
 
     public EntityModel GetEntityModel(string assetID)

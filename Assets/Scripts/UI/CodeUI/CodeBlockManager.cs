@@ -13,6 +13,9 @@ public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
     [System.NonSerialized]
     public List<InputField> snippetEditablePart = null;
 
+    [System.NonSerialized]
+    public List<KeyValuePair<string, InputField>> snippetTag2EditablePart = null;
+
     public RectTransform[] snippetHolderTrans = null;
 
     protected override void Init()
@@ -20,6 +23,7 @@ public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
         base.Init();
 
         snippetEditablePart = new List<InputField>();
+        snippetTag2EditablePart = new List<KeyValuePair<string, InputField>>();
 
         CreateCodeSnippet(CoursesAdaptor.Instance.currentCourse.mainCPPPath, snippetHolderTrans[0]);
         CreateCodeSnippet(CoursesAdaptor.Instance.currentCourse.vertexShaderPath, snippetHolderTrans[1]);
@@ -58,14 +62,14 @@ public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
                 CodeSentenceController sentenceController = GameObject.Instantiate(codeSentence_prefab).GetComponent<CodeSentenceController>();
                 sentenceController.LoadSentence(sentence);
                 snippetEditablePart.AddRange(sentenceController.sentenceEditablePart);
+                snippetTag2EditablePart.AddRange(sentenceController.tag2EditablePart);
                 blockStack.Peek().AddSentence(sentenceController);
             }
         });
+        Debug.Log("tag part count is " + snippetTag2EditablePart.Count);
+        snippetTag2EditablePart.ForEach(tag => Debug.Log("tag is " + tag.Key));
         mainBlock.UnFoldBlock();
-        // contentParent.sizeDelta = new Vector2(Mathf.Max(contentParent.sizeDelta.x, maxSentenceWidth), totalSentenceHeight);
     }
-
-
 
     // Alloc editable part to adaptor, warning the order of setting adaptor is matter
     public void BindSnippetAdaptor(CodeSnippetInputAdaptor adaptor)
@@ -73,5 +77,19 @@ public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
         int neededCount = adaptor.dataCount;
         adaptor.BindSnippetEditableFields(snippetEditablePart.GetRange(0, neededCount));
         snippetEditablePart.RemoveRange(0, neededCount);
+    }
+
+    public List<InputField> PopEditablePart(string tag, int count)
+    {
+        List<InputField> result = new List<InputField>();
+        while (count-- > 0)
+        {
+            KeyValuePair<string, InputField>? tag2InputFieldPair = snippetTag2EditablePart.Find(pair => pair.Key == tag);
+            if (tag2InputFieldPair == null) break;
+
+            result.Add(tag2InputFieldPair.Value.Value);
+            snippetTag2EditablePart.Remove(tag2InputFieldPair.Value);
+        }
+        return result;
     }
 }

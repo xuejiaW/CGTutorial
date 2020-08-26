@@ -26,32 +26,45 @@ MonoBehaviour:
       name: Cube
       componentsAssetID:
       - component_transform
+      codeSnippetsAssetID: []
     - assetID: gameobject_cylinder
       prefabPath: InteractivePrimitive/Cylinder
       name: Cylinder
       componentsAssetID: []
+      codeSnippetsAssetID: []
     - assetID: gameobject_triangle
       prefabPath: InteractivePrimitive/Triangle
       name: Triangle
       componentsAssetID:
       - component_vertex_position
+      codeSnippetsAssetID: []
     - assetID: gameobject_texture_quad
       prefabPath: InteractivePrimitive/TextureQuad
       name: TextureQuad
       componentsAssetID:
       - component_vertex_position
       - component_vertex_texcoord
+      codeSnippetsAssetID: []
     - assetID: gameobject_transformation_quad
       prefabPath: InteractivePrimitive/TransformationQuad
       name: TransformationQuad
       componentsAssetID:
       - component_transform
+      codeSnippetsAssetID: []
     - assetID: gameobject_world_camera
       prefabPath: InteractivePrimitive/WorldCamera
       name: Camera
       componentsAssetID:
       - component_camera_transform
       - component_camera
+      codeSnippetsAssetID: []
+    - assetID: gameobject_clear_color
+      prefabPath: InteractivePrimitive/ClearColor
+      name: ClearColor
+      componentsAssetID:
+      - component_clear_color
+      codeSnippetsAssetID:
+      - code_snippet_clear_color
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
@@ -77,9 +90,9 @@ MonoBehaviour:
       vertexShaderPath: CoursesSourceCode/Window/Vertex
       fragmentShaderPath: CoursesSourceCode/Window/Fragment
       mainCPPPath: CoursesSourceCode/Window/Main
-      createModelsAssetID: []
-      createComponentAssetID:
-      - component_clear_color
+      createModelsAssetID:
+      - gameobject_clear_color
+      createComponentAssetID: []
     - assetID: course_triangle
       indicatorSize: 0.15
       indicatorSensitive: 0.05
@@ -128,3 +141,7 @@ MonoBehaviour:
     creatorUILists:
     - assetID: 2d_primitive
       prefabPath: UI/Creator/2D_Primitive
+    codeSnippetLists:
+    - assetID: code_snippet_clear_color
+      dataCount: 3
+      tag: clear_color

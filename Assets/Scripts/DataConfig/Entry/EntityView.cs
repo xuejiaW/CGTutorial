@@ -13,6 +13,7 @@ public class EntityView : MonoBehaviour
     public new GameObject gameObject = null;
 
     public DisplayableEntityModel model { get; protected set; }
+    public DisplayableEntityController controller { get; protected set; }
 
     public virtual void BindEntityModel(DisplayableEntityModel model)
     {
@@ -29,6 +30,11 @@ public class EntityView : MonoBehaviour
 
         model.OnParentUpdated += SetParent;
         model.OnActiveUpdated += SetActive;
+    }
+
+    public virtual void BindEntityController(DisplayableEntityController controller)
+    {
+        this.controller = controller;
     }
 
     // Will be trigger firstly when the view is created

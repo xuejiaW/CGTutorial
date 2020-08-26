@@ -3,15 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClearColorUIView : EntityView
+public class ClearColorUIView : ComponentView
 {
-    private new ClearColorUIModel model = null;
+    public new ClearColorUIController controller = null;
+    private ClearColorModel targetModel = null;
 
-    public override void BindEntityModel(DisplayableEntityModel model)
+    public override void BindEntityController(DisplayableEntityController controller)
     {
-        base.BindEntityModel(model);
+        base.BindEntityController(controller);
+        this.controller = base.controller as ClearColorUIController;
 
-        this.model = base.model as ClearColorUIModel;
-        this.model.inputFields = GetComponentsInChildren<InputField>();
+        for (int i = 0; i != inputFields.Length; ++i)
+        {
+            int channel = i; // to fix the c# closure problem
+            this.inputFields[i].onEndEdit.AddListener((val) => this.controller.UpdateCameraClearColor(channel, val));
+        }
+    }
+
+    public override void InitComponent()
+    {
+        base.InitComponent();
+        targetModel = model.targetGameObject as ClearColorModel;
+        targetModel.OnClearColorChanged += UpdateClearColorUIComponent;
+    }
+
+    private void UpdateClearColorUIComponent(Color color)
+    {
+        for (int i = 0; i != 3; ++i)
+        {
+            inputFields[i].text = (color[i]).ToString();
+        }
     }
 }

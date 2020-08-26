@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClearColorUIController : ComponentController
 {
     private new ClearColorUIModel model = null;
-    private CodeSnippetInputAdaptor adaptor = null;
+    private ClearColorModel targetModel = null;
 
     public override void BindEntityModel(EntityModel model)
     {
@@ -13,45 +13,18 @@ public class ClearColorUIController : ComponentController
         this.model = base.model as ClearColorUIModel;
     }
 
-    public override void Init()
+    public override void InitComponent()
     {
-        base.Init();
-
-        for (int i = 0; i != model.inputFields.Length; ++i)
-        {
-            int channel = i; // to fix the c# closure problem
-            this.model.inputFields[i].onEndEdit.AddListener((val) => UpdateCameraClearColor(channel, val));
-            this.model.inputFields[i].onEndEdit.AddListener((val) => UpdateCodeSnippet(channel, val));
-        }
-
-        // Set binding code snippet 
-        adaptor = new CodeSnippetInputAdaptor();
-        for (int i = 0; i != model.inputFields.Length; ++i)
-        {
-            int channel = i;
-            adaptor.BindValueChangedEvent((val) => UpdateClearColorUIComponent(channel, val));
-        }
-        CodeBlockManager.Instance.BindSnippetAdaptor(adaptor);
+        base.InitComponent();
+        targetModel = model.targetGameObject as ClearColorModel;
     }
 
-    private void UpdateCameraClearColor(int channel, string value)
+    public void UpdateCameraClearColor(int channel, string value)
     {
         float.TryParse(value, out float val);
 
-        Color backgroundColor = MainManager.Instance.worldCamera.backgroundColor;
-        backgroundColor[channel] = val / 255.0f;
-        MainManager.Instance.worldCamera.backgroundColor = backgroundColor;
-    }
-
-    private void UpdateClearColorUIComponent(int channel, string value)
-    {
-        float.TryParse(value, out float val);
-        model.inputFields[channel].text = (val * 255.0f).ToString();
-    }
-
-    public void UpdateCodeSnippet(int channel, string value)
-    {
-        float.TryParse(value, out float val);
-        adaptor.editableParts[channel].text = (val / 255.0f).ToString();
+        Color backgroundColor = targetModel.clearColor;
+        backgroundColor[channel] = val;
+        targetModel.clearColor = backgroundColor;
     }
 }

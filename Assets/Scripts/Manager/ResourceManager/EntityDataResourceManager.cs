@@ -35,19 +35,21 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         GameObject gObj = Instantiate(model.prefabPath);
 
         EntityView view = gObj.AddComponent(model.GetViewType()) as EntityView;
-        EntityController controller = Activator.CreateInstance(model.GetControllerType()) as EntityController;
+        DisplayableEntityController controller = Activator.CreateInstance(model.GetControllerType()) as DisplayableEntityController;
         CombineMVC(model, view, controller);
 
         return controller;
     }
 
-    public void CombineMVC(DisplayableEntityModel model, EntityView view, EntityController controller)
+    public void CombineMVC(DisplayableEntityModel model, EntityView view, DisplayableEntityController controller)
     {
         view.BindEntityModel(model);
         model.BindEntityView(view);
 
         controller.BindEntityModel(model);
         model.BindEntityController(controller);
+
+        view.BindEntityController(controller);
 
         controller.Init();
     }

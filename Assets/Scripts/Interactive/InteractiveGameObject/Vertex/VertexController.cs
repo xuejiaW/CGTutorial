@@ -2,6 +2,4 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexController : InteractiveGameObjectController
-{
-}
+public class VertexController : InteractiveGameObjectController { }

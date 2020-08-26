@@ -2,6 +2,4 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexView : InteractiveGameObjectView
-{
-}
+public class VertexView : InteractiveGameObjectView { }

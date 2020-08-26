@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class ComponentController : DisplayableEntityController
 {
-    public virtual void InitComponent()
-    {
-
-    }
+    public virtual void InitComponent() { }
 }

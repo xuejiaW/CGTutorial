@@ -1,6 +1,8 @@
+[` Header
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+`]
 
 using namespace std;
 
@@ -9,11 +11,12 @@ static int windowHeight = 800;
 
 int main()
 {
+    [` GLFW Initialization
     glfwInit();
-
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    `]
 
     GLFWwindow *window = glfwCreateWindow(windowWidth, windowHeight, "LearnOpenGL", NULL, NULL);
     glfwMakeContextCurrent(window);
@@ -24,7 +27,7 @@ int main()
     {
         glfwPollEvents();
 
-        glClearColor( <`0.0`>f, <`0.0`>f, <`0.0`>f, 1.0f);
+        glClearColor( <`clear_color:0.5`>f, <`clear_color:0.0`>f, <`clear_color:0.0`>f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window);

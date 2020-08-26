@@ -14,9 +14,6 @@ public class ComponentModel : DisplayableEntityModel
         return ComponentUIDict.id2ControllerDict.TryGetValue(base.assetID, out var view) ? view : typeof(DisplayableEntityController);
     }
 
-    public DisplayableEntityModel targetGameObject
-    {
-        get;
-        set;
-    }
+    public DisplayableEntityModel targetGameObject { get; set; }
+
 }
