@@ -80,7 +80,7 @@ MonoBehaviour:
       createModelsAssetID: []
       createComponentAssetID:
       - component_clear_color
-    - assetID: course_triangles
+    - assetID: course_triangle
       indicatorSize: 0.15
       indicatorSensitive: 0.05
       allowCameraFlythrough: 0
