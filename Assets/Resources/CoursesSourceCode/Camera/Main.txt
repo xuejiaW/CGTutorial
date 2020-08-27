@@ -123,20 +123,20 @@ int main()
     shader.Use();
 
     // Camera pos
-    glm::vec3 cameraPos = glm::vec3(<`0.0`>f, <`0.0`>f, <`3.0`>f);
+    glm::vec3 cameraPos = glm::vec3(<`CameraTrans:0.0`>f, <`CameraTrans:0.0`>f, <`CameraTrans:3.0`>f);
 
     // Camera rotation
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0, -1.0f);
 
-    GLfloat pitch =<` 10.0`>f; // toward up
-    GLfloat yaw = <`90.0`>f;  // to the -z axis
+    GLfloat pitch =<`CameraTrans:10.0`>f; // toward up
+    GLfloat yaw = <`CameraTrans:90.0`>f;  // to the -z axis
     cameraFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront.y = sin(glm::radians(pitch));
     cameraFront.z = -sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(cameraFront);
 
     glm::vec3 cameraUp = glm::vec3(0, 1, 0);
-    GLfloat roll = <`90.0`>f; // to +y axis
+    GLfloat roll = <`CameraTrans: 90.0`>f; // to +y axis
     cameraUp.x = cos(glm::radians(roll));
     cameraUp.y = sin(glm::radians(roll));
     cameraUp = glm::normalize(cameraUp);
@@ -146,14 +146,14 @@ int main()
 
     glm::mat4 projection;
     glfwGetFramebufferSize(window, &width, &height);
-    projection = glm::perspective(glm::radians(<`45.0`>f), (GLfloat)width / height,<`0.1`>f,<`100.0`>f);
+    projection = glm::perspective(glm::radians(<`Camera:45.0`>f), (GLfloat)width / height,<`Camera:0.1`>f,<`Camera:100.0`>f);
 
     glm::mat4 trans;
-    // trans = glm::translate(trans, glm::vec3(<`-0.5`>f, <`-0.5`>f, <`0.0`>f));
-    trans = glm::rotate(trans, glm::radians(<`30.0`>f), glm::vec3(1, 0, 0));
-    trans = glm::rotate(trans, glm::radians(<`00.0`>f), glm::vec3(0, 1, 0));
-    trans = glm::rotate(trans, glm::radians(<`00.0`>f), glm::vec3(0, 0, 1));
-    trans = glm::scale(trans, glm::vec3(<`0.5`>f, <`0.5`>f, <`0.5`>f));
+    // trans = glm::translate(trans, glm::vec3(<transformation:`-0.5`>f, <`transformation:-0.5`>f, <`transformation:0.0`>f));
+    trans = glm::rotate(trans, glm::radians(<`transformation: 30.0`>f), glm::vec3(1, 0, 0));
+    trans = glm::rotate(trans, glm::radians(<`transformation: 00.0`>f), glm::vec3(0, 1, 0));
+    trans = glm::rotate(trans, glm::radians(<`transformation: 00.0`>f), glm::vec3(0, 0, 1));
+    trans = glm::scale(trans, glm::vec3(<`transformation:0.5`>f, <`transformation:0.5`>f, <`transformation:0.5`>f));
 
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(trans));
     glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
