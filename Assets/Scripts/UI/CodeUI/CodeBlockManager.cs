@@ -66,8 +66,6 @@ public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
                 blockStack.Peek().AddSentence(sentenceController);
             }
         });
-        Debug.Log("tag part count is " + snippetTag2EditablePart.Count);
-        snippetTag2EditablePart.ForEach(tag => Debug.Log("tag is " + tag.Key));
         mainBlock.UnFoldBlock();
     }
 

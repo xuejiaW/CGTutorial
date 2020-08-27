@@ -38,9 +38,9 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_moving")
                                 as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()));
         indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_rotating")
-                                as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()));
+                                as InteractiveIndicatorController).SetHandle(new IndicatorRotatingHandle()));
         indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_scaling")
-                                as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()));
+                                as InteractiveIndicatorController).SetHandle(new IndicatorScalingHandle()));
 
         currentIndicator = this[InteractiveMethod.MOVING];// Set default indicator as moving indicator
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
@@ -87,6 +87,9 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
             Transform[] verticesArr = indicator.model.view.GetComponentsInChildren<Transform>();
             for (int i = 0; i != verticesArr.Length; ++i)
             {
+                if (verticesArr[i].name != "XAxis" && verticesArr[i].name != "YAxis"
+                    && verticesArr[i].name != "ZAxis" && verticesArr[i].name != "Center")
+                    continue;
                 verticesArr[i].localScale = new Vector3(size, size, size);
             }
 

@@ -53,7 +53,8 @@ MonoBehaviour:
       name: TransformationQuad
       componentsAssetID:
       - component_transform
-      codeSnippetsAssetID: []
+      codeSnippetsAssetID:
+      - code_snippet_transformation
     - assetID: gameobject_world_camera
       prefabPath: InteractivePrimitive/WorldCamera
       name: Camera
@@ -88,6 +89,7 @@ MonoBehaviour:
     - assetID: course_window
       indicatorSize: 0.15
       indicatorSensitive: 0.05
+      allowMultiInteractiveMethod: 0
       allowCameraFlythrough: 0
       cameraOrthographic: 1
       vertexShaderPath: CoursesSourceCode/Window/Vertex
@@ -99,6 +101,7 @@ MonoBehaviour:
     - assetID: course_triangle
       indicatorSize: 0.15
       indicatorSensitive: 0.05
+      allowMultiInteractiveMethod: 0
       allowCameraFlythrough: 0
       cameraOrthographic: 1
       vertexShaderPath: CoursesSourceCode/Triangle/Vertex
@@ -110,6 +113,7 @@ MonoBehaviour:
     - assetID: course_texture
       indicatorSize: 0.15
       indicatorSensitive: 0.05
+      allowMultiInteractiveMethod: 0
       allowCameraFlythrough: 0
       cameraOrthographic: 1
       vertexShaderPath: CoursesSourceCode/Texture/Vertex
@@ -121,6 +125,7 @@ MonoBehaviour:
     - assetID: course_transformation
       indicatorSize: 0.15
       indicatorSensitive: 0.05
+      allowMultiInteractiveMethod: 1
       allowCameraFlythrough: 0
       cameraOrthographic: 1
       vertexShaderPath: CoursesSourceCode/Transformation/Vertex
@@ -132,6 +137,7 @@ MonoBehaviour:
     - assetID: course_camera
       indicatorSize: 0.5
       indicatorSensitive: 0.05
+      allowMultiInteractiveMethod: 0
       allowCameraFlythrough: 1
       cameraOrthographic: 0
       vertexShaderPath: CoursesSourceCode/Camera/Vertex

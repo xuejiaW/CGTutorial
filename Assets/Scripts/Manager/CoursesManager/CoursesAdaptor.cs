@@ -28,6 +28,11 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
         else
             InteractiveManager.Instance.UnRegisterFlythroughMode();
 
+        if (courseModel.allowMultiInteractiveMethod)
+            InteractiveManager.Instance.RegisterInteractiveMethodSwitch();
+        else
+            InteractiveManager.Instance.UnRegisterInteractiveMethodSwitch();
+
         InteractiveIndicatorCollection.Instance.SetIndicatorSize(courseModel.indicatorSize);
         InteractiveIndicatorCollection.Instance.SetIndicatorSensitive(courseModel.indicatorSensitive);
 
