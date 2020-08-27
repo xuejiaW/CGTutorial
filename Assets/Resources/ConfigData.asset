@@ -154,3 +154,6 @@ MonoBehaviour:
     - assetID: code_snippet_vertex_texcoord
       dataCount: 2
       tag: vertex_texcoord
+    - assetID: code_snippet_transformation
+      dataCount: 9
+      tag: transformation
