@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMainUpdateObserver, IInputManager
 {
@@ -8,9 +9,10 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
     private Dictionary<KeyCode, Action<float>> keyHandlesDict = null;
     private Dictionary<KeyCode, Action<KeyCode>> keyUpHandlesDict = null;
 
-    public override void Init()
+
+    protected override void InitProcess()
     {
-        base.Init();
+        base.InitProcess();
         MainManager.Instance.RegisterObserver(this);
 
         keyDownHandlesDict = new Dictionary<KeyCode, Action<KeyCode>>();

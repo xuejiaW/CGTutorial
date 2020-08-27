@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class CodeSnippetManager : Singleton<CodeSnippetManager>
@@ -10,10 +11,15 @@ public class CodeSnippetManager : Singleton<CodeSnippetManager>
     public override void Init()
     {
         base.Init();
-        snippetViews = new List<CodeSnippetView>();
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGoUpdated;
-
     }
+
+    protected override void InitProcess()
+    {
+        base.InitProcess();
+        snippetViews = new List<CodeSnippetView>();
+    }
+
     public void CreateCodeSnippet(string snippetID, InteractiveGameObjectModel model)
     {
         Debug.Log("Snippet ID is " + snippetID);

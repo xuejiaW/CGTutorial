@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorCollection>
 {
@@ -34,6 +35,14 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     {
         base.Init();
 
+        currentIndicator = this[InteractiveMethod.MOVING];// Set default indicator as moving indicator
+        InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
+        InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGOUpdated;
+    }
+
+    protected override void InitProcess()
+    {
+        base.InitProcess();
         indicatorArray = new List<InteractiveIndicatorController>();
         indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_moving")
                                 as InteractiveIndicatorController).SetHandle(new IndicatorMovingHandle()));
@@ -41,10 +50,6 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
                                 as InteractiveIndicatorController).SetHandle(new IndicatorRotatingHandle()));
         indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_scaling")
                                 as InteractiveIndicatorController).SetHandle(new IndicatorScalingHandle()));
-
-        currentIndicator = this[InteractiveMethod.MOVING];// Set default indicator as moving indicator
-        InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
-        InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGOUpdated;
     }
 
     private void OnSelectedGOUpdated(DisplayableEntityModel oldInteractiveGo, DisplayableEntityModel newInteractiveGO)

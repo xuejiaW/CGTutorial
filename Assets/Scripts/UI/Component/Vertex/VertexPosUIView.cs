@@ -41,7 +41,6 @@ public class VertexPosUIView : ComponentView
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
     }
 
-
     private void onModelActiveUpdated(bool active)
     {
 

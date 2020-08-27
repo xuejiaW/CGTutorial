@@ -12,7 +12,6 @@ public class CodeSnippetView
 
     public virtual void Switch(bool on)
     {
-        Debug.Log("enter view switch ");
         snippetInputsList.ForEach(inputField => inputField.interactable = on);
         model.isOn = on;
     }

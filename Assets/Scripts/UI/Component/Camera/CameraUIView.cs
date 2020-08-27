@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CameraUIView : EntityView
+public class CameraUIView : ComponentView
 {
     private new CameraUIModel model = null;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
 {
@@ -13,16 +14,16 @@ public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
     private float cameraMoveSpeed = 5.0f;
     private Vector3 cameraDeltaPos = Vector3.zero;
 
-    public override void Init()
+
+    protected override void InitProcess()
     {
-        base.Init();
+        base.InitProcess();
         keycodesDownDict = new Dictionary<KeyCode, bool>() {
                             { KeyCode.Q, false },{KeyCode.W,false},{KeyCode.E,false},
                             {KeyCode.A,false},{KeyCode.S,false},{KeyCode.D,false}};
 
         viewCameraTrans = MainManager.Instance.worldCamera.transform;
         currentViewCameraRot = viewCameraTrans.eulerAngles;// ignore the roll angle
-
     }
 
     public void OnMouseRightDrag(Vector3 dragDeltaScreen)

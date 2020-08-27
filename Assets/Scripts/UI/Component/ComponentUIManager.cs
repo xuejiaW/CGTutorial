@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
+public class ComponentUIManager : Singleton<ComponentUIManager>
 {
     private Transform componentGroup = null;
     private List<ComponentModel> componentList = null;
 
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
-        componentGroup = transform.Find("ComponentGroup");
-        componentList = new List<ComponentModel>();
 
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGoUpdated;
+    }
+
+    protected override void InitProcess()
+    {
+        componentGroup = GameObject.Find("ComponentGroup").transform;
+        componentList = new List<ComponentModel>();
     }
 
 

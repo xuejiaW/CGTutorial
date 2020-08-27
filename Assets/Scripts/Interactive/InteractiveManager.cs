@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class InteractiveManager : Singleton<InteractiveManager>
 {
@@ -16,10 +17,9 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
     //TODO: using key Q to turn on HandTool -> pan around the Screen
     private bool isInFlythroughMode = false;
 
-    public override void Init()
+    protected override void InitProcess()
     {
-        base.Init();
-
+        base.InitProcess();
         keyCodeStateDict = new Dictionary<KeyCode, InteractiveMethod>()
         {
             {KeyCode.W,InteractiveMethod.MOVING},
@@ -35,14 +35,13 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
 
         //Select target interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, goManager.OnSelectGameObject,
-                                    LayerMask.GetMask("InteractiveGO"), LayerMask.GetMask("InteractiveHelper"),-1); // -1 for empty gameObject
+                                    LayerMask.GetMask("InteractiveGO"), LayerMask.GetMask("InteractiveHelper"), -1); // -1 for empty gameObject
         //Interact on selected interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, indicatorManager.OnClickIndicator,
                                     LayerMask.GetMask("InteractiveIndicator"));
         MouseInputManager.Instance.RegisterDragMessageHandle(0, indicatorManager.OnDragDeltaIndicator,
                                     LayerMask.GetMask("InteractiveIndicator"));
         #endregion
-
     }
 
     public void RegisterInteractiveMethodSwitch()

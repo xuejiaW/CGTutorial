@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class Singleton<T> where T : Singleton<T>, new()
 {
@@ -26,5 +27,15 @@ public abstract class Singleton<T> where T : Singleton<T>, new()
         }
     }
 
-    public virtual void Init() { }
+    public virtual void Init()
+    {
+        InitProcess();
+        SceneManager.sceneLoaded += ((scene, ModuleHandle) =>
+        {
+            if (scene.name == "MainScene")
+                InitProcess();
+        });
+    }
+
+    protected virtual void InitProcess() { }
 }

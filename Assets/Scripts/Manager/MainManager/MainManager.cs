@@ -11,6 +11,7 @@ public class MainManager : MonobehaviorSingleton<MainManager>, IMainUpdateSubjec
     protected override void Init()
     {
         base.Init();
+        Debug.Log("Enter mainManger init");
         updateObserversList = new List<IMainUpdateObserver>();
         worldCamera = GameObject.Find("CameraGroup/World").GetComponent<Camera>();
         screenCamera = GameObject.Find("CameraGroup/Screen").GetComponent<Camera>();

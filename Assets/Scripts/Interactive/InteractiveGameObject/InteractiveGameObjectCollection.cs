@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCollection>
 {
@@ -11,10 +12,11 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     public event System.Action<DisplayableEntityModel, DisplayableEntityModel> OnHoldingInteractiveGOUpdated = null;
     public event System.Action<DisplayableEntityModel> OnCreateInteractiveGo = null;
 
-    public override void Init()
+    protected override void InitProcess()
     {
-        base.Init();
+        base.InitProcess();
         interactiveGo = new List<DisplayableEntityModel>();
+        holdingInteractiveGo = null;
     }
 
     public void AddInteractiveGo(DisplayableEntityModel model)
@@ -35,6 +37,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
 
     public void OnSelectGameObject(GameObject GO)
     {
+        Debug.Log("On Select GO");
         OnSelectGameObject(GO?.GetComponent<InteractiveGameObjectView>().model);
     }
 }

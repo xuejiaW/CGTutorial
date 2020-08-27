@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpdateObserver, IInputManager
 {
@@ -17,9 +18,9 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
     private Dictionary<int, Action<Vector3, Vector3>> leftButtonDragPosHandlesDict = null;
     private Dictionary<int, Action<Vector3, Vector3>> rightButtonDragPosHandlesDict = null;
 
-    public override void Init()
+    protected override void InitProcess()
     {
-        base.Init();
+        base.InitProcess();
         MainManager.Instance.RegisterObserver(this);
 
         leftButtonClickDownHandlesDict = new Dictionary<int, Action<GameObject>>();

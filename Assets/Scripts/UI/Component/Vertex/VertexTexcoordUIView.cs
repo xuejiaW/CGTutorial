@@ -24,8 +24,8 @@ public class VertexTexcoordUIView : ComponentView
     public override void InitComponent()
     {
         base.InitComponent();
-        targetGO = model.targetGameObject as VertexModel;
 
+        targetGO = model.targetGameObject as VertexModel;
         targetGO.OnTexcoordUpdated += UpdateVertexTexcoord;
     }
 
