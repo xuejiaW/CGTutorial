@@ -45,7 +45,9 @@ MonoBehaviour:
       componentsAssetID:
       - component_vertex_position
       - component_vertex_texcoord
-      codeSnippetsAssetID: []
+      codeSnippetsAssetID:
+      - code_snippet_vertex_position
+      - code_snippet_vertex_texcoord
     - assetID: gameobject_transformation_quad
       prefabPath: InteractivePrimitive/TransformationQuad
       name: TransformationQuad

@@ -5,9 +5,8 @@ using UnityEngine;
 public class VertexPositionSnippetView : CodeSnippetView
 {
     public new VertexPositionSnippetController controller = null;
-    public VertexModel targetModel = null;
 
-    private DisplayableEntityModel targetGameObject
+    private DisplayableEntityModel targetGO
     {
         get { return InteractiveIndicatorCollection.Instance.currentIndicator?.model; }
     }
@@ -25,31 +24,27 @@ public class VertexPositionSnippetView : CodeSnippetView
             controller.SetModelPosition(channel, snippetInputsList[i].text); // using code to init
         }
 
-        targetGameObject.OnPositionUpdated += UpdateVertexPosUI;
+        targetGO.OnPositionUpdated += UpdateVertexPosUI;
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
     }
 
     public override void Switch(bool on)
     {
         base.Switch(on);
-        onModelActiveUpdated(on);
-    }
 
-    private void onModelActiveUpdated(bool active)
-    {
-
-        if (active)
+        if (on)
         {
-            targetGameObject.OnPositionUpdated += UpdateVertexPosUI;
-            UpdateVertexPosUI(targetGameObject.localPosition);
+            targetGO.OnPositionUpdated += UpdateVertexPosUI;
+            UpdateVertexPosUI(targetGO.localPosition);
         }
         else
         {
-            targetGameObject.OnPositionUpdated -= UpdateVertexPosUI;
+            targetGO.OnPositionUpdated -= UpdateVertexPosUI;
             // Refresh the UI
             UpdateVertexPosUI(model.targetGameObject.localPosition);
         }
     }
+
 
     private void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
     {
@@ -68,7 +63,7 @@ public class VertexPositionSnippetView : CodeSnippetView
 
     ~VertexPositionSnippetView()
     {
-        targetGameObject.OnPositionUpdated += UpdateVertexPosUI;
+        targetGO.OnPositionUpdated += UpdateVertexPosUI;
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
     }
 }

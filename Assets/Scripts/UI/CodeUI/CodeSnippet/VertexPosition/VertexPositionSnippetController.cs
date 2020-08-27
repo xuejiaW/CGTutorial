@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class VertexPositionSnippetController : CodeSnippetController
 {
-    public override void InitCodeSnippet()
-    {
-        base.InitCodeSnippet();
-        Debug.Log("Enter vertex pos controller");
-    }
 
     private DisplayableEntityModel targetGameObject
     {

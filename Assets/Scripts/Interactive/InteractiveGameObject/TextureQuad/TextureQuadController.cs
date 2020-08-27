@@ -27,6 +27,7 @@ public class TextureQuadController : InteractiveGameObjectController
             int index = i;
             VertexModel vertexModel = new VertexModel();
             vertexModel.componentsAssetID = model.componentsAssetID; // set the vertex components id
+            vertexModel.codeSnippetsAssetID = model.codeSnippetsAssetID;
             vertexModel.name = "Vertex";
             vertexModel.parent = model;
 

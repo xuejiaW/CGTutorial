@@ -3,15 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VertexTexcoordUIView : EntityView
+public class VertexTexcoordUIView : ComponentView
 {
-    private new VertexTexcoordUIModel model = null;
+    public new VertexTexcoordUIController controller = null;
+    public VertexModel targetGO = null;
 
-    public override void BindEntityModel(DisplayableEntityModel model)
+    public override void BindEntityController(DisplayableEntityController controller)
     {
-        base.BindEntityModel(model);
+        base.BindEntityController(controller);
+        this.controller = base.controller as VertexTexcoordUIController;
 
-        this.model = base.model as VertexTexcoordUIModel;
-        this.model.inputFields = GetComponentsInChildren<InputField>();
+        for (int i = 0; i != inputFields.Length; ++i)
+        {
+            int channel = i;
+            this.inputFields[i].onEndEdit.AddListener((val) => this.controller.SetTexcoord(channel, val));
+        }
+
     }
+
+    public override void InitComponent()
+    {
+        base.InitComponent();
+        targetGO = model.targetGameObject as VertexModel;
+
+        targetGO.OnTexcoordUpdated += UpdateVertexTexcoord;
+    }
+
+
+    private void UpdateVertexTexcoord(Vector2 texcoord)
+    {
+        for (int i = 0; i != inputFields.Length; ++i)
+        {
+            inputFields[i].text = texcoord[i].ToString("f2");
+        }
+    }
+
+    ~VertexTexcoordUIView()
+    {
+        targetGO.OnTexcoordUpdated -= UpdateVertexTexcoord;
+    }
+
 }

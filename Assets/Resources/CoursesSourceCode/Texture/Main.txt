@@ -1,3 +1,4 @@
+[` Header
 #define STB_IMAGE_IMPLEMENTATION
 #include "../stb_image.h"
 #include <glad/glad.h>
@@ -6,12 +7,14 @@
 #include <iostream>
 
 using namespace std;
+`]
 
 static int windowWidth = 800;
 static int windowHeight = 800;
 
 int main()
 {
+    [` Initialization
     glfwInit();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -22,19 +25,21 @@ int main()
     glfwMakeContextCurrent(window);
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    `]
 
     GLfloat vertices[] =
         {
-            <`-0.5`>f, <`-0.5`>f,<`0`>f, <`0`>f,<`0`>f,
-            <`0.5`>f, <`-0.5`>f,<`0`>f, <`1`>f,<`0`>f,
-            <`0.5`>f, <`0.5`>f,<`0`>f, <`1`>f,<`1`>f,
-            <`-0.5`>f,<`0.5`>f,<`0`>f, <`0`>f,<`1`>f};
+            <`vertex_position: -0.5`>f,<`vertex_position: -0.5`>f,<`vertex_position: 0`>f, <`vertex_texcoord:0`>f,<`vertex_texcoord:0`>f,
+            <`vertex_position: 0.5`>f, <`vertex_position: -0.5`>f,<`vertex_position: 0`>f, <`vertex_texcoord:1`>f,<`vertex_texcoord:0`>f,
+            <`vertex_position: 0.5`>f, <`vertex_position: 0.5`>f, <`vertex_position: 0`>f, <`vertex_texcoord:1`>f,<`vertex_texcoord:1`>f,
+            <`vertex_position: -0.5`>f,<`vertex_position: 0.5`>f, <`vertex_position: 0`>f, <`vertex_texcoord:0`>f,<`vertex_texcoord:1`>f};
 
     GLuint index[] =
         {
             0, 1, 2,
             0, 2, 3};
 
+    [` VAO/VBO/EBO
     GLuint VAO, VBO, EBO;
 
     // Generate buffer
@@ -57,9 +62,11 @@ int main()
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    `]
 
     Shader shader("texture.vert", "texture.frag");
 
+[` Set Texture
     GLuint texture1;
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
@@ -67,13 +74,16 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+`]
 
+    [` Load Texture
     int width, height, nrChannels;
     unsigned char *image = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
     GLuint format = nrChannels == 3 ? GL_RGB : GL_RGBA;
     glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
     stbi_image_free(image);
+    `]
 
     shader.Use();
     glActiveTexture(GL_TEXTURE0);                                       // active 0(id) texture sampler
@@ -93,11 +103,13 @@ int main()
         glfwSwapBuffers(window);
     }
 
+[` Release Data
     glBindTexture(GL_TEXTURE_2D, 0);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     glDeleteVertexArrays(1, &VAO);
     glfwTerminate();
+`]
 
     return 0;
 }
