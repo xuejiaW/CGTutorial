@@ -13,7 +13,7 @@ public class VertexTexcoordUIView : ComponentView
         base.BindEntityController(controller);
         this.controller = base.controller as VertexTexcoordUIController;
 
-        for (int i = 0; i != inputFields.Length; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i;
             this.inputFields[i].onEndEdit.AddListener((val) => this.controller.SetTexcoord(channel, val));
@@ -32,7 +32,7 @@ public class VertexTexcoordUIView : ComponentView
 
     private void UpdateVertexTexcoord(Vector2 texcoord)
     {
-        for (int i = 0; i != inputFields.Length; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
             inputFields[i].text = texcoord[i].ToString("f2");
         }

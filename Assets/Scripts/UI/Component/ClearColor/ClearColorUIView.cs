@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,16 +8,17 @@ public class ClearColorUIView : ComponentView
 {
     public new ClearColorUIController controller = null;
     private ClearColorModel targetModel = null;
+    public IUpdateComponent<Color> componentUpdater = null;
 
     public override void BindEntityController(DisplayableEntityController controller)
     {
         base.BindEntityController(controller);
         this.controller = base.controller as ClearColorUIController;
 
-        for (int i = 0; i != inputFields.Length; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i; // to fix the c# closure problem
-            this.inputFields[i].onEndEdit.AddListener((val) => this.controller.UpdateCameraClearColor(channel, val));
+            this.inputFields[i].onEndEdit.AddListener((val) => this.controller.UpdateClearColor(channel, val));
         }
     }
 
@@ -24,14 +26,9 @@ public class ClearColorUIView : ComponentView
     {
         base.InitComponent();
         targetModel = model.targetGameObject as ClearColorModel;
-        targetModel.OnClearColorChanged += UpdateClearColorUIComponent;
+        componentUpdater = new ColorComponentUpdater();
+        componentUpdater.SetTargetInputFields(inputFields);
+        targetModel.OnClearColorChanged += (color => componentUpdater.UpdateComponent(color));
     }
 
-    private void UpdateClearColorUIComponent(Color color)
-    {
-        for (int i = 0; i != 3; ++i)
-        {
-            inputFields[i].text = (color[i]).ToString();
-        }
-    }
 }

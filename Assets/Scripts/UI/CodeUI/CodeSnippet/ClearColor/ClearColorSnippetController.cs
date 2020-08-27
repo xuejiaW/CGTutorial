@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class ClearColorSnippetController : CodeSnippetController
 {
-    public ClearColorModel targetModel = null;
+    public IUpdateModelProperty clearColorUpdater = null;
 
     public override void InitCodeSnippet()
     {
         base.InitCodeSnippet();
-
-        targetModel = model.targetGameObject as ClearColorModel;
+        clearColorUpdater = new ClearColorModelUpdater();
     }
 
     public void UpdateClearColor(int channel, string val)
     {
-        float.TryParse(val, out float value);
-        Color color = targetModel.clearColor;
-        color[channel] = value;
-        targetModel.clearColor = color;
+        clearColorUpdater.UpdateModelProperty(model.targetGameObject, channel, val);
     }
 }

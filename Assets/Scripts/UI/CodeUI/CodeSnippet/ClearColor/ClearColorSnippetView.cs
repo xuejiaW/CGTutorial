@@ -7,6 +7,8 @@ public class ClearColorSnippetView : CodeSnippetView
     public new ClearColorSnippetController controller = null;
     public ClearColorModel targetModel = null;
 
+    public IUpdateComponent<Color> componentUpdater = null;
+
     public override void InitCodeSnippet()
     {
         base.InitCodeSnippet();
@@ -21,14 +23,8 @@ public class ClearColorSnippetView : CodeSnippetView
             this.controller.UpdateClearColor(channel, snippetInputsList[i].text); // using the code to init
         }
 
-        targetModel.OnClearColorChanged += UpdateClearColorUIComponent;
-    }
-
-    private void UpdateClearColorUIComponent(Color color)
-    {
-        for (int i = 0; i != 3; ++i)
-        {
-            snippetInputsList[i].text = (color[i]).ToString();
-        }
+        componentUpdater = new ColorComponentUpdater();
+        componentUpdater.SetTargetInputFields(snippetInputsList);
+        targetModel.OnClearColorChanged += (color => componentUpdater.UpdateComponent(color));
     }
 }

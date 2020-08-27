@@ -13,4 +13,5 @@ public class ComponentController : DisplayableEntityController
     }
 
     public virtual void InitComponent() { }
+
 }

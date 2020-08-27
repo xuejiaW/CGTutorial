@@ -25,7 +25,7 @@ public class VertexPosUIView : ComponentView
         base.BindEntityController(controller);
         this.controller = base.controller as VertexPosUIController;
 
-        for (int i = 0; i != inputFields.Length; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i; // to fix the c# closure problem
             this.inputFields[i].onEndEdit.AddListener((val) => this.controller.SetPosition(channel, val));

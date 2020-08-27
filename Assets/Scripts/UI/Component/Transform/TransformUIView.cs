@@ -24,7 +24,7 @@ public class TransformUIView : ComponentView
         base.BindEntityController(controller);
         this.controller = base.controller as TransformUIController;
 
-        for (int i = 0; i != inputFields.Length; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
             int index = i, axis = i % 3;
             if (index <= 2)
