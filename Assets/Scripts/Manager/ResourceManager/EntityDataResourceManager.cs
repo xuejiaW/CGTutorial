@@ -22,6 +22,7 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         model.assetID = assetID;
         return CreateEntityController(model);
     }
+
     public EntityController CreateEntityController<T>(string assetID) where T : DisplayableEntityModel, new()
     {
         T model = new T() { assetID = assetID };

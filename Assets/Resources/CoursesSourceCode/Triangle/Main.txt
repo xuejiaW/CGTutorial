@@ -1,15 +1,18 @@
+[` Header
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "../SHADER.h"
 #include <iostream>
 
 using namespace std;
+`]
 
 static int windowWidth = 800;
 static int windowHeight = 800;
 
 int main()
 {
+    [` Initialzation
     glfwInit();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -20,13 +23,16 @@ int main()
     glfwMakeContextCurrent(window);
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    `]
 
     GLfloat vertices[] = {
-        <`-0.5`>f,<`-0.5`>f, <`0.0`>f,
-        <`0.5`>f, <`-0.5`>f, <`0.0`>f,
-        <`0.0`>f, <`0.5`>f,  <`0.0`>f};
+        <`vertex_position:-0.5`>f,<`vertex_position:-0.5`>f, <`vertex_position:0.0`>f,
+        <`vertex_position:0.5`>f, <`vertex_position:-0.5`>f, <`vertex_position:0.0`>f,
+        <`vertex_position:0.0`>f, <`vertex_position:0.5`>f,  <`vertex_position:0.0`>f};
+
     GLuint index[] = {0, 1, 2};
 
+[` VAO/VBO/EBO
     GLuint VAO, VBO, EBO;
 
     // Generate buffer
@@ -47,8 +53,10 @@ int main()
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+`]
     Shader shader("triangle.vert", "triangle.frag");
 
+[` MainLoop
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
@@ -63,6 +71,6 @@ int main()
 
         glfwSwapBuffers(window);
     }
-
+`]
     return 0;
 }

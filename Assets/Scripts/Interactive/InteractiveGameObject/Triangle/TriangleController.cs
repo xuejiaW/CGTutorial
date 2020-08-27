@@ -13,7 +13,10 @@ public class TriangleController : DisplayableEntityController
         for (int i = 0; i != model.view.transform.childCount; ++i)
         {
             VertexModel vertexModel = new VertexModel();
+
             vertexModel.componentsAssetID = model.componentsAssetID;
+            vertexModel.codeSnippetsAssetID = model.codeSnippetsAssetID;
+
             vertexModel.name = "Vertex";
             vertexModel.parent = model;
 

@@ -5,8 +5,18 @@ using System;
 
 public class CodeSnippetManager : Singleton<CodeSnippetManager>
 {
+    private List<CodeSnippetView> snippetViews = null;
+
+    public override void Init()
+    {
+        base.Init();
+        snippetViews = new List<CodeSnippetView>();
+        InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGoUpdated;
+
+    }
     public void CreateCodeSnippet(string snippetID, InteractiveGameObjectModel model)
     {
+        Debug.Log("Snippet ID is " + snippetID);
         string core = snippetID.Replace("code_snippet_", "");
         string[] parts = core.Split('_');
         string result = "";
@@ -31,8 +41,16 @@ public class CodeSnippetManager : Singleton<CodeSnippetManager>
         codeView.controller = codeController;
         codeView.snippetInputsList = CodeBlockManager.Instance.PopEditablePart(codeModel.tag, codeModel.dataCount);
 
+        Debug.Log("Pop count is " + codeModel.dataCount);
 
         codeController.InitCodeSnippet();
         codeView.InitCodeSnippet();
+
+        snippetViews.Add(codeView);
+    }
+
+    private void OnSelectedGoUpdated(DisplayableEntityModel oldGbj, DisplayableEntityModel newGbj)
+    {
+        snippetViews.ForEach(view => view.Switch(newGbj != null && newGbj == view.model.targetGameObject));
     }
 }

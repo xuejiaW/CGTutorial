@@ -37,7 +37,8 @@ MonoBehaviour:
       name: Triangle
       componentsAssetID:
       - component_vertex_position
-      codeSnippetsAssetID: []
+      codeSnippetsAssetID:
+      - code_snippet_vertex_position
     - assetID: gameobject_texture_quad
       prefabPath: InteractivePrimitive/TextureQuad
       name: TextureQuad
@@ -145,3 +146,9 @@ MonoBehaviour:
     - assetID: code_snippet_clear_color
       dataCount: 3
       tag: clear_color
+    - assetID: code_snippet_vertex_position
+      dataCount: 3
+      tag: vertex_position
+    - assetID: code_snippet_vertex_texcoord
+      dataCount: 2
+      tag: vertex_texcoord

@@ -19,8 +19,8 @@ public class ComponentUIManager : MonobehaviorSingleton<ComponentUIManager>
 
     public ComponentModel CreateComponent(string componentID, InteractiveGameObjectModel targetGO, bool autoHide = true)
     {
-        ComponentModel component = GameResourceManager.Instance.CreateEntityController(ComponentUIDict.id2ModelDict[componentID].ToString(), componentID).
-                                    model as ComponentModel;
+        ComponentModel component = GameResourceManager.Instance.CreateEntityController(ComponentUIDict.id2ModelDict[componentID]
+                                .ToString(), componentID).model as ComponentModel;
         component.targetGameObject = targetGO;
         componentList.Add(component);
         component.view.transform.SetParent(componentGroup, false);
