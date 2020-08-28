@@ -14,5 +14,4 @@ public class CoursesModel : EntityModel
     public string fragmentShaderPath = "";
     public string mainCPPPath = "";
     public List<string> createModelsAssetID = null;
-    public List<string> createComponentAssetID = null;
 }
