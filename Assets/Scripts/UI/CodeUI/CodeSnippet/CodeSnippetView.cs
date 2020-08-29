@@ -16,5 +16,13 @@ public class CodeSnippetView
         model.isOn = on;
     }
 
-    public virtual void InitCodeSnippet() { }
+    public virtual void InitCodeSnippet()
+    {
+        for (int i = 0; i != snippetInputsList.Count; ++i)
+        {
+            int channel = i;
+            snippetInputsList[i].onEndEdit.AddListener((val) => this.controller.UpdateModelProperty(channel, val));
+            this.controller.UpdateModelProperty(channel, snippetInputsList[i].text); // using the code to init
+        }
+    }
 }

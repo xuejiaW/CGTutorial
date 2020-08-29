@@ -9,14 +9,14 @@ public class ClearColorModel : InteractiveGameObjectModel
 
     public event System.Action<Color> OnClearColorChanged = null;
 
-    private Color _clearColor = Color.black;
+    private Color _color = Color.black;
 
-    public Color clearColor
+    public Color color
     {
-        get { return _clearColor; }
+        get { return _color; }
         set
         {
-            _clearColor = value;
+            _color = value;
             OnClearColorChanged?.Invoke(value);
         }
     }

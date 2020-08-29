@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ClearColorSnippetView : CodeSnippetView
 {
-    public new ClearColorSnippetController controller = null;
     public ClearColorModel targetModel = null;
 
     public IUpdateComponent<Color> componentUpdater = null;
@@ -13,15 +12,7 @@ public class ClearColorSnippetView : CodeSnippetView
     {
         base.InitCodeSnippet();
 
-        this.controller = base.controller as ClearColorSnippetController;
         targetModel = model.targetGameObject as ClearColorModel;
-
-        for (int i = 0; i != snippetInputsList.Count; ++i)
-        {
-            int channel = i;
-            snippetInputsList[i].onEndEdit.AddListener((val) => this.controller.UpdateClearColor(channel, val));
-            this.controller.UpdateClearColor(channel, snippetInputsList[i].text); // using the code to init
-        }
 
         componentUpdater = new ColorComponentUpdater();
         componentUpdater.SetTargetInputFields(snippetInputsList);

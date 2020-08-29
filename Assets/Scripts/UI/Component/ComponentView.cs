@@ -22,6 +22,12 @@ public class ComponentView : EntityView
     {
         base.BindEntityController(controller);
         this.controller = base.controller as ComponentController;
+
+        for (int i = 0; i != inputFields.Count; ++i)
+        {
+            int channel = i; // to fix the c# closure problem
+            this.inputFields[i].onEndEdit.AddListener((val) => this.controller.UpdateModelProperty(channel, val));
+        }
     }
 
     public virtual void InitComponent() { }
