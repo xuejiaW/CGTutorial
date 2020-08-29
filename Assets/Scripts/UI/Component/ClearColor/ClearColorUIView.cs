@@ -6,15 +6,9 @@ using UnityEngine.UI;
 
 public class ClearColorUIView : ComponentView
 {
-    private ClearColorModel targetModel = null;
-    public IUpdateComponent<Color> componentUpdater = null;
-
-    public override void InitComponent()
+    public override IUpdateView GetViewUpdater()
     {
-        base.InitComponent();
-        targetModel = model.targetGameObject as ClearColorModel;
-        componentUpdater = new ColorComponentUpdater();
-        componentUpdater.SetTargetInputFields(inputFields);
-        targetModel.OnClearColorChanged += (color => componentUpdater.UpdateComponent(color));
+        return new ColorViewUpdater();
     }
+
 }

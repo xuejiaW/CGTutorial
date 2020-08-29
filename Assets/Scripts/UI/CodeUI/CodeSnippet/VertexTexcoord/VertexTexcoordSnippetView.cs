@@ -13,11 +13,11 @@ public class VertexTexcoordSnippetView : CodeSnippetView
         controller = base.controller as VertexTexcoordSnippetController;
         targetGO = model.targetGameObject as VertexModel;
 
-        for (int i = 0; i != snippetInputsList.Count; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i;
-            snippetInputsList[i].onEndEdit.AddListener((val) => controller.SetTargetGOTexcoord(channel, val));
-            controller.SetTargetGOTexcoord(channel, snippetInputsList[i].text); // using code to init
+            inputFields[i].onEndEdit.AddListener((val) => controller.SetTargetGOTexcoord(channel, val));
+            controller.SetTargetGOTexcoord(channel, inputFields[i].text); // using code to init
         }
 
         targetGO.OnTexcoordUpdated += UpdateVertexTexcoord;
@@ -34,9 +34,9 @@ public class VertexTexcoordSnippetView : CodeSnippetView
 
     private void UpdateVertexTexcoord(Vector2 texcoord)
     {
-        for (int i = 0; i != snippetInputsList.Count; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
-            snippetInputsList[i].text = texcoord[i].ToString("f2");
+            inputFields[i].text = texcoord[i].ToString("f2");
         }
     }
 

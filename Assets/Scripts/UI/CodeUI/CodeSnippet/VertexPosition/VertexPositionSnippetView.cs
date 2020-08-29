@@ -17,11 +17,11 @@ public class VertexPositionSnippetView : CodeSnippetView
 
         controller = base.controller as VertexPositionSnippetController;
 
-        for (int i = 0; i != snippetInputsList.Count; ++i)
+        for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i;
-            snippetInputsList[i].onEndEdit.AddListener((val) => controller.SetTargetGOPosition(channel, val));
-            controller.SetModelPosition(channel, snippetInputsList[i].text); // using code to init
+            inputFields[i].onEndEdit.AddListener((val) => controller.SetTargetGOPosition(channel, val));
+            controller.SetModelPosition(channel, inputFields[i].text); // using code to init
         }
 
         targetGO.OnPositionUpdated += UpdateVertexPosUI;
@@ -57,8 +57,8 @@ public class VertexPositionSnippetView : CodeSnippetView
 
     private void UpdateVertexPosUI(Vector3 pos)
     {
-        for (int i = 0; i != snippetInputsList.Count; ++i)
-            snippetInputsList[i].text = (pos[i]).ToString("f2");
+        for (int i = 0; i != inputFields.Count; ++i)
+            inputFields[i].text = (pos[i]).ToString("f2");
     }
 
     ~VertexPositionSnippetView()

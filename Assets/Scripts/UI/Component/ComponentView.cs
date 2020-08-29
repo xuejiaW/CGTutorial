@@ -30,5 +30,24 @@ public class ComponentView : EntityView
         }
     }
 
-    public virtual void InitComponent() { }
+    public virtual void InitComponent()
+    {
+        viewUpdater?.SetTargetView(this);
+    }
+
+    private IUpdateView _viewUpdater = null;
+    private IUpdateView viewUpdater
+    {
+        get
+        {
+            if (_viewUpdater == null)
+                _viewUpdater = GetViewUpdater();
+            return _viewUpdater;
+        }
+    }
+
+    public virtual IUpdateView GetViewUpdater()
+    {
+        return null;
+    }
 }

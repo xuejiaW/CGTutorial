@@ -10,7 +10,7 @@ public class ClearColorView : InteractiveGameObjectView
     {
         base.BindEntityModel(model);
         this.model = base.model as ClearColorModel;
-        this.model.OnClearColorChanged += UpdateCameraClearColor;
+        this.model.OnColorChanged += UpdateCameraClearColor;
     }
 
     private void UpdateCameraClearColor(Color color)

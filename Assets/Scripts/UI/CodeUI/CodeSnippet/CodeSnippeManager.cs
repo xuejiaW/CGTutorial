@@ -45,7 +45,7 @@ public class CodeSnippetManager : Singleton<CodeSnippetManager>
         CodeSnippetView codeView = Activator.CreateInstance(viewType) as CodeSnippetView;
         codeView.model = codeModel;
         codeView.controller = codeController;
-        codeView.snippetInputsList = CodeBlockManager.Instance.PopEditablePart(codeModel.tag, codeModel.dataCount);
+        codeView.inputFields = CodeBlockManager.Instance.PopEditablePart(codeModel.tag, codeModel.dataCount);
 
         Debug.Log("Pop count is " + codeModel.dataCount);
 

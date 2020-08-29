@@ -12,7 +12,7 @@ public class VertexPosUIView : ComponentView
         get { return InteractiveIndicatorCollection.Instance.currentIndicator?.model; }
     }
 
-    public IUpdateComponent<Vector3> componentUpdater = null;
+    public IUpdateView componentUpdater = null;
 
     public override void BindEntityModel(DisplayableEntityModel model)
     {
@@ -24,7 +24,6 @@ public class VertexPosUIView : ComponentView
     {
         base.InitComponent();
         componentUpdater = new LocalPositionComponentUpdater();
-        componentUpdater.SetTargetInputFields(inputFields);
 
         targetGameObject.OnPositionUpdated += UpdateVertexPosUI;
         model.OnActiveUpdated += onModelActiveUpdated;
@@ -59,7 +58,7 @@ public class VertexPosUIView : ComponentView
 
     private void UpdateVertexPosUI(Vector3 pos)
     {
-        componentUpdater.UpdateComponent(pos);
+        // componentUpdater.UpdateComponent(pos);
     }
 
     ~VertexPosUIView()
