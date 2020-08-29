@@ -21,7 +21,7 @@ public class CodeSnippetController
 
     public virtual void UpdateModelProperty(int channel, string val)
     {
-        modelUpdater.UpdateModelProperty(model.targetGameObject, channel, val);
+        modelUpdater?.UpdateModelProperty(model.targetGameObject, channel, val);
     }
 
 }

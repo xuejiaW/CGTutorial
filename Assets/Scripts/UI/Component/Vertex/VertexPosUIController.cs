@@ -5,27 +5,18 @@ using UnityEngine.UI;
 
 public class VertexPosUIController : ComponentController
 {
-    private new VertexPosUIModel model = null;
-
     private DisplayableEntityModel targetGameObject
     {
         get { return InteractiveIndicatorCollection.Instance.currentIndicator?.model; }
     }
 
-    public override void BindEntityModel(EntityModel model)
+    public override IUpdateModelProperty GetModelUpdater()
     {
-        base.BindEntityModel(model);
-        this.model = base.model as VertexPosUIModel;
+        return new LocalPositionModelUpdater();
     }
 
-    public void SetPosition(int axis, string value)
+    public override void UpdateModelProperty(int channel, string val)
     {
-        if (!model.active) return;
-
-        float.TryParse(value, out float val);
-
-        Vector3 currLocalPos = targetGameObject.localPosition;
-        currLocalPos[axis] = val;
-        targetGameObject.localPosition = currLocalPos;
+        modelUpdater.UpdateModelProperty(targetGameObject, channel, val);
     }
 }
