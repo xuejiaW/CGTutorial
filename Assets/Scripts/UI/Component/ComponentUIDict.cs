@@ -9,6 +9,7 @@ public static class ComponentUIDict
                     {"component_color",typeof(ColorComponentModel)},
                     {"component_position",typeof(PositionComponentModel)},
                     {"component_rotation",typeof(RotationComponentModel)},
+                    {"component_scale",typeof(ScaleComponentModel)},
                     {"component_texcoord",typeof(TexcoordComponentModel)},
                     {"component_camera",typeof(CameraUIModel)},
                     {"component_camera_transform",typeof(CameraTransformUIModel)}};
@@ -18,6 +19,7 @@ public static class ComponentUIDict
                     {"component_color",typeof(ColorComponentView)},
                     {"component_position",typeof(PositionComponentView)},
                     {"component_rotation",typeof(RotationComponentView)},
+                    {"component_scale",typeof(ScaleComponentView)},
                     {"component_texcoord",typeof(TexcoordComponentView)},
                     {"component_camera",typeof(CameraUIView)},
                     {"component_camera_transform",typeof(CameraTransformUIView)}};
@@ -26,6 +28,7 @@ public static class ComponentUIDict
                     { "component_color", typeof(ColorComponentController) },
                     { "component_position", typeof(PositionComponentController) },
                     { "component_rotation",typeof(RotationComponentController)},
+                    { "component_scale",typeof(ScaleComponentController)},
                     { "component_texcoord", typeof(TexcoordComponentController) },
                     { "component_camera", typeof(CameraUIController) },
                     {"component_camera_transform",typeof(CameraTransformUIController)}};

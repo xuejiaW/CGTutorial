@@ -14,14 +14,11 @@ public class RotationComponentView : TransformComponentView
             viewUpdater.UpdateView(model.targetGameObject.localRotation);
     }
 
-    protected override void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
-    {
-        base.OnIndicatorChanged(oldIndicator, newIndicator);
-        Debug.Log(" On Indicator changed ");
-        //TODO: bug 数据没有更新
-        // viewUpdater.UpdateView(targetGameObject.localRotation);
-        viewUpdater.UpdateView(model.targetGameObject.localRotation);
-    }
+    // protected override void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
+    // {
+    //     base.OnIndicatorChanged(oldIndicator, newIndicator);
+    //     viewUpdater.UpdateView(model.targetGameObject.localRotation);
+    // }
 
     public override UpdateViewBase GetViewUpdater()
     {

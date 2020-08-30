@@ -54,6 +54,7 @@ MonoBehaviour:
       componentsAssetID:
       - component_position
       - component_rotation
+      - component_scale
       codeSnippetsAssetID:
       - code_snippet_transformation
     - assetID: gameobject_world_camera
@@ -85,6 +86,8 @@ MonoBehaviour:
       prefabPath: UI/Components/CameraTransform
     - assetID: component_rotation
       prefabPath: UI/Components/Rotation
+    - assetID: component_scale
+      prefabPath: UI/Components/Scale
     hierarchyGOList:
     - assetID: hierarchy_go
       prefabPath: UI/Hierarchy/GOName
