@@ -4,44 +4,8 @@ using UnityEngine;
 
 public class TexcoordCodeSnippetView : CodeSnippetView
 {
-    private new TexcoordCodeSnippetController controller = null;
-    private VertexModel targetGO = null;
-
-    public override void InitCodeSnippet()
+    public override UpdateViewBase GetViewUpdater()
     {
-        base.InitCodeSnippet();
-        controller = base.controller as TexcoordCodeSnippetController;
-        targetGO = model.targetGameObject as VertexModel;
-
-        for (int i = 0; i != inputFields.Count; ++i)
-        {
-            int channel = i;
-            inputFields[i].onEndEdit.AddListener((val) => controller.SetTargetGOTexcoord(channel, val));
-            controller.SetTargetGOTexcoord(channel, inputFields[i].text); // using code to init
-        }
-
-        targetGO.OnTexcoordUpdated += UpdateVertexTexcoord;
-    }
-
-    public override void Switch(bool on)
-    {
-        base.Switch(on);
-        if (on)
-            targetGO.OnTexcoordUpdated += UpdateVertexTexcoord;
-        else
-            targetGO.OnTexcoordUpdated -= UpdateVertexTexcoord;
-    }
-
-    private void UpdateVertexTexcoord(Vector2 texcoord)
-    {
-        for (int i = 0; i != inputFields.Count; ++i)
-        {
-            inputFields[i].text = texcoord[i].ToString("f2");
-        }
-    }
-
-    ~TexcoordCodeSnippetView()
-    {
-        targetGO.OnTexcoordUpdated -= UpdateVertexTexcoord;
+        return new TexcoordViewUpdater();
     }
 }

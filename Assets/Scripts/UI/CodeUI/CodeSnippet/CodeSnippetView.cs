@@ -22,16 +22,16 @@ public class CodeSnippetView
 
     public virtual void InitCodeSnippet()
     {
-        viewUpdater?.SetTargetView(this);
-        viewUpdater?.SetTargetModel(model.targetGameObject);
-        viewUpdater?.RegisterEvent();
-
         for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i;
             inputFields[i].onEndEdit.AddListener((val) => this.controller.UpdateModelProperty(channel, val));
             this.controller.UpdateModelProperty(channel, inputFields[i].text); // using the code to init
         }
+
+        viewUpdater?.SetTargetView(this);
+        viewUpdater?.SetTargetModel(model.targetGameObject);
+        viewUpdater?.RegisterEvent();
     }
 
     private UpdateViewBase _viewUpdater = null;

@@ -17,9 +17,9 @@ public class TexcoordViewUpdater : UpdateViewBase
 
     private void UpdateTexcoord(Vector2 texcoord)
     {
-        for (int i = 0; i != 2; ++i)
+        for (int i = 0; i != targets.Count; ++i)
         {
-            targets[i].text = (texcoord[i]).ToString();
+            targets[i].text = (texcoord[i]).ToString("f2");
         }
     }
 
