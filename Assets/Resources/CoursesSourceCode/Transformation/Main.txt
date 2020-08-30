@@ -96,11 +96,11 @@ int main()
 
         glm::mat4 trans;
 
-        trans = glm::translate(trans, glm::vec3(<`transformation:-0.5`>f, <`transformation:-0.5`>f, <`transformation:0.0`>f));
-        trans = glm::rotate(trans, glm::radians(<`transformation:30.0`>f), glm::vec3(1, 0, 0));
-        trans = glm::rotate(trans, glm::radians(<`transformation:30.0`>f), glm::vec3(0, 1, 0));
-        trans = glm::rotate(trans, glm::radians(<`transformation:30.0`>f), glm::vec3(0, 0, 1));
-        trans = glm::scale(trans, glm::vec3(<`transformation:0.5`>f, <`transformation:0.5`>f, <`transformation:0.5`>f));
+        trans = glm::translate(trans, glm::vec3(<`position:-0.5`>f, <`position:-0.5`>f, <`position:0.0`>f));
+        trans = glm::rotate(trans, glm::radians(<`rotation:30.0`>f), glm::vec3(1, 0, 0));
+        trans = glm::rotate(trans, glm::radians(<`rotation:30.0`>f), glm::vec3(0, 1, 0));
+        trans = glm::rotate(trans, glm::radians(<`rotation:30.0`>f), glm::vec3(0, 0, 1));
+        trans = glm::scale(trans, glm::vec3(<`scale:0.5`>f, <`scale:0.5`>f, <`scale:0.5`>f));
 
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "transform"), 1, GL_FALSE, glm::value_ptr(trans));
 
