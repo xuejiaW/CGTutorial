@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexPositionSnippetView : TransformCodeSnippetView
+public class PositionCodeSnippetView : TransformCodeSnippetView
 {
     public override void Switch(bool on)
     {

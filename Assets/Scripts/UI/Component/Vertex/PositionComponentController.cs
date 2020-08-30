@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class VertexPositionSnippetController : TransformCodeSnippetController
+public class PositionComponentController : TransformComponentController
 {
     public override UpdateModelPropertyBase GetModelUpdater()
     {

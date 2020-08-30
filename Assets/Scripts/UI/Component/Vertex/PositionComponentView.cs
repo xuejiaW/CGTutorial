@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VertexPosUIView : TransformComponentView
+public class PositionComponentView : TransformComponentView
 {
     protected override void onModelActiveUpdated(bool active)
     {
