@@ -43,6 +43,7 @@ public class ComponentView : EntityView
         if (active)
         {
             viewUpdater?.RegisterEvent();
+            viewUpdater?.UpdateView();
         }
         else
         {

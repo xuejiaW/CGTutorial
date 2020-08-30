@@ -42,8 +42,10 @@ MonoBehaviour:
       name: Triangle
       componentsAssetID:
       - component_position
+      - component_color
       codeSnippetsAssetID:
       - code_snippet_position
+      - code_snippet_color
     - assetID: gameobject_texture_quad
       prefabPath: InteractivePrimitive/TextureQuad
       name: TextureQuad
@@ -71,7 +73,10 @@ MonoBehaviour:
       - component_position
       - component_orientation
       - component_camera
-      codeSnippetsAssetID: []
+      codeSnippetsAssetID:
+      - code_snippet_position
+      - code_snippet_orientation
+      - code_snippet_camera
     - assetID: gameobject_clear_color
       prefabPath: InteractivePrimitive/ClearColor
       name: ClearColor
@@ -183,3 +188,6 @@ MonoBehaviour:
     - assetID: code_snippet_orientation
       dataCount: 3
       tag: orientation
+    - assetID: code_snippet_camera
+      dataCount: 3
+      tag: camera

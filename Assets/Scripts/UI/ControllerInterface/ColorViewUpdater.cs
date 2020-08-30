@@ -13,8 +13,10 @@ public class ColorViewUpdater : UpdateViewBase
         targetModelUpdatedEvent = targetModel.GetType().GetEvent("OnColorUpdated");
         viewUpdateMethod = GetType().GetMethod("UpdateColor", BindingFlags.NonPublic | BindingFlags.Instance);
         handler = Delegate.CreateDelegate(targetModelUpdatedEvent.EventHandlerType, this, viewUpdateMethod);
+        propertyInfo = targetModel.GetType().GetProperty("color");
         return this;
     }
+
 
     private void UpdateColor(Color color)
     {
@@ -27,6 +29,12 @@ public class ColorViewUpdater : UpdateViewBase
     public override void UpdateView(object data)
     {
         Color color = (Color)data;
+        UpdateColor(color);
+    }
+
+    public override void UpdateView()
+    {
+        Color color = (Color)propertyInfo.GetValue(targetModel);
         UpdateColor(color);
     }
 }

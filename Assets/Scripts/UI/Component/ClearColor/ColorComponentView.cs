@@ -6,21 +6,8 @@ using UnityEngine.UI;
 
 public class ColorComponentView : ComponentView
 {
-    private ClearColorModel targetModel = null;
-    public override void InitComponent()
-    {
-        base.InitComponent();
-        targetModel = model.targetGameObject as ClearColorModel;
-    }
     public override UpdateViewBase GetViewUpdater()
     {
         return new ColorViewUpdater();
-    }
-
-    protected override void onModelActiveUpdated(bool active)
-    {
-        base.onModelActiveUpdated(active);
-        if (active)
-            viewUpdater.UpdateView(targetModel.color);
     }
 }

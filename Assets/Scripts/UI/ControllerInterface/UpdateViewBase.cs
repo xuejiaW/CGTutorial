@@ -12,6 +12,7 @@ public abstract class UpdateViewBase : IUpdateView
     protected EntityModel targetModel = null;
     protected EventInfo targetModelUpdatedEvent = null;
     protected MethodInfo viewUpdateMethod = null;
+    protected PropertyInfo propertyInfo = null;
     protected Delegate handler = null;
 
     public virtual UpdateViewBase SetTargetView(object view) // the view may not inherits from EntityView
@@ -39,4 +40,6 @@ public abstract class UpdateViewBase : IUpdateView
     }
 
     public virtual void UpdateView(object data) { }
+
+    public virtual void UpdateView() { }
 }

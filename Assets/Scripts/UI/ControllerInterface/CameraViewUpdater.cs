@@ -12,6 +12,7 @@ public class CameraViewUpdater : UpdateViewBase
         targetModelUpdatedEvent = targetModel.GetType().GetEvent("OnCameraPropertyUpdated");
         viewUpdateMethod = GetType().GetMethod("UpdateCameraProperty", BindingFlags.NonPublic | BindingFlags.Instance);
         handler = Delegate.CreateDelegate(targetModelUpdatedEvent.EventHandlerType, this, viewUpdateMethod);
+        propertyInfo = targetModel.GetType().GetProperty("cameraProperty");
         return this;
     }
 
@@ -25,5 +26,11 @@ public class CameraViewUpdater : UpdateViewBase
     public override void UpdateView(object data)
     {
         UpdateCameraProperty((Vector3)data);
+    }
+
+    public override void UpdateView()
+    {
+        Vector3 cameraProperty = (Vector3)propertyInfo.GetValue(targetModel);
+        UpdateCameraProperty(cameraProperty);
     }
 }

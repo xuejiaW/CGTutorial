@@ -12,6 +12,7 @@ public class TexcoordViewUpdater : UpdateViewBase
         targetModelUpdatedEvent = targetModel.GetType().GetEvent("OnTexcoordUpdated");
         viewUpdateMethod = GetType().GetMethod("UpdateTexcoord", BindingFlags.NonPublic | BindingFlags.Instance);
         handler = Delegate.CreateDelegate(targetModelUpdatedEvent.EventHandlerType, this, viewUpdateMethod);
+        propertyInfo = targetModel.GetType().GetProperty("texcoord");
         return this;
     }
 
@@ -26,6 +27,12 @@ public class TexcoordViewUpdater : UpdateViewBase
     public override void UpdateView(object data)
     {
         Vector2 texcoord = (Vector2)data;
+        UpdateTexcoord(texcoord);
+    }
+
+    public override void UpdateView()
+    {
+        Vector2 texcoord = (Vector2)propertyInfo.GetValue(targetModel);
         UpdateTexcoord(texcoord);
     }
 }
