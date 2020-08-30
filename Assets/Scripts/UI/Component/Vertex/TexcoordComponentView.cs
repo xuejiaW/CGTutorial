@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VertexTexcoordUIView : ComponentView
+public class TexcoordComponentView : ComponentView
 {
-    public new VertexTexcoordUIController controller = null;
+    public new TexcoordComponentController controller = null;
     public VertexModel targetGO = null;
 
     public override void BindEntityController(DisplayableEntityController controller)
     {
         base.BindEntityController(controller);
-        this.controller = base.controller as VertexTexcoordUIController;
+        this.controller = base.controller as TexcoordComponentController;
 
         for (int i = 0; i != inputFields.Count; ++i)
         {
@@ -38,7 +38,7 @@ public class VertexTexcoordUIView : ComponentView
         }
     }
 
-    ~VertexTexcoordUIView()
+    ~TexcoordComponentView()
     {
         targetGO.OnTexcoordUpdated -= UpdateVertexTexcoord;
     }

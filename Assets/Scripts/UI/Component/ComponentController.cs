@@ -14,7 +14,7 @@ public abstract class ComponentController : DisplayableEntityController
 
     public virtual void InitComponent()
     {
-        modelUpdater.SetTargetModel(model.targetGameObject);
+        modelUpdater?.SetTargetModel(model.targetGameObject);
     }
 
     private UpdateModelPropertyBase _modelUpdater;
@@ -31,6 +31,6 @@ public abstract class ComponentController : DisplayableEntityController
 
     public virtual void UpdateModelProperty(int channel, string val)
     {
-        modelUpdater.UpdateModelProperty(channel, val);
+        modelUpdater?.UpdateModelProperty(channel, val);
     }
 }

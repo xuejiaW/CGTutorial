@@ -36,17 +36,17 @@ MonoBehaviour:
       prefabPath: InteractivePrimitive/Triangle
       name: Triangle
       componentsAssetID:
-      - component_vertex_position
+      - component_position
       codeSnippetsAssetID:
-      - code_snippet_vertex_position
+      - code_snippet_position
     - assetID: gameobject_texture_quad
       prefabPath: InteractivePrimitive/TextureQuad
       name: TextureQuad
       componentsAssetID:
-      - component_vertex_position
-      - component_vertex_texcoord
+      - component_position
+      - component_texcoord
       codeSnippetsAssetID:
-      - code_snippet_vertex_position
+      - code_snippet_position
       - code_snippet_vertex_texcoord
     - assetID: gameobject_transformation_quad
       prefabPath: InteractivePrimitive/TransformationQuad
@@ -66,18 +66,18 @@ MonoBehaviour:
       prefabPath: InteractivePrimitive/ClearColor
       name: ClearColor
       componentsAssetID:
-      - component_clear_color
+      - component_color
       codeSnippetsAssetID:
-      - code_snippet_clear_color
+      - code_snippet_color
     componentsList:
     - assetID: component_transform
       prefabPath: UI/Components/Transform
-    - assetID: component_vertex_position
-      prefabPath: UI/Components/VertexPos
+    - assetID: component_position
+      prefabPath: UI/Components/Position
     - assetID: component_color
-      prefabPath: UI/Components/ClearColor
-    - assetID: component_vertex_texcoord
-      prefabPath: UI/Components/VertexTexcoord
+      prefabPath: UI/Components/Color
+    - assetID: component_texcoord
+      prefabPath: UI/Components/Texcoord
     - assetID: component_camera
       prefabPath: UI/Components/Camera
     - assetID: component_camera_transform
@@ -146,12 +146,12 @@ MonoBehaviour:
     - assetID: 2d_primitive
       prefabPath: UI/Creator/2D_Primitive
     codeSnippetLists:
-    - assetID: code_snippet_clear_color
+    - assetID: code_snippet_color
       dataCount: 3
-      tag: clear_color
-    - assetID: code_snippet_vertex_position
+      tag: color
+    - assetID: code_snippet_position
       dataCount: 3
-      tag: vertex_position
+      tag: position
     - assetID: code_snippet_vertex_texcoord
       dataCount: 2
       tag: vertex_texcoord

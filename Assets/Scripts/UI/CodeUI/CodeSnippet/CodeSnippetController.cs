@@ -7,7 +7,7 @@ public class CodeSnippetController
     public CodeSnippetModel model = null;
     public virtual void InitCodeSnippet()
     {
-        modelUpdater.SetTargetModel(model.targetGameObject);
+        modelUpdater?.SetTargetModel(model.targetGameObject);
     }
 
     private UpdateModelPropertyBase _modelUpdater;
@@ -24,7 +24,7 @@ public class CodeSnippetController
 
     public virtual void UpdateModelProperty(int channel, string val)
     {
-        modelUpdater.UpdateModelProperty(channel, val);
+        modelUpdater?.UpdateModelProperty(channel, val);
     }
 
 }

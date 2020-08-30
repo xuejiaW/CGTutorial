@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexTexcoordSnippetView : CodeSnippetView
+public class TexcoordCodeSnippetView : CodeSnippetView
 {
-    private new VertexTexcoordSnippetController controller = null;
+    private new TexcoordCodeSnippetController controller = null;
     private VertexModel targetGO = null;
 
     public override void InitCodeSnippet()
     {
         base.InitCodeSnippet();
-        controller = base.controller as VertexTexcoordSnippetController;
+        controller = base.controller as TexcoordCodeSnippetController;
         targetGO = model.targetGameObject as VertexModel;
 
         for (int i = 0; i != inputFields.Count; ++i)
@@ -40,7 +40,7 @@ public class VertexTexcoordSnippetView : CodeSnippetView
         }
     }
 
-    ~VertexTexcoordSnippetView()
+    ~TexcoordCodeSnippetView()
     {
         targetGO.OnTexcoordUpdated -= UpdateVertexTexcoord;
     }

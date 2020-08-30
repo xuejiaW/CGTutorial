@@ -29,10 +29,10 @@ int main()
 
     GLfloat vertices[] =
         {
-            <`vertex_position: -0.5`>f,<`vertex_position: -0.5`>f,<`vertex_position: 0`>f, <`vertex_texcoord:0`>f,<`vertex_texcoord:0`>f,
-            <`vertex_position: 0.5`>f, <`vertex_position: -0.5`>f,<`vertex_position: 0`>f, <`vertex_texcoord:1`>f,<`vertex_texcoord:0`>f,
-            <`vertex_position: 0.5`>f, <`vertex_position: 0.5`>f, <`vertex_position: 0`>f, <`vertex_texcoord:1`>f,<`vertex_texcoord:1`>f,
-            <`vertex_position: -0.5`>f,<`vertex_position: 0.5`>f, <`vertex_position: 0`>f, <`vertex_texcoord:0`>f,<`vertex_texcoord:1`>f};
+            <`position: -0.5`>f,<`position: -0.5`>f,<`position: 0`>f, <`texcoord:0`>f,<`texcoord:0`>f,
+            <`position: 0.5`>f, <`position: -0.5`>f,<`position: 0`>f, <`texcoord:1`>f,<`texcoord:0`>f,
+            <`position: 0.5`>f, <`position: 0.5`>f, <`position: 0`>f, <`texcoord:1`>f,<`texcoord:1`>f,
+            <`position: -0.5`>f,<`position: 0.5`>f, <`position: 0`>f, <`texcoord:0`>f,<`texcoord:1`>f};
 
     GLuint index[] =
         {

@@ -42,11 +42,11 @@ public class ComponentView : EntityView
     {
         if (active)
         {
-            viewUpdater.RegisterEvent();
+            viewUpdater?.RegisterEvent();
         }
         else
         {
-            viewUpdater.UnRegisterEvent();
+            viewUpdater?.UnRegisterEvent();
         }
     }
 

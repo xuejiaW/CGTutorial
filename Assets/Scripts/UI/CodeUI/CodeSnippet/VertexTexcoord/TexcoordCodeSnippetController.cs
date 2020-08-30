@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexTexcoordSnippetController : CodeSnippetController
+public class TexcoordCodeSnippetController : CodeSnippetController
 {
     private VertexModel targetModel = null;
 

@@ -15,9 +15,9 @@ public class CodeSnippetView
         inputFields.ForEach(inputField => inputField.interactable = on);
         model.isOn = on;
         if (on)
-            viewUpdater.RegisterEvent();
+            viewUpdater?.RegisterEvent();
         else
-            viewUpdater.UnRegisterEvent();
+            viewUpdater?.UnRegisterEvent();
     }
 
     public virtual void InitCodeSnippet()

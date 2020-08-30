@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VertexTexcoordUIController : ComponentController
+public class TexcoordComponentController : ComponentController
 {
     private VertexModel targetGO = null;
 
