@@ -27,7 +27,7 @@ int main()
     {
         glfwPollEvents();
 
-        glClearColor( <`clear_color:0.5`>f, <`clear_color:0.0`>f, <`clear_color:0.0`>f, 1.0f);
+        glClearColor( <`color:0.5`>f, <`color:0.0`>f, <`color:0.0`>f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearColorSnippetController : CodeSnippetController
+public class ColorCodeSnippetController : CodeSnippetController
 {
     public override UpdateModelPropertyBase GetModelUpdater()
     {

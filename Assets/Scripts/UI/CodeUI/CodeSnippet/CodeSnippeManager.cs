@@ -29,9 +29,9 @@ public class CodeSnippetManager : Singleton<CodeSnippetManager>
         for (int i = 0; i != parts.Length; ++i)
             result += parts[i].Substring(0, 1).ToUpper() + parts[i].Substring(1);
 
-        Type modelType = Type.GetType(result + "SnippetModel") ?? typeof(CodeSnippetModel);
-        Type viewType = Type.GetType(result + "SnippetView") ?? typeof(CodeSnippetView);
-        Type controllerType = Type.GetType(result + "SnippetController") ?? typeof(CodeSnippetController);
+        Type modelType = Type.GetType(result + "CodeSnippetModel") ?? typeof(CodeSnippetModel);
+        Type viewType = Type.GetType(result + "CodeSnippetView") ?? typeof(CodeSnippetView);
+        Type controllerType = Type.GetType(result + "CodeSnippetController") ?? typeof(CodeSnippetController);
 
         CodeSnippetModel codeModel = (Activator.CreateInstance(modelType) as CodeSnippetModel);
         codeModel.assetID = snippetID;
