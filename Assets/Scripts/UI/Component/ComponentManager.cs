@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComponentUIManager : Singleton<ComponentUIManager>
+public class ComponentManager : Singleton<ComponentManager>
 {
     private Transform componentGroup = null;
     private List<ComponentModel> componentList = null;
@@ -23,8 +24,11 @@ public class ComponentUIManager : Singleton<ComponentUIManager>
 
     public ComponentModel CreateComponent(string componentID, InteractiveGameObjectModel targetGO, bool autoHide = true)
     {
-        ComponentModel component = GameResourceManager.Instance.CreateEntityController(ComponentUIDict.id2ModelDict[componentID]
-                                .ToString(), componentID).model as ComponentModel;
+        Type modelType = ReflectionManager.Instance.GetAssetType(componentID, "component_", "ComponentModel") ?? typeof(ComponentModel);
+        Type viewType = ReflectionManager.Instance.GetAssetType(componentID, "component_", "ComponentView") ?? typeof(ComponentView);
+        Type controllerType = ReflectionManager.Instance.GetAssetType(componentID, "component_", "ComponentController") ?? typeof(ComponentController);
+
+        ComponentModel component = GameResourceManager.Instance.CreateEntityController(modelType, viewType, controllerType, componentID).model as ComponentModel;
         component.targetGameObject = targetGO;
         componentList.Add(component);
         component.view.transform.SetParent(componentGroup, false);

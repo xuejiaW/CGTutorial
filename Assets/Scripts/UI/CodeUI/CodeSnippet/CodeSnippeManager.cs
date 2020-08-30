@@ -22,16 +22,10 @@ public class CodeSnippetManager : Singleton<CodeSnippetManager>
 
     public void CreateCodeSnippet(string snippetID, InteractiveGameObjectModel model)
     {
-        Debug.Log("Snippet ID is " + snippetID);
-        string core = snippetID.Replace("code_snippet_", "");
-        string[] parts = core.Split('_');
-        string result = "";
-        for (int i = 0; i != parts.Length; ++i)
-            result += parts[i].Substring(0, 1).ToUpper() + parts[i].Substring(1);
+        Type modelType = ReflectionManager.Instance.GetAssetType(snippetID, "code_snippet_", "CodeSnippetModel") ?? typeof(CodeSnippetModel);
+        Type viewType = ReflectionManager.Instance.GetAssetType(snippetID, "code_snippet_", "CodeSnippetView") ?? typeof(CodeSnippetView);
+        Type controllerType = ReflectionManager.Instance.GetAssetType(snippetID, "code_snippet_", "CodeSnippetController") ?? typeof(CodeSnippetController);
 
-        Type modelType = Type.GetType(result + "CodeSnippetModel") ?? typeof(CodeSnippetModel);
-        Type viewType = Type.GetType(result + "CodeSnippetView") ?? typeof(CodeSnippetView);
-        Type controllerType = Type.GetType(result + "CodeSnippetController") ?? typeof(CodeSnippetController);
 
         CodeSnippetModel codeModel = (Activator.CreateInstance(modelType) as CodeSnippetModel);
         codeModel.assetID = snippetID;

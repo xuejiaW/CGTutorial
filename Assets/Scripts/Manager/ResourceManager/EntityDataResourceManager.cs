@@ -29,6 +29,20 @@ public partial class GameResourceManager : Singleton<GameResourceManager>
         return CreateEntityController(model);
     }
 
+    public EntityController CreateEntityController(Type modelType, Type viewType, Type controllerType, string assetID)
+    {
+        DisplayableEntityModel model = Activator.CreateInstance(modelType) as DisplayableEntityModel;
+        model.assetID = assetID;
+        LoadConfigData(model);
+        GameObject gObj = Instantiate(model.prefabPath);
+        EntityView view = gObj.AddComponent(viewType) as EntityView;
+        DisplayableEntityController controller = Activator.CreateInstance(controllerType) as DisplayableEntityController;
+        CombineMVC(model, view, controller);
+
+        return controller;
+    }
+
+
     private EntityController CreateEntityController(DisplayableEntityModel model)
     {
         LoadConfigData(model);

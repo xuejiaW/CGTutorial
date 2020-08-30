@@ -40,6 +40,7 @@ public class TriangleController : DisplayableEntityController
 
         mesh.vertices = vertices;
         mesh.triangles = indexes;
+        mesh.colors = new Color[3] { Color.red, Color.black, Color.blue };
         model.meshFilter.mesh = mesh;
     }
 }
