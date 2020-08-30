@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClearColorUIController : ComponentController
 {
-    public override IUpdateModelProperty GetModelUpdater()
+    public override UpdateModelPropertyBase GetModelUpdater()
     {
         return new ColorModelUpdater();
     }

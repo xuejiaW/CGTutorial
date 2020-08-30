@@ -6,5 +6,5 @@ using UnityEngine.UI;
 
 public interface IUpdateView
 {
-    void SetTargetView(object model);
+    void UpdateView(object data);
 }

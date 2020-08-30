@@ -2,33 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexPositionSnippetController : CodeSnippetController
+public class VertexPositionSnippetController : TransformCodeSnippetController
 {
-
-    private DisplayableEntityModel targetGameObject
+    public override UpdateModelPropertyBase GetModelUpdater()
     {
-        get { return InteractiveIndicatorCollection.Instance.currentIndicator?.model; }
-    }
-
-    public void SetTargetGOPosition(int axis, string value)
-    {
-        if (!model.isOn) return;
-
-        float.TryParse(value, out float val);
-
-        Vector3 currLocalPos = targetGameObject.localPosition;
-        currLocalPos[axis] = val;
-        targetGameObject.localPosition = currLocalPos;
-    }
-
-    public void SetModelPosition(int axis, string value)
-    {
-        if (!model.isOn) return;
-
-        float.TryParse(value, out float val);
-
-        Vector3 currLocalPos = model.targetGameObject.localPosition;
-        currLocalPos[axis] = val;
-        model.targetGameObject.localPosition = currLocalPos;
+        return new LocalPositionModelUpdater();
     }
 }

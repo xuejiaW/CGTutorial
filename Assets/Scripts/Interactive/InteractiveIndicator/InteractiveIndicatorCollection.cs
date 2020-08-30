@@ -35,7 +35,6 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
     {
         base.Init();
 
-        currentIndicator = this[InteractiveMethod.MOVING];// Set default indicator as moving indicator
         InteractiveManager.Instance.OnInteractMethodUpdated += OnInteractiveStateUpdated;
         InteractiveGameObjectCollection.Instance.OnHoldingInteractiveGOUpdated += OnSelectedGOUpdated;
     }
@@ -50,6 +49,8 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
                                 as InteractiveIndicatorController).SetHandle(new IndicatorRotatingHandle()));
         indicatorArray.Add((GameResourceManager.Instance.CreateEntityController<InteractiveIndicatorModel>("indicator_scaling")
                                 as InteractiveIndicatorController).SetHandle(new IndicatorScalingHandle()));
+
+        currentIndicator = this[InteractiveMethod.MOVING];
     }
 
     private void OnSelectedGOUpdated(DisplayableEntityModel oldInteractiveGo, DisplayableEntityModel newInteractiveGO)

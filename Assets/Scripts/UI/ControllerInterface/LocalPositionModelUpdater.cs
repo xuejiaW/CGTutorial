@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LocalPositionModelUpdater : IUpdateModelProperty
+public class LocalPositionModelUpdater : UpdateModelPropertyBase
 {
-    private string property = "localPosition";
-    public void UpdateModelProperty(EntityModel target, int channel, string value)
+    public override void SetTargetModel(EntityModel model)
     {
-        PropertyInfo info = target.GetType().GetProperty(property);
-        Debug.Assert(info != null, "Property: " + property + " in UpdateModelProperty is null");
+        base.SetTargetModel(model);
+        propertyInfo = targetModel.GetType().GetProperty("localPosition");
+    }
 
+    public override void UpdateModelProperty(int channel, string value)
+    {
         float.TryParse(value, out float val);
-
-        Vector3 localPos = (Vector3)info.GetValue(target);
-        localPos[channel] = val;
-        info.SetValue(target, localPos);
+        Vector3 color = (Vector3)propertyInfo.GetValue(targetModel);
+        color[channel] = val;
+        propertyInfo.SetValue(targetModel, color);
     }
 }

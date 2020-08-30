@@ -7,7 +7,7 @@ public class ClearColorModel : InteractiveGameObjectModel
     public override System.Type GetViewType() { return typeof(ClearColorView); }
     public override System.Type GetControllerType() { return typeof(ClearColorController); }
 
-    public event System.Action<Color> OnColorChanged = null;
+    public event System.Action<Color> OnColorUpdated = null;
 
     private Color _color = Color.black;
 
@@ -17,7 +17,7 @@ public class ClearColorModel : InteractiveGameObjectModel
         set
         {
             _color = value;
-            OnColorChanged?.Invoke(value);
+            OnColorUpdated?.Invoke(value);
         }
     }
 }

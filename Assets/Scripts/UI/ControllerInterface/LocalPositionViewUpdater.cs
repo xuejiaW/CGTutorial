@@ -5,28 +5,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorViewUpdater : UpdateViewBase
+public class LocalPositionViewUpdater : UpdateViewBase
 {
     public override UpdateViewBase SetTargetModel(EntityModel model)
     {
         base.SetTargetModel(model);
-        targetModelUpdatedEvent = targetModel.GetType().GetEvent("OnColorUpdated");
-        viewUpdateMethod = GetType().GetMethod("UpdateColor", BindingFlags.NonPublic | BindingFlags.Instance);
+        targetModelUpdatedEvent = targetModel.GetType().GetEvent("OnLocalPositionUpdated");
+        viewUpdateMethod = GetType().GetMethod("UpdateLocalPosition", BindingFlags.NonPublic | BindingFlags.Instance);
         handler = Delegate.CreateDelegate(targetModelUpdatedEvent.EventHandlerType, this, viewUpdateMethod);
         return this;
     }
 
-    private void UpdateColor(Color color)
+    private void UpdateLocalPosition(Vector3 localPos)
     {
         for (int i = 0; i != 3; ++i)
         {
-            targets[i].text = (color[i]).ToString();
+            targets[i].text = (localPos[i]).ToString("f2");
         }
     }
 
     public override void UpdateView(object data)
     {
-        Color color = (Color)data;
-        UpdateColor(color);
+        Vector3 localPos = (Vector3)data;
+        UpdateLocalPosition(localPos);
     }
 }

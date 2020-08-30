@@ -33,10 +33,25 @@ public class ComponentView : EntityView
     public virtual void InitComponent()
     {
         viewUpdater?.SetTargetView(this);
+        viewUpdater?.SetTargetModel(model.targetGameObject);
+        viewUpdater?.RegisterEvent();
+        model.OnActiveUpdated += onModelActiveUpdated;
     }
 
-    private IUpdateView _viewUpdater = null;
-    private IUpdateView viewUpdater
+    protected virtual void onModelActiveUpdated(bool active)
+    {
+        if (active)
+        {
+            viewUpdater.RegisterEvent();
+        }
+        else
+        {
+            viewUpdater.UnRegisterEvent();
+        }
+    }
+
+    private UpdateViewBase _viewUpdater = null;
+    public UpdateViewBase viewUpdater
     {
         get
         {
@@ -46,8 +61,9 @@ public class ComponentView : EntityView
         }
     }
 
-    public virtual IUpdateView GetViewUpdater()
+    public virtual UpdateViewBase GetViewUpdater()
     {
         return null;
     }
+
 }

@@ -5,10 +5,13 @@ using UnityEngine;
 public class CodeSnippetController
 {
     public CodeSnippetModel model = null;
-    public virtual void InitCodeSnippet() { }
+    public virtual void InitCodeSnippet()
+    {
+        modelUpdater.SetTargetModel(model.targetGameObject);
+    }
 
-    private IUpdateModelProperty _modelUpdater;
-    public IUpdateModelProperty modelUpdater
+    private UpdateModelPropertyBase _modelUpdater;
+    public UpdateModelPropertyBase modelUpdater
     {
         get
         {
@@ -17,11 +20,11 @@ public class CodeSnippetController
             return _modelUpdater;
         }
     }
-    public virtual IUpdateModelProperty GetModelUpdater() { return null; }
+    public virtual UpdateModelPropertyBase GetModelUpdater() { return null; }
 
     public virtual void UpdateModelProperty(int channel, string val)
     {
-        modelUpdater?.UpdateModelProperty(model.targetGameObject, channel, val);
+        modelUpdater.UpdateModelProperty(channel, val);
     }
 
 }

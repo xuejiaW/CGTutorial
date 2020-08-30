@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClearColorSnippetController : CodeSnippetController
 {
-    public override IUpdateModelProperty GetModelUpdater()
+    public override UpdateModelPropertyBase GetModelUpdater()
     {
         return new ColorModelUpdater();
     }

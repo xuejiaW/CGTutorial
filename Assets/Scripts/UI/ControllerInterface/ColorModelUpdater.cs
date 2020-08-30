@@ -5,18 +5,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorModelUpdater : IUpdateModelProperty
+public class ColorModelUpdater : UpdateModelPropertyBase
 {
-    private string property = "color";
-    public void UpdateModelProperty(EntityModel target, int channel, string value)
+    public override void SetTargetModel(EntityModel model)
     {
-        PropertyInfo info = target.GetType().GetProperty(property);
-        Debug.Assert(info != null, "Property: " + property + " in UpdateModelProperty is null");
+        base.SetTargetModel(model);
+        propertyInfo = targetModel.GetType().GetProperty("color");
+    }
 
+    public override void UpdateModelProperty(int channel, string value)
+    {
         float.TryParse(value, out float val);
-
-        Color color = (Color)info.GetValue(target);
+        Color color = (Color)propertyInfo.GetValue(targetModel);
         color[channel] = val;
-        info.SetValue(target, color);
+        propertyInfo.SetValue(targetModel, color);
     }
 }

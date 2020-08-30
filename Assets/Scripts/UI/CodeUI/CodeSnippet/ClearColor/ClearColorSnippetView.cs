@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClearColorSnippetView : CodeSnippetView
 {
-    public override IUpdateView GetViewUpdater()
+    public override UpdateViewBase GetViewUpdater()
     {
         return new ColorViewUpdater();
     }

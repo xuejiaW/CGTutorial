@@ -12,10 +12,13 @@ public abstract class ComponentController : DisplayableEntityController
         this.model = base.model as ComponentModel;
     }
 
-    public virtual void InitComponent() { }
+    public virtual void InitComponent()
+    {
+        modelUpdater.SetTargetModel(model.targetGameObject);
+    }
 
-    private IUpdateModelProperty _modelUpdater;
-    public IUpdateModelProperty modelUpdater
+    private UpdateModelPropertyBase _modelUpdater;
+    public UpdateModelPropertyBase modelUpdater
     {
         get
         {
@@ -24,10 +27,10 @@ public abstract class ComponentController : DisplayableEntityController
             return _modelUpdater;
         }
     }
-    public virtual IUpdateModelProperty GetModelUpdater() { return null; }
+    public virtual UpdateModelPropertyBase GetModelUpdater() { return null; }
 
     public virtual void UpdateModelProperty(int channel, string val)
     {
-        modelUpdater.UpdateModelProperty(model.targetGameObject, channel, val);
+        modelUpdater.UpdateModelProperty(channel, val);
     }
 }

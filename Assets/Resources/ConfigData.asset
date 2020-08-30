@@ -97,7 +97,6 @@ MonoBehaviour:
       mainCPPPath: CoursesSourceCode/Window/Main
       createModelsAssetID:
       - gameobject_clear_color
-      createComponentAssetID: []
     - assetID: course_triangle
       indicatorSize: 0.15
       indicatorSensitive: 0.05
@@ -109,7 +108,6 @@ MonoBehaviour:
       mainCPPPath: CoursesSourceCode/Triangle/Main
       createModelsAssetID:
       - gameobject_triangle
-      createComponentAssetID: []
     - assetID: course_texture
       indicatorSize: 0.15
       indicatorSensitive: 0.05
@@ -121,7 +119,6 @@ MonoBehaviour:
       mainCPPPath: CoursesSourceCode/Texture/Main
       createModelsAssetID:
       - gameobject_texture_quad
-      createComponentAssetID: []
     - assetID: course_transformation
       indicatorSize: 0.15
       indicatorSensitive: 0.05
@@ -133,7 +130,6 @@ MonoBehaviour:
       mainCPPPath: CoursesSourceCode/Transformation/Main
       createModelsAssetID:
       - gameobject_transformation_quad
-      createComponentAssetID: []
     - assetID: course_camera
       indicatorSize: 0.5
       indicatorSensitive: 0.05
@@ -146,7 +142,6 @@ MonoBehaviour:
       createModelsAssetID:
       - gameobject_world_camera
       - gameobject_cube
-      createComponentAssetID: []
     creatorUILists:
     - assetID: 2d_primitive
       prefabPath: UI/Creator/2D_Primitive

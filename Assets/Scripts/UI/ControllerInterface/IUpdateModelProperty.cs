@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IUpdateModelProperty
 {
-    void UpdateModelProperty(EntityModel target, int channel, string value);
+    void UpdateModelProperty(int channel, string value);
 }

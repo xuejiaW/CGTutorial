@@ -14,22 +14,28 @@ public class CodeSnippetView
     {
         inputFields.ForEach(inputField => inputField.interactable = on);
         model.isOn = on;
+        if (on)
+            viewUpdater.RegisterEvent();
+        else
+            viewUpdater.UnRegisterEvent();
     }
 
     public virtual void InitCodeSnippet()
     {
+        viewUpdater?.SetTargetView(this);
+        viewUpdater?.SetTargetModel(model.targetGameObject);
+        viewUpdater?.RegisterEvent();
+
         for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i;
             inputFields[i].onEndEdit.AddListener((val) => this.controller.UpdateModelProperty(channel, val));
             this.controller.UpdateModelProperty(channel, inputFields[i].text); // using the code to init
         }
-
-        viewUpdater?.SetTargetView(this);
     }
 
-    private IUpdateView _viewUpdater = null;
-    private IUpdateView viewUpdater
+    private UpdateViewBase _viewUpdater = null;
+    protected UpdateViewBase viewUpdater
     {
         get
         {
@@ -39,7 +45,7 @@ public class CodeSnippetView
         }
     }
 
-    public virtual IUpdateView GetViewUpdater()
+    public virtual UpdateViewBase GetViewUpdater()
     {
         return null;
     }
