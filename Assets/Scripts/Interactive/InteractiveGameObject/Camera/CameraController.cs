@@ -16,7 +16,7 @@ public class CameraController : InteractiveGameObjectController
     public override void Init()
     {
         base.Init();
-        cameraNear2FarDistance = model.farClipPlane - model.nearClipping;
+        cameraNear2FarDistance = model.camera.farClipPlane - model.camera.nearClipPlane;
 
         model.lineRenders.ForEach(lineRender =>
         {
@@ -24,9 +24,8 @@ public class CameraController : InteractiveGameObjectController
             lineRender.endWidth = 0.1f;
         });
 
-        model.OnFovUpdated += (fov => UpdateCamera());
-        model.OnNearClippingUpdated += (near => UpdateCamera());
-        model.OnFarClippingUpdated += (far => UpdateCamera());
+
+        model.OnCameraPropertyUpdated += (val => UpdateCamera());
         model.OnPositionUpdated += (pos => UpdateCamera());
         model.OnRotationUpdated += (rot => UpdateCamera());
         model.OnParentUpdated += (parent => UpdateCamera());
@@ -44,14 +43,14 @@ public class CameraController : InteractiveGameObjectController
     {
         MainManager.Instance.screenCamera.transform.position = model.position;
         MainManager.Instance.screenCamera.transform.rotation = model.rotation;
-        MainManager.Instance.screenCamera.fieldOfView = model.fov;
-        MainManager.Instance.screenCamera.nearClipPlane = model.nearClipping;
-        MainManager.Instance.screenCamera.farClipPlane = model.farClipPlane;
+        MainManager.Instance.screenCamera.fieldOfView = model.camera.fieldOfView;
+        MainManager.Instance.screenCamera.nearClipPlane = model.camera.nearClipPlane;
+        MainManager.Instance.screenCamera.farClipPlane = model.camera.farClipPlane;
     }
 
     private void UpdateCameraLine()
     {
-        cameraNear2FarDistance = model.farClipPlane - model.nearClipping;
+        cameraNear2FarDistance = model.camera.farClipPlane - model.camera.nearClipPlane;
         Vector3[] viewpoint = new Vector3[]
         {
             new Vector3(0,0,1),

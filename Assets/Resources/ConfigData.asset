@@ -25,8 +25,13 @@ MonoBehaviour:
       prefabPath: InteractivePrimitive/Cube
       name: Cube
       componentsAssetID:
-      - component_transform
-      codeSnippetsAssetID: []
+      - component_position
+      - component_rotation
+      - component_scale
+      codeSnippetsAssetID:
+      - code_snippet_position
+      - code_snippet_rotation
+      - code_snippet_scale
     - assetID: gameobject_cylinder
       prefabPath: InteractivePrimitive/Cylinder
       name: Cylinder
@@ -56,12 +61,15 @@ MonoBehaviour:
       - component_rotation
       - component_scale
       codeSnippetsAssetID:
-      - code_snippet_transformation
+      - code_snippet_position
+      - code_snippet_rotation
+      - code_snippet_scale
     - assetID: gameobject_world_camera
       prefabPath: InteractivePrimitive/WorldCamera
       name: Camera
       componentsAssetID:
-      - component_camera_transform
+      - component_position
+      - component_orientation
       - component_camera
       codeSnippetsAssetID: []
     - assetID: gameobject_clear_color
@@ -88,6 +96,8 @@ MonoBehaviour:
       prefabPath: UI/Components/Rotation
     - assetID: component_scale
       prefabPath: UI/Components/Scale
+    - assetID: component_orientation
+      prefabPath: UI/Components/Orientation
     hierarchyGOList:
     - assetID: hierarchy_go
       prefabPath: UI/Hierarchy/GOName
@@ -167,3 +177,9 @@ MonoBehaviour:
     - assetID: code_snippet_rotation
       dataCount: 3
       tag: rotation
+    - assetID: code_snippet_scale
+      dataCount: 3
+      tag: scale
+    - assetID: code_snippet_orientation
+      dataCount: 3
+      tag: orientation

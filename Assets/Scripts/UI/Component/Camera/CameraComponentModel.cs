@@ -3,7 +3,4 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CameraUIModel : ComponentModel
-{
-    public InputField[] inputFields = null;
-}
+public class CameraComponentModel : ComponentModel { }

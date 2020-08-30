@@ -10,37 +10,16 @@ public class CameraModel : InteractiveGameObjectModel
     public List<LineRenderer> lineRenders = null;
     public Camera camera = null;
 
-    public event System.Action<float> OnFovUpdated = null;
-    public event System.Action<float> OnNearClippingUpdated = null;
-    public event System.Action<float> OnFarClippingUpdated = null;
-
-    public float nearClipping
+    public event System.Action<Vector3> OnCameraPropertyUpdated = null;
+    public Vector3 cameraProperty
     {
-        get { return camera.nearClipPlane; }
+        get { return new Vector3(camera.fieldOfView, camera.nearClipPlane, camera.farClipPlane); }
         set
         {
-            camera.nearClipPlane = value;
-            OnNearClippingUpdated?.Invoke(value);
-        }
-    }
-
-    public float farClipPlane
-    {
-        get { return camera.farClipPlane; }
-        set
-        {
-            camera.farClipPlane = value;
-            OnFarClippingUpdated?.Invoke(value);
-        }
-    }
-
-    public float fov
-    {
-        get { return camera.fieldOfView; }
-        set
-        {
-            camera.fieldOfView = value;
-            OnFovUpdated?.Invoke(value);
+            camera.fieldOfView = value[0];
+            camera.nearClipPlane = value[1];
+            camera.farClipPlane = value[2];
+            OnCameraPropertyUpdated?.Invoke(value);
         }
     }
 }
