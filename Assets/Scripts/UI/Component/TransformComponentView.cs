@@ -12,6 +12,8 @@ public class TransformComponentView : ComponentView
     public override void InitComponent()
     {
         base.InitComponent();
+        // Should only register the indicator's transform update, thus unregister of model.targetGameobject
+        viewUpdater?.UnRegisterEvent(); // 
         InteractiveIndicatorCollection.Instance.OnIndicatorChanged += OnIndicatorChanged;
     }
 
@@ -26,7 +28,7 @@ public class TransformComponentView : ComponentView
     protected virtual void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
     {
         // unregister event in old target and register event in new target
-        viewUpdater.UnRegisterEvent();
-        viewUpdater.SetTargetModel(targetGameObject).RegisterEvent();
+        viewUpdater.SetTargetModel(oldIndicator.model).UnRegisterEvent();
+        viewUpdater.SetTargetModel(newIndicator.model).RegisterEvent();
     }
 }
