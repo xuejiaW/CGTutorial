@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClearColorUIView : ComponentView
+public class ColorComponentView : ComponentView
 {
     private ClearColorModel targetModel = null;
     public override void InitComponent()

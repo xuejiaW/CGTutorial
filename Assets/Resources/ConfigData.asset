@@ -74,7 +74,7 @@ MonoBehaviour:
       prefabPath: UI/Components/Transform
     - assetID: component_vertex_position
       prefabPath: UI/Components/VertexPos
-    - assetID: component_clear_color
+    - assetID: component_color
       prefabPath: UI/Components/ClearColor
     - assetID: component_vertex_texcoord
       prefabPath: UI/Components/VertexTexcoord

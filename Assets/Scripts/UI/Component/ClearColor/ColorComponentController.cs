@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearColorUIController : ComponentController
+public class ColorComponentController : ComponentController
 {
     public override UpdateModelPropertyBase GetModelUpdater()
     {

@@ -3,4 +3,4 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClearColorUIModel : ComponentModel { }
+public class ColorComponentModel : ComponentModel { }
