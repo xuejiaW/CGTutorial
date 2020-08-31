@@ -125,6 +125,7 @@ MonoBehaviour:
       mainCPPPath: CoursesSourceCode/Triangle/Main
       createModelsAssetID:
       - gameobject_triangle
+      - gameobject_clear_color
     - assetID: course_texture
       indicatorSize: 0.15
       indicatorSensitive: 0.05
