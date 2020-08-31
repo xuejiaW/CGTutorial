@@ -5,7 +5,7 @@ using UnityEngine;
 public class TransformationQuadModel : InteractiveGameObjectModel
 {
     public override System.Type GetViewType() { return typeof(TransformationQuadView); }
-    public override System.Type GetControllerType() { return typeof(TransformatioQuadController); }
+    public override System.Type GetControllerType() { return typeof(TransformationQuadController); }
 
     [System.NonSerialized]
     public MeshFilter meshFilter = null;

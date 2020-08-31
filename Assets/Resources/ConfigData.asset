@@ -66,7 +66,7 @@ MonoBehaviour:
       - code_snippet_position
       - code_snippet_rotation
       - code_snippet_scale
-    - assetID: gameobject_world_camera
+    - assetID: gameobject_camera
       prefabPath: InteractivePrimitive/WorldCamera
       name: Camera
       componentsAssetID:
@@ -85,8 +85,8 @@ MonoBehaviour:
       codeSnippetsAssetID:
       - code_snippet_color
     componentsList:
-    - assetID: component_transform
-      prefabPath: UI/Components/Transform
+    - assetID: component_orientation
+      prefabPath: UI/Components/Rotation
     - assetID: component_position
       prefabPath: UI/Components/Position
     - assetID: component_color
@@ -95,14 +95,10 @@ MonoBehaviour:
       prefabPath: UI/Components/Texcoord
     - assetID: component_camera
       prefabPath: UI/Components/Camera
-    - assetID: component_camera_transform
-      prefabPath: UI/Components/CameraTransform
-    - assetID: component_rotation
-      prefabPath: UI/Components/Rotation
     - assetID: component_scale
       prefabPath: UI/Components/Scale
-    - assetID: component_orientation
-      prefabPath: UI/Components/Orientation
+    - assetID: component_rotation
+      prefabPath: UI/Components/Rotation
     hierarchyGOList:
     - assetID: hierarchy_go
       prefabPath: UI/Hierarchy/GOName
@@ -161,7 +157,7 @@ MonoBehaviour:
       fragmentShaderPath: CoursesSourceCode/Camera/Fragment
       mainCPPPath: CoursesSourceCode/Camera/Main
       createModelsAssetID:
-      - gameobject_world_camera
+      - gameobject_camera
       - gameobject_cube
     creatorUILists:
     - assetID: 2d_primitive
@@ -176,9 +172,9 @@ MonoBehaviour:
     - assetID: code_snippet_texcoord
       dataCount: 2
       tag: texcoord
-    - assetID: code_snippet_transformation
-      dataCount: 9
-      tag: transformation
+    - assetID: code_snippet_camera
+      dataCount: 3
+      tag: camera
     - assetID: code_snippet_rotation
       dataCount: 3
       tag: rotation
@@ -188,6 +184,3 @@ MonoBehaviour:
     - assetID: code_snippet_orientation
       dataCount: 3
       tag: orientation
-    - assetID: code_snippet_camera
-      dataCount: 3
-      tag: camera

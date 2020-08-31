@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TransformatioQuadController : InteractiveGameObjectController
+public class TransformationQuadController : InteractiveGameObjectController
 {
     private new TransformationQuadModel model = null;
 
