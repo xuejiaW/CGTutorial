@@ -31,7 +31,7 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
         foreach (KeyValuePair<KeyCode, int> pair in trackedKeyDownList)
         {
             KeyCode key = pair.Key;
-            if (Input.GetKey(key) && keyHandlesDict.TryGetValue(key, out Action<float> handles))
+            if (Input.GetKey(key) && keyPressHandlesDict.TryGetValue(key, out Action<float> handles))
             {
                 deltaTime = currentTime - lastTime;
                 lastTime = currentTime;

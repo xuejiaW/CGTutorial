@@ -4,6 +4,7 @@ using UnityEngine;
 
 public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpdateObserver
 {
+    // Key -> targetLayer, value -> request count
     private Dictionary<int, int> leftTrackedLayers = null;
     private Dictionary<int, int> rightTrackedLayer = null;
 

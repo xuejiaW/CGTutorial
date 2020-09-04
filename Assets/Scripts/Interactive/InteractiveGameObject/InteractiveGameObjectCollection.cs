@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
 
     //Parameters: <oldHoldingInteractiveGO,NewHoldingInteractiveGo>
     public event System.Action<DisplayableEntityModel, DisplayableEntityModel> OnHoldingInteractiveGOUpdated = null;
-    public event System.Action<DisplayableEntityModel> OnCreateInteractiveGo = null;
+    public event System.Action<DisplayableEntityModel> OnInteractiveGoCreated = null;
 
     protected override void InitProcess()
     {
@@ -22,11 +23,11 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
     public void AddInteractiveGo(DisplayableEntityModel model)
     {
         interactiveGo.Add(model);
-        OnCreateInteractiveGo?.Invoke(model);
+        OnInteractiveGoCreated?.Invoke(model);
         Debug.Log("interactiveGO name is " + interactiveGo.Count);
     }
 
-    public void OnSelectGameObject(DisplayableEntityModel GO)
+    public void SelectGameObject(DisplayableEntityModel GO)
     {
         if (holdingInteractiveGo == GO)
             return;
@@ -35,9 +36,23 @@ public class InteractiveGameObjectCollection : Singleton<InteractiveGameObjectCo
         OnHoldingInteractiveGOUpdated?.Invoke(old, holdingInteractiveGo);
     }
 
-    public void OnSelectGameObject(GameObject GO)
+    public void SelectGameObject(GameObject GO)
     {
         Debug.Log("On Select GO");
-        OnSelectGameObject(GO?.GetComponent<InteractiveGameObjectView>().model);
+        SelectGameObject(GO?.GetComponent<InteractiveGameObjectView>().model);
+    }
+
+    public void InstantiateGameObject(CoursesModel model)
+    {
+        if (model.createModelsAssetID != null)
+        {
+            model.createModelsAssetID.ForEach((id) =>
+            {
+                Type modelType = ReflectionManager.Instance.GetAssetType(id, "gameobject_", "Model") ?? typeof(InteractiveGameObjectModel);
+                Type viewType = ReflectionManager.Instance.GetAssetType(id, "gameobject_", "View") ?? typeof(InteractiveGameObjectView);
+                Type controllerType = ReflectionManager.Instance.GetAssetType(id, "gameobject_", "Controller") ?? typeof(InteractiveGameObjectController);
+                GameResourceManager.Instance.CreateEntityController(modelType, viewType, controllerType, id);
+            });
+        }
     }
 }

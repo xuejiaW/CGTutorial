@@ -14,7 +14,7 @@ public class HierarchyUIManager : MonobehaviorSingleton<HierarchyUIManager>
         hierarchyCtlList = new List<HierarchyGOController>();
 
         hierarchyGOGroup = transform.Find("InteractiveGOGroup");
-        InteractiveGameObjectCollection.Instance.OnCreateInteractiveGo += OnNewInteractiveGOCreated;
+        InteractiveGameObjectCollection.Instance.OnInteractiveGoCreated += OnNewInteractiveGOCreated;
     }
 
     private void OnNewInteractiveGOCreated(DisplayableEntityModel model)
@@ -37,6 +37,6 @@ public class HierarchyUIManager : MonobehaviorSingleton<HierarchyUIManager>
 
     private void OnDestroy()
     {
-        InteractiveGameObjectCollection.Instance.OnCreateInteractiveGo -= OnNewInteractiveGOCreated;
+        InteractiveGameObjectCollection.Instance.OnInteractiveGoCreated -= OnNewInteractiveGOCreated;
     }
 }

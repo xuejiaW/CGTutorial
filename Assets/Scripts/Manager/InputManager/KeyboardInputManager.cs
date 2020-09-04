@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMainUpdateObserver, IInputManager
 {
     private Dictionary<KeyCode, Action<KeyCode>> keyDownHandlesDict = null;
-    private Dictionary<KeyCode, Action<float>> keyHandlesDict = null;
+    private Dictionary<KeyCode, Action<float>> keyPressHandlesDict = null;
     private Dictionary<KeyCode, Action<KeyCode>> keyUpHandlesDict = null;
 
 
@@ -16,7 +16,7 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
         MainManager.Instance.RegisterObserver(this);
 
         keyDownHandlesDict = new Dictionary<KeyCode, Action<KeyCode>>();
-        keyHandlesDict = new Dictionary<KeyCode, Action<float>>();
+        keyPressHandlesDict = new Dictionary<KeyCode, Action<float>>();
         keyUpHandlesDict = new Dictionary<KeyCode, Action<KeyCode>>();
 
         trackedKeyDownList = new Dictionary<KeyCode, int>();
@@ -31,7 +31,7 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
 
     public void RegisterKeyMessageHandle(Action<float> handle, params KeyCode[] key)
     {
-        this.RegisterMessageHandle(keyHandlesDict, trackedKeyList, handle, key);
+        this.RegisterMessageHandle(keyPressHandlesDict, trackedKeyList, handle, key);
     }
 
     public void RegisterKeyUpMessageHandle(Action<KeyCode> handle, params KeyCode[] key)
@@ -46,7 +46,7 @@ public partial class KeyboardInputManager : Singleton<KeyboardInputManager>, IMa
 
     public void UnRegisterKeyMessageHandle(Action<float> handle, params KeyCode[] key)
     {
-        this.UnRegisterMessageHandle(keyHandlesDict, trackedKeyList, handle, key);
+        this.UnRegisterMessageHandle(keyPressHandlesDict, trackedKeyList, handle, key);
     }
 
     public void UnRegisterKeyUpMessageHandle(Action<KeyCode> handle, params KeyCode[] key)

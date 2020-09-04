@@ -34,7 +34,7 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
         //Change interactive method on interactiveGameObject
 
         //Select target interactiveGameObject
-        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, goManager.OnSelectGameObject,
+        MouseInputManager.Instance.RegisterClickDownMessageHandle(0, goManager.SelectGameObject,
                                     LayerMask.GetMask("InteractiveGO"), LayerMask.GetMask("InteractiveHelper"), -1); // -1 for empty gameObject
         //Interact on selected interactiveGameObject
         MouseInputManager.Instance.RegisterClickDownMessageHandle(0, indicatorManager.OnClickIndicator,

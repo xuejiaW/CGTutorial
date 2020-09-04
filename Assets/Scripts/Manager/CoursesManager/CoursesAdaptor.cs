@@ -51,6 +51,6 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
     private IEnumerator waitAFrame2Instantiate()
     {
         yield return null;
-        InteractiveGameObjectInstantiator.Instance.InstantiateGameObject(currentCourse);
+        InteractiveGameObjectCollection.Instance.InstantiateGameObject(currentCourse);
     }
 }

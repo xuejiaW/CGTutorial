@@ -140,38 +140,3 @@ public class CodeSentenceController : MonoBehaviour
         return new Vector2(totalWidth + wordsPadding, maxHeight + heightPadding);
     }
 }
-
-
-// Version: splitted all part
-// private List<KeyValuePair<string, bool>> GetSplittedCodeSentence(string text)
-// {
-//     List<KeyValuePair<string, bool>> splittedCodeSentence = new List<KeyValuePair<string, bool>>();
-
-//     // save the indent
-//     int firstCharIndex = text.IndexNotOf(' ');
-//     splittedCodeSentence.Add(new KeyValuePair<string, bool>(text.Substring(0, firstCharIndex), false));
-//     text = text.Substring(firstCharIndex);
-
-//     string[] splitted = text.Split(' ');
-
-//     for (int i = 0; i != splitted.Length; ++i)
-//     {
-//         if (splitted[i].IndexOf("<`") == -1)
-//         {
-//             splittedCodeSentence.Add(new KeyValuePair<string, bool>(splitted[i], false));
-//         }
-//         else
-//         {
-//             int prevfix = splitted[i].IndexOf("<`"), postfix = splitted[i].IndexOf("`>");
-
-//             if (prevfix != 0)
-//                 splittedCodeSentence.Add(new KeyValuePair<string, bool>(splitted[i].Substring(0, prevfix), false));
-//             splittedCodeSentence.Add(new KeyValuePair<string, bool>(splitted[i].Substring(prevfix + 2, postfix - prevfix - 2), true));
-
-//             if ((postfix + 2) != splitted[i].Length)
-//                 splittedCodeSentence.Add(new KeyValuePair<string, bool>(splitted[i].Substring(postfix + 2, splitted[i].Length - postfix - 2), true));
-//         }
-//     }
-
-//     return splittedCodeSentence;
-// }

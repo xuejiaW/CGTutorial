@@ -15,6 +15,6 @@ public class HierarchyGOController : DisplayableEntityController
 
     public void OnClickHierarchyGO()
     {
-        InteractiveGameObjectCollection.Instance.OnSelectGameObject(model.attachedGO);
+        InteractiveGameObjectCollection.Instance.SelectGameObject(model.attachedGO);
     }
 }
