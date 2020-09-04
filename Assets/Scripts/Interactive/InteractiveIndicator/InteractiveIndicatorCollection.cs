@@ -59,6 +59,9 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
 
         currentIndicator.RemoveChild(oldInteractiveGo);
         currentIndicator.AddChild(newInteractiveGO);
+
+        UpdateIndicatorSize();
+
     }
 
     private void OnInteractiveStateUpdated(InteractiveMethod state)
@@ -85,9 +88,19 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
         currentIndicator.DragDeltaIndicatorAxis(deltaPos);
     }
 
-    public void SetIndicatorSize(float size)
+    public void UpdateIndicatorSize()
     {
+        if (InteractiveGameObjectCollection.Instance.holdingInteractiveGo == null)
+            return;
+        DisplayableEntityModel holdingGO = InteractiveGameObjectCollection.Instance.holdingInteractiveGo;
+
+        Camera worldCamera = MainManager.Instance.worldCamera;
+        float distance = Vector3.Distance(worldCamera.transform.position, holdingGO.position);
+        float screenWidth_WorldSpace = Vector3.Distance(worldCamera.ViewportToWorldPoint(new Vector3(0.05f, 0, distance)), worldCamera.ViewportToWorldPoint(new Vector3(0, 0, distance)));
+        float size = screenWidth_WorldSpace;
+
         indicatorSize = size;
+
         indicatorArray.ForEach((indicator) =>
         {
             Transform[] verticesArr = indicator.model.view.GetComponentsInChildren<Transform>();
@@ -96,6 +109,7 @@ public class InteractiveIndicatorCollection : Singleton<InteractiveIndicatorColl
                 if (verticesArr[i].name != "XAxis" && verticesArr[i].name != "YAxis"
                     && verticesArr[i].name != "ZAxis" && verticesArr[i].name != "Center")
                     continue;
+
                 verticesArr[i].localScale = new Vector3(size, size, size);
             }
 

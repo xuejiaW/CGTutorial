@@ -34,6 +34,7 @@ public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
         currentViewCameraRot.y = Mathf.Clamp(currentViewCameraRot.y, -maxPitchDegree, maxPitchDegree);
 
         viewCameraTrans.rotation = Quaternion.Euler(currentViewCameraRot.y, currentViewCameraRot.x, 0);
+        InteractiveIndicatorCollection.Instance.UpdateIndicatorSize();
     }
 
     public void TurnOnFlythroughKey(KeyCode code) { keycodesDownDict[code] = true; }
@@ -59,5 +60,7 @@ public class InteractiveViewCamera : Singleton<InteractiveViewCamera>
             cameraDeltaPos += -deltaTime * viewCameraTrans.right * cameraMoveSpeed;
 
         viewCameraTrans.position += cameraDeltaPos;
+
+        InteractiveIndicatorCollection.Instance.UpdateIndicatorSize();
     }
 }

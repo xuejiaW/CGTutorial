@@ -33,7 +33,6 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
         else
             InteractiveManager.Instance.UnRegisterInteractiveMethodSwitch();
 
-        InteractiveIndicatorCollection.Instance.SetIndicatorSize(courseModel.indicatorSize);
         InteractiveIndicatorCollection.Instance.SetIndicatorSensitive(courseModel.indicatorSensitive);
 
         Camera worldCamera = MainManager.Instance.worldCamera;
