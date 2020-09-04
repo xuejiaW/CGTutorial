@@ -22,10 +22,13 @@ public class IndicatorRotatingHandle : IndicatorHandleBase
     public override void DragDeltaIndicatorAxis(Vector3 dragDeltaScreen)
     {
         if (dragDeltaScreen == Vector3.zero) return;
-        dragDeltaScreen *= InteractiveIndicatorCollection.Instance.indicatorSensitive;
+        dragDeltaScreen[0] /= (Screen.width / 2); // To viewport coordinate
+        dragDeltaScreen[1] /= (Screen.height / 2);
+        // dragDeltaScreen *= InteractiveIndicatorCollection.Instance.indicatorSensitive;
 
         // the component along the rotating Axis in dragDeltaScreen should be deleted
         deltaWithoutRotAxisComp = dragDeltaScreen - Vector3.Dot(dragDeltaScreen, rotatingAxis) * rotatingAxis;
+        deltaWithoutRotAxisComp *= 180;
         targetModel.localRotation = Quaternion.AngleAxis(deltaWithoutRotAxisComp.GetAxisSum(), rotatingAxis) * targetModel.localRotation;
     }
 }

@@ -8,9 +8,9 @@ public class IndicatorMovingHandle : IndicatorHandleBase
     private Vector3 targetGOTransPos = Vector3.zero;
     private Vector3 axisStartPointWorld = Vector3.zero;
     private Vector3 axisEndPointWorld = Vector3.zero;
-    private Vector3 axisStartPointScreen = Vector3.zero;
-    private Vector3 axisEndPointScreen = Vector3.zero;
-    private Vector2 axisDeltaScreen = Vector2.zero;
+    private Vector3 axisStartPointViewport = Vector3.zero;
+    private Vector3 axisEndPointViewport = Vector3.zero;
+    private Vector3 axisDeltaViewport = Vector2.zero;
     private float projectionValue = 0.0f;
 
     public override void SetIndicator(InteractiveIndicatorController indicator)
@@ -28,25 +28,30 @@ public class IndicatorMovingHandle : IndicatorHandleBase
     {
         if (dragDeltaScreen == Vector3.zero) return;
 
-        dragDeltaScreen *= InteractiveIndicatorCollection.Instance.indicatorSensitive;
+        //World-View space only use half width and half height
+        dragDeltaScreen[0] /= (Screen.width / 2); // To viewport coordinate
+        dragDeltaScreen[1] /= (Screen.height / 2);
 
         // to calculate selected axis's delta position from startPoint to endPoint in screen coordinate
         axisStartPointWorld = indicatorAxisTrans.position + movingDirection;
         axisEndPointWorld = indicatorAxisTrans.position - movingDirection;
-        axisStartPointScreen = MainManager.Instance.worldCamera.WorldToViewportPoint(axisStartPointWorld);
-        axisEndPointScreen = MainManager.Instance.worldCamera.WorldToViewportPoint(axisEndPointWorld);
-        axisDeltaScreen = axisStartPointScreen - axisEndPointScreen;    //axis start/end point position delta in screen coordinate
+        axisStartPointViewport = MainManager.Instance.worldCamera.WorldToViewportPoint(axisStartPointWorld);
+        axisEndPointViewport = MainManager.Instance.worldCamera.WorldToViewportPoint(axisEndPointWorld);
+        axisDeltaViewport = Vector3.Normalize(axisStartPointViewport - axisEndPointViewport);    //axis start/end point position delta in viewport coordinate
 
         // project dragDeltaPosScreen on axisDeltaScreen, use the result as the coefficient
         // e.g axisDeltaScreen -> (0,1,0) && dragDeltaScreen -> (1,0,0) ==> projectionValue -> 0 ==> should not move target
-        projectionValue = Vector3.Dot(dragDeltaScreen, axisDeltaScreen);
+        projectionValue = Vector3.Dot(dragDeltaScreen, axisDeltaViewport);
+        axisDeltaViewport *= projectionValue;
+
+        Vector3 position1 = MainManager.Instance.worldCamera.ViewportToWorldPoint(axisStartPointViewport);
+        Vector3 position2 = MainManager.Instance.worldCamera.ViewportToWorldPoint(axisStartPointViewport + axisDeltaViewport);
 
         // move targetTranspos
         targetGOTransPos = targetModel.localPosition;
-        targetGOTransPos += projectionValue * movingDirection;
+        targetGOTransPos += (position2 - position1);
         targetModel.localPosition = targetGOTransPos;
 
-        //FIXME: Should limit movement range within the camera view range
     }
 
 }

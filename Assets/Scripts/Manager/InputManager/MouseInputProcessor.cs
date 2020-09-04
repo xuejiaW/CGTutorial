@@ -80,7 +80,9 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
             return;
 
         if (dragDeltaHandlesDict.TryGetValue(hittedLayer, out Action<Vector3> deltaHandles))
+        {
             deltaHandles.Invoke(mousePos - lastPos);
+        }
 
         if (dragPosHandlesDict.TryGetValue(hittedLayer, out Action<Vector3, Vector3> posHandles))
             posHandles.Invoke(clickPos, mousePos);
