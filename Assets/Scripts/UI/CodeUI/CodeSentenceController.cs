@@ -60,11 +60,12 @@ public class CodeSentenceController : MonoBehaviour
 
             Vector2 size = GetStringWidth(content, strPair.Value ? 10 : 0);
             float width = size[0], height = size[1];
-            totalWidth += width;
+            // totalWidth += width;
             maxHeight = Mathf.Max(maxHeight, height);
 
             RectTransform codeSentence = strPair.Value ? LoadEditablePart(content, width) : LoadNonEditablePart(content, width);
-
+            totalWidth += codeSentence.rect.width;
+            // maxHeight = Mathf.Max(maxHeight, codeSentence.rect.height);
             if (strPair.Value)
             {
                 sentenceEditablePart.Add(codeSentence.GetComponent<InputField>());
@@ -104,17 +105,19 @@ public class CodeSentenceController : MonoBehaviour
         Vector2 sizeData = new Vector2(width, 100); // because the text's alignment is middle, so the height doesn't matter
         RectTransform rectTrans = editableInput.GetComponent<RectTransform>();
         rectTrans.sizeDelta = sizeData;
-        editableInput.textComponent.rectTransform.sizeDelta = sizeData;
+        // editableInput.textComponent.rectTransform.sizeDelta = sizeData;
         editableInput.placeholder.rectTransform.sizeDelta = sizeData;
         editableInput.text = textValue;
+        editableInput.textComponent.rectTransform.sizeDelta = new Vector2(editableInput.preferredWidth, 100);
         return rectTrans;
     }
 
     private RectTransform LoadNonEditablePart(string textValue, float width)
     {
         Text nonEditableText = GameObject.Instantiate(nonEditablePart_prefab).GetComponent<Text>();
-        nonEditableText.rectTransform.sizeDelta = new Vector2(width, 0);
         nonEditableText.text = textValue;
+        // nonEditableText.rectTransform.sizeDelta = new Vector2(width, 0);
+        nonEditableText.rectTransform.sizeDelta = new Vector2(nonEditableText.preferredWidth, nonEditableText.preferredHeight);
         return nonEditableText.rectTransform;
 
     }
