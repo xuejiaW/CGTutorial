@@ -5,9 +5,9 @@ using UnityEngine;
 public class CoursesManager : Singleton<CoursesManager>
 {
     // private string _currentCourse = "course_window";
-    private string _currentCourse = "course_triangle";
+    // private string _currentCourse = "course_triangle";
     // private string _currentCourse = "course_texture";
-    // private string _currentCourse = "course_transformation";
+    private string _currentCourse = "course_transformation";
     // private string _currentCourse = "course_camera";
     public string currentCourse
     {

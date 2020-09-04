@@ -43,7 +43,7 @@ public class TransformCodeSnippetView : CodeSnippetView
     protected virtual void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
     {
         // unregister event in old target and register event in new target
-        viewUpdater.UnRegisterEvent();
-        viewUpdater.SetTargetModel(targetGO).RegisterEvent();
+        viewUpdater.SetTargetModel(oldIndicator.model).UnRegisterEvent();
+        viewUpdater.SetTargetModel(newIndicator.model).RegisterEvent();
     }
 }

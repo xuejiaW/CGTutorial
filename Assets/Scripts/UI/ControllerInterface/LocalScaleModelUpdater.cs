@@ -13,13 +13,14 @@ public class LocalScaleModelUpdater : UpdateModelPropertyBase
     public override void UpdateModelProperty(int channel, string value)
     {
         float.TryParse(value, out float val);
+        bool holdingGO = InteractiveGameObjectCollection.Instance.holdingInteractiveGo != null;
         Vector3 currLocalScale = (targetModel as DisplayableEntityModel).localScale;
         Vector3 holdingGOScale = InteractiveGameObjectCollection.Instance.holdingInteractiveGo != null
                                  ? InteractiveGameObjectCollection.Instance.holdingInteractiveGo.localScale : Vector3.one;
 
-        currLocalScale = currLocalScale.Times(holdingGOScale);
+        currLocalScale[channel] = val / holdingGOScale[channel];
 
-        currLocalScale[channel] = val;
         propertyInfo.SetValue(targetModel, currLocalScale);
+
     }
 }

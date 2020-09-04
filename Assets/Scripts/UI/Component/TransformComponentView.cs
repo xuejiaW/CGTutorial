@@ -27,8 +27,14 @@ public class TransformComponentView : ComponentView
 
     protected virtual void OnIndicatorChanged(InteractiveIndicatorController oldIndicator, InteractiveIndicatorController newIndicator)
     {
+        Debug.Log("on indicator updated");
         // unregister event in old target and register event in new target
         viewUpdater.SetTargetModel(oldIndicator.model).UnRegisterEvent();
         viewUpdater.SetTargetModel(newIndicator.model).RegisterEvent();
+    }
+
+    ~TransformComponentView()
+    {
+        InteractiveIndicatorCollection.Instance.OnIndicatorChanged -= OnIndicatorChanged;
     }
 }
