@@ -22,7 +22,7 @@ public class ColorViewUpdater : UpdateViewBase
     {
         for (int i = 0; i != 3; ++i)
         {
-            targets[i].text = (color[i]).ToString();
+            targets[i].text = (color[i]).ToString("f2");
         }
     }
 
