@@ -1,17 +1,19 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SFB;
 
-public class CodeWindowManager : MonoBehaviour
+public class CodeWindowManager : MonobehaviorSingleton<CodeWindowManager>
 {
     private List<CodeWindowController> windowControllers = null;
     public int currentWindowIndex = 0;
     [System.NonSerialized]
     public bool duringAni = false;
 
-    private void Start()
+    protected override void Start()
     {
-
+        base.Start();
         windowControllers = new List<CodeWindowController>(transform.GetComponentsInChildren<CodeWindowController>());
 
         float windowWidth = GetComponent<RectTransform>().rect.width;

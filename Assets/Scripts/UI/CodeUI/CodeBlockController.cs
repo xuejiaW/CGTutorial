@@ -105,4 +105,29 @@ public class CodeBlockController : MonoBehaviour
             rectTransform.parent.GetComponent<RectTransform>().sizeDelta = new Vector2(unfoldWidth, unfoldHeight);
     }
 
+    public string GetWholeCode()
+    {
+        string result = "";
+        CodeBlockController nestBlock = null;
+        CodeSentenceController sentence = null;
+
+        for (int i = 0; i != container.childCount; ++i)
+        {
+            nestBlock = container.GetChild(i).GetComponent<CodeBlockController>();
+            if (nestBlock != null)
+            {
+                result += nestBlock.GetWholeCode();
+                continue;
+            }
+            else
+            {
+                sentence = container.GetChild(i).GetComponent<CodeSentenceController>();
+                result += sentence.GetWholeCode();
+            }
+        }
+        Debug.Log("sentence from block is " + result);
+
+        return result;
+    }
+
 }

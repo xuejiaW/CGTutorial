@@ -7,11 +7,10 @@ using UnityEngine.EventSystems;
 using SFB;
 
 [RequireComponent(typeof(Button))]
-public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
-    public Text output;
-
-    // Sample text data
-    private string _data = "Example text created by StandaloneFileBrowser";
+public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler
+{
+    private string[] fileNames = new string[] { "Main", "Vertex", "Fragment" };
+    private string[] fileExtensions = new string[] { "cpp", "vertex", "fragment" };
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
@@ -22,29 +21,30 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
 
     // Broser plugin should be called in OnPointerDown.
     public void OnPointerDown(PointerEventData eventData) {
-        var bytes = Encoding.UTF8.GetBytes(_data);
-        DownloadFile(gameObject.name, "OnFileDownload", "sample.txt", bytes, bytes.Length);
-    }
-
-    // Called from browser
-    public void OnFileDownload() {
-        output.text = "File Successfully Downloaded";
+        int index=CodeWindowManager.Instance.currentWindowIndex;
+        string code = CodeBlockManager.Instance.GetWholeCode(index);
+        Debug.Log("code is " + code);
+        // GameResourceManager.Instance.DownloadString(code,fileNames[index],fileExtensions[index]);
+        byte[] bytes = Encoding.UTF8.GetBytes(code);
+        DownloadFile(gameObject.name, "OnFileDownload", fileNames[index]+"."+fileExtensions[index], bytes, bytes.Length);
     }
 #else
-    //
-    // Standalone platforms & editor
-    //
+    private string _data = "Example text created by StandaloneFileBrowser";
+
     public void OnPointerDown(PointerEventData eventData) { }
 
-    // Listen OnClick event in standlone builds
-    void Start() {
+    void Start()
+    {
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
 
-    public void OnClick() {
-        var path = StandaloneFileBrowser.SaveFilePanel("Title", "", "sample", "txt");
-        if (!string.IsNullOrEmpty(path)) {
+    public void OnClick()
+    {
+        int index = CodeWindowManager.Instance.currentWindowIndex;
+        var path = StandaloneFileBrowser.SaveFilePanel("Title", "", fileNames[index], fileExtensions[index]);
+        if (!string.IsNullOrEmpty(path))
+        {
             File.WriteAllText(path, _data);
         }
     }

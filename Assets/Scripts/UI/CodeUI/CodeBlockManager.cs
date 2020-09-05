@@ -90,4 +90,11 @@ public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
         }
         return result;
     }
+
+    public string GetWholeCode(int index)
+    {
+        string result = "";
+        result = snippetHolderTrans[index].GetComponentInChildren<CodeBlockController>().GetWholeCode();
+        return result;
+    }
 }

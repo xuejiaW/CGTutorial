@@ -142,4 +142,27 @@ public class CodeSentenceController : MonoBehaviour
         totalWidth += wordsPadding;
         return new Vector2(totalWidth + wordsPadding, maxHeight + heightPadding);
     }
+
+    public string GetWholeCode()
+    {
+        string result = "";
+        Text non_editablePart = null;
+        InputField editablePart = null;
+        for (int i = 0; i != transform.childCount; ++i)
+        {
+            non_editablePart = transform.GetChild(i).GetComponent<Text>();
+            if (non_editablePart != null)
+            {
+                result += non_editablePart.text;
+                continue;
+            }
+            else
+            {
+                editablePart = transform.GetChild(i).GetComponent<InputField>();
+                result += editablePart.text;
+            }
+        }
+        Debug.Log("sentence from sentence is " + result);
+        return result;
+    }
 }

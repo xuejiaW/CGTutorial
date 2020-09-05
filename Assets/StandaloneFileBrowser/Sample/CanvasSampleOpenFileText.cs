@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using UnityEngine.EventSystems;
 using SFB;
 
 [RequireComponent(typeof(Button))]
-public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler {
+public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler
+{
     public Text output;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -32,22 +34,26 @@ public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler {
     //
     public void OnPointerDown(PointerEventData eventData) { }
 
-    void Start() {
+    void Start()
+    {
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
 
-    private void OnClick() {
+    private void OnClick()
+    {
         var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", "txt", false);
-        if (paths.Length > 0) {
+        if (paths.Length > 0)
+        {
             StartCoroutine(OutputRoutine(new System.Uri(paths[0]).AbsoluteUri));
         }
     }
 #endif
 
-    private IEnumerator OutputRoutine(string url) {
-        var loader = new WWW(url);
+    private IEnumerator OutputRoutine(string url)
+    {
+        var loader = new UnityWebRequest(url);
         yield return loader;
-        output.text = loader.text;
+        // output.text = loader.text; //TODO: WebRequest
     }
 }
