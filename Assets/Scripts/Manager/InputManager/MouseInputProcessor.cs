@@ -66,7 +66,6 @@ public partial class MouseInputManager : Singleton<MouseInputManager>, IMainUpda
 
     private void OnButtonClickUp(Dictionary<int, Action<GameObject>> clickUpHandlesDict, ref int hittedLayer, ref GameObject hittedGO)
     {
-
         if (clickUpHandlesDict.TryGetValue(hittedLayer, out Action<GameObject> handles))
             handles.Invoke(hittedGO);
         hittedLayer = -1;

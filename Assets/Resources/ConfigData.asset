@@ -151,7 +151,7 @@ MonoBehaviour:
     - assetID: course_camera
       indicatorSize: 0.5
       indicatorSensitive: 0.05
-      allowMultiInteractiveMethod: 0
+      allowMultiInteractiveMethod: 1
       allowCameraFlythrough: 1
       cameraOrthographic: 0
       vertexShaderPath: CoursesSourceCode/Camera/Vertex

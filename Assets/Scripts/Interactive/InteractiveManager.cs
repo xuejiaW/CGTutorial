@@ -63,7 +63,7 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
         //Enter flythrough mode and register related keycode
         MouseInputManager.Instance.RegisterClickDownMessageHandle(1, EnterFlythroughMode, -1);
         //Exit flythrough mode and unregister related keycode
-        MouseInputManager.Instance.RegisterClickUpMessageHandle(1, ExitFlythroughMode, 1);
+        MouseInputManager.Instance.RegisterClickUpMessageHandle(1, ExitFlythroughMode, -1);
         //Modify viewCamera direction
         MouseInputManager.Instance.RegisterDragMessageHandle(1, viewCameraManager.OnMouseRightDrag, -1);
     }
@@ -73,7 +73,7 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
         //Enter flythrough mode and register related keycode
         MouseInputManager.Instance.UnRegisterClickDownMessageHandle(1, EnterFlythroughMode, -1);
         //Exit flythrough mode and unregister related keycode
-        MouseInputManager.Instance.UnRegisterClickUpMessageHandle(1, ExitFlythroughMode, 1);
+        MouseInputManager.Instance.UnRegisterClickUpMessageHandle(1, ExitFlythroughMode, -1);
         //Modify viewCamera direction
         MouseInputManager.Instance.UnRegisterDragMessageHandle(1, viewCameraManager.OnMouseRightDrag, -1);
     }
@@ -87,6 +87,7 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
                                 KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
         KeyboardInputManager.Instance.RegisterKeyMessageHandle(viewCameraManager.OnKeyPressedDown,
                                 KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+        InteractiveManager.Instance.UnRegisterInteractiveMethodSwitch();
     }
 
     private void ExitFlythroughMode(GameObject go)// the parameters only used to match event 
@@ -99,6 +100,9 @@ public partial class InteractiveManager : Singleton<InteractiveManager>
                                 KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
         KeyboardInputManager.Instance.UnRegisterKeyMessageHandle(viewCameraManager.OnKeyPressedDown,
                                 KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.A, KeyCode.S, KeyCode.D);
+
+        if (CoursesAdaptor.Instance.currentCourse.allowCameraFlythrough)
+            InteractiveManager.Instance.RegisterInteractiveMethodSwitch();
     }
 
 
