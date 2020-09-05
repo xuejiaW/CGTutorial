@@ -65,7 +65,8 @@ int main()
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    Shader shader("transformation.vert", "transformation.frag");
+    Shader shader("Vertex.vert", "Fragment.frag");
+    
 [` texture setting
     GLuint texture1;
     glGenTextures(1, &texture1);

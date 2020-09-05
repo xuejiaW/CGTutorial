@@ -64,7 +64,7 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     `]
 
-    Shader shader("texture.vert", "texture.frag");
+    Shader shader("Vertex.vert", "Fragment.frag");
 
 [` Set Texture
     GLuint texture1;

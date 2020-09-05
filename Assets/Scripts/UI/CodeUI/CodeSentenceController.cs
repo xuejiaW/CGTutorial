@@ -105,10 +105,10 @@ public class CodeSentenceController : MonoBehaviour
         Vector2 sizeData = new Vector2(width, 100); // because the text's alignment is middle, so the height doesn't matter
         RectTransform rectTrans = editableInput.GetComponent<RectTransform>();
         rectTrans.sizeDelta = sizeData;
-        // editableInput.textComponent.rectTransform.sizeDelta = sizeData;
+        editableInput.textComponent.rectTransform.sizeDelta = sizeData;
         editableInput.placeholder.rectTransform.sizeDelta = sizeData;
         editableInput.text = textValue;
-        editableInput.textComponent.rectTransform.sizeDelta = new Vector2(editableInput.preferredWidth, 100);
+        // editableInput.textComponent.rectTransform.sizeDelta = new Vector2(editableInput.preferredWidth, 100);
         return rectTrans;
     }
 

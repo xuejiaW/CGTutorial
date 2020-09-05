@@ -55,7 +55,7 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 `]
-    Shader shader("triangle.vert", "triangle.frag");
+    Shader shader("Vertex.vert", "Fragment.frag");
 
 [` MainLoop
     while (!glfwWindowShouldClose(window))

@@ -103,7 +103,8 @@ int main()
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    Shader shader("camera.vert", "camera.frag");
+    Shader shader("Vertex.vert", "Fragment.frag");
+
 
     GLuint texture1;
     glGenTextures(1, &texture1);

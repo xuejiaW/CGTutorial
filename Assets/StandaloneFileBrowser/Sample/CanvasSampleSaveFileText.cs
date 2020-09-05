@@ -10,7 +10,7 @@ using SFB;
 public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler
 {
     private string[] fileNames = new string[] { "Main", "Vertex", "Fragment" };
-    private string[] fileExtensions = new string[] { "cpp", "vertex", "fragment" };
+    private string[] fileExtensions = new string[] { "cpp", "vert", "frag" };
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
