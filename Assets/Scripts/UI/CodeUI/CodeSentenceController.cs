@@ -162,6 +162,7 @@ public class CodeSentenceController : MonoBehaviour
                 result += editablePart.text;
             }
         }
+        result += '\n';
         Debug.Log("sentence from sentence is " + result);
         return result;
     }
