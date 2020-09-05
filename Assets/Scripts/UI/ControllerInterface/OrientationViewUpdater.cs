@@ -20,7 +20,8 @@ public class OrientationViewUpdater : UpdateViewBase
         Vector3 euler = localRot.eulerAngles;
 
         targets[0].text = (rotateValueClamp(euler[0]) * -1.0f).ToString("f2");
-        targets[1].text = (rotateValueClamp(euler[1] - 90.0f)).ToString("f2");
+        // targets[1].text = (rotateValueClamp(euler[1] - 90.0f)).ToString("f2");
+        targets[1].text = (rotateValueClamp(270.0f - euler[1])).ToString("f2");
         targets[2].text = (rotateValueClamp(euler[2] + 90.0f)).ToString("f2");
     }
 

@@ -17,7 +17,7 @@ public class OrientationModelUpdater : UpdateModelPropertyBase
         if (channel == 0)
             val *= -1;
         if (channel == 1)
-            val += 90;
+            val = 270 - val;
         else if (channel == 2)
             val -= 90;
 

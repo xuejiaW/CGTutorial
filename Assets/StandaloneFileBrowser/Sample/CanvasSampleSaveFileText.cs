@@ -29,7 +29,6 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler
         DownloadFile(gameObject.name, "OnFileDownload", fileNames[index]+"."+fileExtensions[index], bytes, bytes.Length);
     }
 #else
-    private string _data = "Example text created by StandaloneFileBrowser";
 
     public void OnPointerDown(PointerEventData eventData) { }
 
@@ -42,10 +41,11 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler
     public void OnClick()
     {
         int index = CodeWindowManager.Instance.currentWindowIndex;
+        string code = CodeBlockManager.Instance.GetWholeCode(index);
         var path = StandaloneFileBrowser.SaveFilePanel("Title", "", fileNames[index], fileExtensions[index]);
         if (!string.IsNullOrEmpty(path))
         {
-            File.WriteAllText(path, _data);
+            File.WriteAllText(path, code);
         }
     }
 #endif
