@@ -14,8 +14,10 @@ public class LocalPositionModelUpdater : UpdateModelPropertyBase
     public override void UpdateModelProperty(int channel, string value)
     {
         float.TryParse(value, out float val);
-        Vector3 color = (Vector3)propertyInfo.GetValue(targetModel);
-        color[channel] = val;
-        propertyInfo.SetValue(targetModel, color);
+        Vector3 localPos = (Vector3)propertyInfo.GetValue(targetModel);
+        if (channel == 2)
+            val *= -1;
+        localPos[channel] = val;
+        propertyInfo.SetValue(targetModel, localPos);
     }
 }

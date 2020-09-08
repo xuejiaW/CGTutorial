@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3085135937141807250}
   - component: {fileID: 3994137366427610431}
   - component: {fileID: -6463603063800270634}
+  - component: {fileID: -4710394166847497489}
   m_Layer: 9
   m_Name: TransformationQuad
   m_TagString: Untagged
@@ -94,3 +95,15 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &-4710394166847497489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4313764662763454055}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957236e04b146ec408876053c00b499b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

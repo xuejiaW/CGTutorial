@@ -20,15 +20,10 @@ public class LocalRotationViewUpdater : UpdateViewBase
         Vector3 euler = localRot.eulerAngles;
         for (int i = 0; i != 3; ++i)
         {
-            // if (i == 1 || i == 2)
-            //     val *= -1;
-
-            // // targets[i].text = (rotateValueClamp(euler[i]) * -1.0f).ToString("f2");
-            // targets[i].text = (rotateValueClamp(euler[i])).ToString("f2");
 
             float clamp = rotateValueClamp(euler[i]);
-            // if (i == 1 || i == 2)
-            //     clamp *= -1;
+            if (i == 0 || i == 1) // x and y axis
+                clamp *= -1;
             targets[i].text = clamp.ToString("f2");
         }
     }

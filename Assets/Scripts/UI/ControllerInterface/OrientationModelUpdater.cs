@@ -17,9 +17,9 @@ public class OrientationModelUpdater : UpdateModelPropertyBase
         if (channel == 0)
             val *= -1;
         if (channel == 1)
-            val = 270 - val;
+            val += 90;
         else if (channel == 2)
-            val -= 90;
+            val = 90 - val;
 
         Vector3 localRot = ((Quaternion)propertyInfo.GetValue(targetModel)).eulerAngles;
         localRot[channel] = val;

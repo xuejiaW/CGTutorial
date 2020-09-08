@@ -18,10 +18,9 @@ public class LocalPositionViewUpdater : UpdateViewBase
 
     private void UpdateLocalPosition(Vector3 localPos)
     {
-        for (int i = 0; i != 3; ++i)
-        {
-            targets[i].text = (localPos[i]).ToString("f2");
-        }
+        targets[0].text = (localPos[0]).ToString("f2");
+        targets[1].text = (localPos[1]).ToString("f2");
+        targets[2].text = (-localPos[2]).ToString("f2");
     }
 
     public override void UpdateView(object data)
