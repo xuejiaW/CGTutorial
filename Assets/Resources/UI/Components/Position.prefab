@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 1564441423598598598}
   - component: {fileID: 1564441423598598599}
   - component: {fileID: 1564441423598598648}
+  - component: {fileID: 695374404649477720}
   m_Layer: 11
   m_Name: InputField
   m_TagString: Untagged
@@ -296,6 +297,18 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+--- !u!114 &695374404649477720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564441423598598650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162016ada9a344202a12e8b721a31911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1564441423616277720
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +478,7 @@ GameObject:
   - component: {fileID: 1564441423690403530}
   - component: {fileID: 1564441423690403531}
   - component: {fileID: 1564441423690403532}
+  - component: {fileID: 8971691504632854649}
   m_Layer: 11
   m_Name: InputField
   m_TagString: Untagged
@@ -593,6 +607,18 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+--- !u!114 &8971691504632854649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564441423690403534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162016ada9a344202a12e8b721a31911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1564441423982789651
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +788,7 @@ GameObject:
   - component: {fileID: 1564441424258574297}
   - component: {fileID: 1564441424258574298}
   m_Layer: 11
-  m_Name: VertexPos
+  m_Name: Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -993,6 +1019,7 @@ GameObject:
   - component: {fileID: 1564441425123904909}
   - component: {fileID: 1564441425123904910}
   - component: {fileID: 1564441425123904911}
+  - component: {fileID: 3110874839228679422}
   m_Layer: 11
   m_Name: InputField
   m_TagString: Untagged
@@ -1121,6 +1148,18 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+--- !u!114 &3110874839228679422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564441425123904897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162016ada9a344202a12e8b721a31911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1564441425134797749
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8755843212979552882}
   - component: {fileID: 8755843212979552881}
   m_Layer: 11
-  m_Name: VertexTexcoord
+  m_Name: Texcoord
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 8755843213976496166}
   - component: {fileID: 8755843213976496165}
   - component: {fileID: 8755843213976496164}
+  - component: {fileID: 5950107666529083727}
   m_Layer: 11
   m_Name: InputField
   m_TagString: Untagged
@@ -373,6 +374,18 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+--- !u!114 &5950107666529083727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755843213976496170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162016ada9a344202a12e8b721a31911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8755843214282409155
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +633,7 @@ GameObject:
   - component: {fileID: 8755843214478400621}
   - component: {fileID: 8755843214478400620}
   - component: {fileID: 8755843214478400595}
+  - component: {fileID: 7975670079971096474}
   m_Layer: 11
   m_Name: InputField
   m_TagString: Untagged
@@ -748,6 +762,18 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
+--- !u!114 &7975670079971096474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755843214478400593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162016ada9a344202a12e8b721a31911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8755843214835607716
 GameObject:
   m_ObjectHideFlags: 0
