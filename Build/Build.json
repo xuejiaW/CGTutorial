@@ -1,7 +1,7 @@
 {
 "companyName": "DefaultCompany",
 "productName": "OpenGLTutorial",
-"productVersion": "0.2",
+"productVersion": "0.5",
 "dataUrl": "Build.data.unityweb",
 "wasmCodeUrl": "Build.wasm.code.unityweb",
 "wasmFrameworkUrl": "Build.wasm.framework.unityweb",
