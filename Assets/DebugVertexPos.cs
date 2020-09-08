@@ -9,7 +9,9 @@ public class DebugVertexPos : MonoBehaviour
         Vector3[] vertices = GetComponent<MeshFilter>().mesh.vertices;
         for (int i = 0; i != vertices.Length; ++i)
         {
-            Debug.Log(transform.TransformPoint(vertices[i]).ToString("f3"));
+            Vector2 screen = MainManager.Instance.screenCamera.WorldToScreenPoint(transform.TransformPoint(vertices[i]));
+            screen[0] -= (Screen.width / 2);
+            Debug.Log(screen);
         }
         Debug.Log("---");
     }

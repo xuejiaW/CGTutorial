@@ -10,8 +10,10 @@
 
 using namespace std;
 
-static int windowWidth = 800;
-static int windowHeight = 800;
+static int windowWidth = <`Screen:800`>;
+static int windowHeight = <`Screen: 800`>;
+
+
 
 int main()
 {
@@ -124,13 +126,13 @@ int main()
     shader.Use();
 
     // Camera pos
-    glm::vec3 cameraPos = glm::vec3(<`position:0.0`>f, <`position:0.0`>f, <`position:-3.0`>f);
+    glm::vec3 cameraPos = glm::vec3(<`position:-0.5`>f, <`position:0.35`>f, <`position:-3.0`>f);
 
     // Camera rotation
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0, -1.0f);
 
-    GLfloat pitch =<`orientation:0.0`>f; // toward up
-    GLfloat yaw = <`orientation:90.0`>f;  // to the -z axis
+    GLfloat pitch =<`orientation:22.3.0`>f; // toward up
+    GLfloat yaw = <`orientation:104.0`>f;  // to the -z axis
     cameraFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront.y = sin(glm::radians(pitch));
     cameraFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -151,10 +153,10 @@ int main()
 
     glm::mat4 trans, xRot, yRot, zRot;
 
-    trans = glm::translate(trans, glm::vec3(<`position:0.0`>f, <`position:0.0`>f, <`position:0.0`>f));
-    xRot = glm::rotate(xRot, glm::radians(<`rotation:0.0`>f), glm::vec3(1, 0, 0));
-    yRot = glm::rotate(yRot, glm::radians(<`rotation:0.0`>f), glm::vec3(0, 1, 0));
-    zRot = glm::rotate(zRot, glm::radians(<`rotation:0.0`>f), glm::vec3(0, 0, 1));
+    trans = glm::translate(trans, glm::vec3(<`position:-1.7`>f, <`position:-0.5`>f, <`position:0.0`>f));
+    xRot = glm::rotate(xRot, glm::radians(<`rotation:35.0`>f), glm::vec3(1, 0, 0));
+    yRot = glm::rotate(yRot, glm::radians(<`rotation:77.0`>f), glm::vec3(0, 1, 0));
+    zRot = glm::rotate(zRot, glm::radians(<`rotation:99.0`>f), glm::vec3(0, 0, 1));
     trans *= yRot;
     trans *= xRot;
     trans *= zRot;

@@ -25,6 +25,7 @@ public class CodeSnippetView
         for (int i = 0; i != inputFields.Count; ++i)
         {
             int channel = i;
+            if (inputFields[i] == null) continue;
             inputFields[i].onEndEdit.AddListener((val) => this.controller.UpdateModelProperty(channel, val));
             this.controller.UpdateModelProperty(channel, inputFields[i].text); // using the code to init
         }

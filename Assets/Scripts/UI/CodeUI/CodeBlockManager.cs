@@ -67,6 +67,15 @@ public class CodeBlockManager : MonobehaviorSingleton<CodeBlockManager>
             }
         });
         mainBlock.UnFoldBlock();
+        UpdateWindowResolution();
+    }
+
+    private void UpdateWindowResolution()
+    {
+        List<InputField> window = PopEditablePart("Screen", 2);
+        if (window == null || window[0] == null || window[1] == null) return;
+        window[0].text = (Screen.width / 2).ToString("f0");
+        window[1].text = (Screen.height / 2).ToString("f0");
     }
 
     // Alloc editable part to adaptor, warning the order of setting adaptor is matter
