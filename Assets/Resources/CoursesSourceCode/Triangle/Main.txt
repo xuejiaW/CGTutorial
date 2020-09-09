@@ -1,3 +1,4 @@
+[` Header
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "../SHADER.h"
@@ -5,11 +6,12 @@
 
 using namespace std;
 
+`]
 static int windowWidth = 800;
 static int windowHeight = 800;
-
 int main()
 {
+    [` Initialization
     glfwInit();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -21,12 +23,14 @@ int main()
 
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
+    `]
     GLfloat vertices[] = {
         <`position:-0.5`>f, <`position:-0.5`>f, <`position:0.0`>f,<`color:1.0`>f,<`color:0.0`>f,<`color:0.0`>f,
         <`position:0.5 `>f, <`position:-0.5`>f, <`position:0.0`>f,<`color:0.0`>f,<`color:1.0`>f,<`color:0.0`>f,
         <`position:0.0 `>f, <`position:0.5`>f,  <`position:0.0`>f,<`color:0.0`>f,<`color:0.0`>f,<`color:1.0`>f};
     GLuint index[] = {0, 1, 2};
 
+    [` VAO,VBO,EBO
     GLuint VAO, VBO, EBO;
 
     // Generate buffer
@@ -50,15 +54,15 @@ int main()
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    Shader shader("triangle.vert", "triangle.frag");
+    `]
+    Shader shader("Vertex.vert", "Fragment.frag");
     shader.Use();
 
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
 
-        glClearColor(0.0f, 0.f, 0.0f, 1.0f);
+        glClearColor(<`color:0.0`>f, <`color:0.0`>f, <`color:0.0`>f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glBindVertexArray(VAO);

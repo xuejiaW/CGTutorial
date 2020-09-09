@@ -25,7 +25,7 @@ public class CoursesAdaptor : MonobehaviorSingleton<CoursesAdaptor>
         //Flythrough setting
         if (courseModel.allowCameraFlythrough)
             InteractiveManager.Instance.RegisterFlythroughMode();
-        else
+        else 
             InteractiveManager.Instance.UnRegisterFlythroughMode();
 
         if (courseModel.allowMultiInteractiveMethod)
